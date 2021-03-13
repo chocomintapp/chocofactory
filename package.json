@@ -6,6 +6,7 @@
   "scripts": {
     "killport": "kill-port --port 8545",
     "format": "prettier . --ignore-path .gitignore --write",
+    "lint": "echo lint will be implemented soon",
     "test": "yarn workspace contracts test",
     "predev": "yarn killport",
     "dev": "run-p dev:*",
