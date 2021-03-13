@@ -115,17 +115,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Add-on
-packages/contracts/artifacts
-packages/contracts/cache
-packages/contracts/typechain
-packages/contracts/coverage.json
-
-# yarn
-yarn.lock
-
-# Firebase
-.firebase
-
-# misc
-.DS_Store
+# hardhat
+artifacts
+cache
+node_modules
+typechain

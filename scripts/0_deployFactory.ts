@@ -1,4 +1,4 @@
-import { deployFactory } from "../helpers/migration";
+import { deployFactory } from "../helpers/migrations";
 
 deployFactory()
   .then(() => process.exit(0))

@@ -3,22 +3,21 @@
     "chainId": "1",
     "rpc": "https://mainnet.infura.io/v3/95f65ab099894076814e8526f52c9149",
     "explore": "https://etherscan.io/tx/",
-    "Chocofactory": "",
-    "Chocotemplate_v1": ""
+    "chocofactory": "",
+    "chocotemplate_v1": ""
   },
   "rinkeby": {
     "chainId": "4",
     "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
     "explore": "https://rinkeby.etherscan.io/tx/",
-    "Chocofactory": "",
-    "Chocotemplate_v1": ""
+    "chocofactory": "",
+    "chocotemplate_v1": ""
   },
   "localhost": {
     "chainId": "31337",
     "rpc": "http://localhost:8545",
     "explore": "https://rinkeby.etherscan.io/tx/",
-    "Chocofactory": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
-    "Chocotemplate_v1": "",
-    "Chocotemplate": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d"
+    "chocofactory": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+    "chocomold": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
   }
 }
