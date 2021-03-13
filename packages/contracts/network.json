@@ -1,0 +1,24 @@
+{
+  "mainnet": {
+    "chainId": "1",
+    "rpc": "https://mainnet.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "explore": "https://etherscan.io/tx/",
+    "Chocofactory": "",
+    "Chocotemplate_v1": ""
+  },
+  "rinkeby": {
+    "chainId": "4",
+    "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "explore": "https://rinkeby.etherscan.io/tx/",
+    "Chocofactory": "",
+    "Chocotemplate_v1": ""
+  },
+  "localhost": {
+    "chainId": "31337",
+    "rpc": "http://localhost:8545",
+    "explore": "https://rinkeby.etherscan.io/tx/",
+    "Chocofactory": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
+    "Chocotemplate_v1": "",
+    "Chocotemplate": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d"
+  }
+}
