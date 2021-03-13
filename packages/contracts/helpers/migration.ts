@@ -57,8 +57,8 @@ export const deployFactory = async () => {
   return contract;
 };
 
-export const deployTemplate = async () => {
-  const target = "Chocotemplate";
+export const deployERC721PresetMinterPauserAutoId = async () => {
+  const target = "ERC721PresetMinterPauserAutoId";
   const contract = await deploy(target);
   updateJson(target, contract.address);
   return contract;

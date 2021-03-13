@@ -15,7 +15,6 @@
     "@nomiclabs/hardhat-ethers": "^2.0.1",
     "@nomiclabs/hardhat-etherscan": "^2.1.1",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
-    "@openzeppelin/contracts": "4.0.0-rc.0",
     "@typechain/ethers-v5": "^5.0.0",
     "@types/mocha": "^8.2.0",
     "chai": "^4.3.1",
@@ -31,6 +30,7 @@
     "typescript": "^4.1.5"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "4.0.0-rc.0",
     "ipfs-only-hash": "^2.0.1"
   }
 }
