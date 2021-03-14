@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
 
+import { shortenAddress } from "../../modules/util";
 import { initializeWeb3Modal, web3Modal, selectedAddressState } from "../../modules/web3";
 
-import { shortenAddress } from "../../modules/util";
 import { Button } from "../atoms/Button";
 
 export const Header: React.FC = () => {

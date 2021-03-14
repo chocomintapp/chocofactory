@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { RecoilRoot } from "recoil";
 
-import Home from "./pages/index";
-import Create from "./pages/create";
 import Contract from "./pages/contract";
+import Create from "./pages/create";
+import Home from "./pages/index";
 
 const App: React.FC = () => {
   return (

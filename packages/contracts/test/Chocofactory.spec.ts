@@ -1,9 +1,8 @@
-import { ethers } from "hardhat";
 import * as chai from "chai";
 import { solidity } from "ethereum-waffle";
-import { main } from "../scripts/98_internalBatchMigration";
-
+import { ethers } from "hardhat";
 import { MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS } from "../helpers/constants";
+import { main } from "../scripts/98_internalBatchMigration";
 
 chai.use(solidity);
 const { expect } = chai;

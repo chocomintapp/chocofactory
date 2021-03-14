@@ -1,9 +1,9 @@
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { ethers } from "ethers";
 import { atom, useRecoilState } from "recoil";
 
-import { ethers } from "ethers";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export const networkName = process.env.REACT_APP_NETWORK_NAME ? process.env.REACT_APP_NETWORK_NAME : "localhost";
 

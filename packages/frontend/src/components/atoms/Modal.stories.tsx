@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Modal, ModalProps } from "./Modal";
 
 const args: ModalProps = {
