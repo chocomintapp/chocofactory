@@ -1,17 +1,17 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { CreateTemplate } from "./Create";
+import { CreateTokenTemplate } from "./CreateToken";
 
 export default {
-  title: "Templates/CreateTemplate",
-  component: CreateTemplate,
+  title: "Templates/CreateTokenTemplate",
+  component: CreateTokenTemplate,
 };
 
 export const Control: React.FC = () => (
   <RecoilRoot>
     <MemoryRouter>
-      <CreateTemplate />
+      <CreateTokenTemplate />
     </MemoryRouter>
   </RecoilRoot>
 );

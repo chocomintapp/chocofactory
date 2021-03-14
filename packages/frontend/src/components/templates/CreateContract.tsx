@@ -2,14 +2,17 @@ import React from "react";
 
 import { Container } from "../atoms/Container";
 import { Main } from "../atoms/Main";
+import { CreateContractForm } from "../organisms/CreateContractForm";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 
-export const CreateTemplate: React.FC = () => {
+export const CreateContractTemplate: React.FC = () => {
   return (
     <Main>
       <Header />
-      <Container>Create</Container>
+      <Container>
+        <CreateContractForm />
+      </Container>
       <Footer />
     </Main>
   );

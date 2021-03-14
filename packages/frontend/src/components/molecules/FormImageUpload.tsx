@@ -4,7 +4,7 @@ import { ImageUploadIcon } from "../atoms/ImageUploadIcon";
 import { Label } from "../atoms/Label";
 
 export interface FormImageUploadProps {
-  label: "label";
+  label: string;
   status: "normal" | "isImageLoading" | "isWaitingTransactionConfirmation";
   imagePreview: string;
   onChange: () => void;

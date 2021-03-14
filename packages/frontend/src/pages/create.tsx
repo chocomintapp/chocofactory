@@ -1,9 +1,9 @@
 import React from "react";
 
-import { CreateTemplate } from "../components/templates/Create";
+import { CreateContractTemplate } from "../components/templates/CreateContract";
 
 export const Create: React.FC = () => {
-  return <CreateTemplate />;
+  return <CreateContractTemplate />;
 };
 
 export default Create;

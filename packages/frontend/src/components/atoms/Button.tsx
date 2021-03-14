@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({ type, disabled, onClick, childre
     <button
       onClick={onClick}
       disabled={disabled}
-      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-white text-lg font-medium bg-green-500 border-b-2 border-green-600 py-2 px-4 rounded-xl shadow-md"
+      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-white text-sm font-medium bg-green-500 border-b-2 border-green-600 py-2 px-4 rounded-xl shadow-md"
     >
       {children}
     </button>
@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({ type, disabled, onClick, childre
     <button
       onClick={onClick}
       disabled={disabled}
-      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-white text-lg font-medium bg-gray-700 border-b-2 border-gray-800 py-2 px-4 rounded-xl shadow-md"
+      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-white text-sm font-medium bg-gray-700 border-b-2 border-gray-800 py-2 px-4 rounded-xl shadow-md"
     >
       {children}
     </button>
@@ -28,7 +28,7 @@ export const Button: React.FC<ButtonProps> = ({ type, disabled, onClick, childre
     <button
       onClick={onClick}
       disabled={disabled}
-      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-gray-600 text-lg font-medium bg-white-200  border-b-2 border-gray-100 py-2 px-4 rounded-xl shadow-md"
+      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-gray-600 text-xs font-medium bg-white-200  border-b-2 border-gray-100 py-2 px-4 rounded-xl shadow-md"
     >
       {children}
     </button>
