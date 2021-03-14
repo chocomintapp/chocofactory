@@ -1,0 +1,16 @@
+{
+  "extends": ["../../.eslintrc.json", "plugin:react/recommended"],
+  "env": {
+    "browser": true
+  },
+  "plugins": ["react"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "react/prop-types": "off",
+    "@typescript-eslint/no-var-requires": "warn"
+  }
+}
