@@ -16,6 +16,7 @@
     "dev:run-localchain": "yarn workspace contracts run-localchain",
     "dev:deploy-contract-to-localchain": "wait-on http://localhost:8545 && yarn workspace contracts deploy-contract-to-localchain",
     "dev:frontend": "wait-on http://localhost:8545 && cross-env REACT_APP_NETWORK_NAME=localhost yarn workspace frontend dev",
+    "dev:storybook": "yarn workspace frontend storybook",
     "dev:functions": "yarn workspace functions dev:watch",
     "dev:firebase": "firebase emulators:start --only firestore,functions",
     "prepare": "husky install"
