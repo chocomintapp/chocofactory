@@ -13,6 +13,8 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
+    Counters.Counter private _tokenIdTracker;
+
     string private _name;
     string private _symbol;
     string private _baseTokenURI;
@@ -37,6 +39,28 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         _baseTokenURI = baseTokenURI;
         _setupRole(DEFAULT_ADMIN_ROLE, owner);
         _setupRole(MINTER_ROLE, owner);
+    }
+
+    function _mint(address to) internal returns (uint256) {
+        require(hasRole(MINTER_ROLE, _msgSender()), "ERC721PresetMinterPauserAutoId: must have minter role to mint");
+        uint256 tokenId = _tokenIdTracker.current();
+        _mint(to, _tokenIdTracker.current());
+        _tokenIdTracker.increment();
+        return tokenId;
+    }
+
+    function mint(address to) public {
+        _mint(to);
+    }
+
+    function mint(address to, string memory _tokenURI) public {
+        uint256 tokenId = _mint(to);
+        _setTokenURI(tokenId, _tokenURI);
+    }
+
+    function setTokenURI(uint256 tokenId, string memory _tokenURI) public {
+        require(hasRole(MINTER_ROLE, _msgSender()), "ERC721PresetMinterPauserAutoId: must have minter role to mint");
+        _setTokenURI(tokenId, _tokenURI);
     }
 
     function name() public view override returns (string memory) {
