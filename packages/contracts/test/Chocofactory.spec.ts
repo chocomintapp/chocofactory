@@ -3,7 +3,7 @@ import * as chai from "chai";
 import { solidity } from "ethereum-waffle";
 import { main } from "../scripts/98_internalBatchMigration";
 
-import { MODAL_NAME, MODAL_SYMBOL, MODAL_BASE_URL, NULL_ADDRESS } from "../helpers/constants";
+import { MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS } from "../helpers/constants";
 
 chai.use(solidity);
 const { expect } = chai;

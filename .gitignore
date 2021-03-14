@@ -116,7 +116,7 @@ dist
 .pnp.*
 
 # hardhat
-artifacts
-cache
-node_modules
-typechain
+packages/contracts/artifacts
+packages/contracts/cache
+packages/contracts/node_modules
+packages/contracts/typechain

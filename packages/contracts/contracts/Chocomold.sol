@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable {
     bytes32 constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
-    string constant DEFAULT_BASE_URL = "https://localhost:8080/";
+    string constant DEFAULT_BASE_URL = "http://localhost:5001/chocofactory-prod/asia-northeast1/metadata/";
     string constant SLASH = "/";
 
     mapping(uint256 => string) internal _tokenURIs;
@@ -63,12 +63,12 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         return super.supportsInterface(_interfaceId);
     }
 
-    function _setTokenURI(uint256 _tokenId, string memory _tokenURI) internal {
-        _tokenURIs[_tokenId] = _tokenURI;
-    }
-
     function setCustomBaseTokenURI(string memory _customBaseTokenURI) public onlyMaintainer {
         customBaseTokenURI = _customBaseTokenURI;
+    }
+
+    function _setTokenURI(uint256 _tokenId, string memory _tokenURI) internal {
+        _tokenURIs[_tokenId] = _tokenURI;
     }
 
     function setTokenURI(uint256 _tokenId, string memory _tokenURI) public onlyMaintainer {

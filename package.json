@@ -1,49 +1,30 @@
 {
-  "name": "contracts",
+  "name": "chocofactory",
   "version": "0.0.1",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
   "scripts": {
-    "format": "prettier . --ignore-path .gitignore --write",
-    "lint": "eslint . --ignore-path .gitignore",
-    "compile": "hardhat compile",
-    "coverage": "hardhat coverage",
-    "test": "hardhat test",
-    "gas-report": "env ENABLE_GAS_REPORT=1 yarn test",
-    "run-localchain": "yarn hardhat node",
-    "deploy:0": "yarn hardhat run scripts/0_deployTemplate.ts",
-    "deploy:1": "yarn hardhat run scripts/1_deployFactory.ts",
-    "deploy-contract-to-localchain": "hardhat run scripts/99_batchMigration.ts --network localhost",
-    "deploy-contract-to-rinkeby": "hardhat run scripts/99_batchMigration.ts --network rinkeby"
+    "killport": "kill-port --port 3000,5000,6006,8080,8545",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{.ts,.js,tsx,jsx,json,md,sol}\"",
+    "lint": "echo lint",
+    "test": "yarn workspace contracts test",
+    "predev": "yarn killport",
+    "dev": "run-p dev:*",
+    "dev:run-localchain": "yarn workspace contracts run-localchain",
+    "dev:deploy-contract-to-localchain": "wait-on http://localhost:8545 && yarn workspace contracts deploy-contract-to-localchain",
+    "dev:functions": "yarn workspace functions dev:watch",
+    "dev:firebase": "firebase emulators:start --only firestore,functions",
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.1",
-    "@nomiclabs/hardhat-etherscan": "^2.1.1",
-    "@nomiclabs/hardhat-waffle": "^2.0.1",
-    "@typechain/ethers-v5": "^5.0.0",
-    "@types/mocha": "^8.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
-    "chai": "^4.3.1",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "ethereum-waffle": "^3.2.2",
-    "ethers": "^5.0.31",
-    "hardhat": "^2.0.10",
-    "hardhat-gas-reporter": "^1.0.4",
-    "hardhat-typechain": "^0.3.4",
+    "cross-env": "^7.0.3",
+    "firebase-tools": "^9.5.0",
+    "husky": "^5.1.3",
+    "kill-port": "^1.6.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "prettier-plugin-solidity": "1.0.0-beta.5",
-    "solhint": "^3.3.4",
-    "solidity-coverage": "^0.7.15",
-    "ts-generator": "^0.1.1",
-    "ts-node": "^9.1.1",
-    "typechain": "^4.0.1",
-    "typescript": "^4.1.5"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "4.0.0-rc.0",
-    "ipfs-only-hash": "^2.0.1"
+    "wait-on": "^5.2.1"
   }
 }

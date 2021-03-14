@@ -3,7 +3,7 @@ import * as path from "path";
 import hre, { ethers } from "hardhat";
 import { NetworkName } from "./types";
 
-import { MODAL_NAME, MODAL_SYMBOL, MODAL_BASE_URL, NULL_ADDRESS } from "./constants";
+import { MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS } from "./constants";
 
 export const filePath = "../network.json";
 export const networkName = hre.network.name == "hardhat" ? "localhost" : <NetworkName>hre.network.name;
