@@ -14,107 +14,138 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
 
     mapping(uint256 => string) internal _tokenURIs;
 
-    string internal _name;
-    string internal _symbol;
-    string internal _customBaseTokenURI;
+    string public name_;
+    string public symbol_;
+    string public customBaseTokenURI;
 
-    modifier onlyMaintainer() {
-        require(hasRole(MAINTAINER_ROLE, _msgSender()), "must have maintainer role");
-        _;
+    function initialize(
+        string memory _name,
+        string memory _symbol,
+        address _owner
+    ) public initializer {
+        name_ = _name;
+        symbol_ = _symbol;
+        _setupRole(DEFAULT_ADMIN_ROLE, _owner);
+        _setupRole(MAINTAINER_ROLE, _owner);
     }
 
     constructor(
-        string memory name_,
-        string memory symbol_,
-        address owner_
+        string memory _name,
+        string memory _symbol,
+        address _owner
     ) ERC721("", "") {
-        initialize(name_, symbol_, owner_);
+        initialize(_name, _symbol, _owner);
     }
 
-    function initialize(
-        string memory name_,
-        string memory symbol_,
-        address owner_
-    ) public initializer {
-        _name = name_;
-        _symbol = symbol_;
-        _setupRole(DEFAULT_ADMIN_ROLE, owner_);
-        _setupRole(MAINTAINER_ROLE, owner_);
+    function validateIsMaintainer(address _maintainer) internal view {
+        require(hasRole(MAINTAINER_ROLE, _maintainer), "must have maintainer role");
     }
 
-    function supportsInterface(bytes4 interfaceId)
+    modifier onlyMaintainer() {
+        validateIsMaintainer(msg.sender);
+        _;
+    }
+
+    function name() public view override returns (string memory) {
+        return name_;
+    }
+
+    function symbol() public view override returns (string memory) {
+        return symbol_;
+    }
+
+    function supportsInterface(bytes4 _interfaceId)
         public
         view
         override(AccessControlEnumerable, ERC721)
         returns (bool)
     {
-        return super.supportsInterface(interfaceId);
+        return super.supportsInterface(_interfaceId);
     }
 
-    function name() public view override returns (string memory) {
-        return _name;
+    function _setTokenURI(uint256 _tokenId, string memory _tokenURI) internal {
+        _tokenURIs[_tokenId] = _tokenURI;
     }
 
-    function symbol() public view override returns (string memory) {
-        return _symbol;
+    function setCustomBaseTokenURI(string memory _customBaseTokenURI) public onlyMaintainer {
+        customBaseTokenURI = _customBaseTokenURI;
     }
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        string memory _tokenURI = _tokenURIs[tokenId];
-        if (bytes(_tokenURI).length > 0) {
-            return _tokenURI;
+    function setTokenURI(uint256 _tokenId, string memory _tokenURI) public onlyMaintainer {
+        require(_exists(_tokenId), "URI set of nonexistent token");
+        _setTokenURI(_tokenId, _tokenURI);
+    }
+
+    function bulkSetTokenURI(uint256[] memory _tokenIdList, string[] memory _tokenURIList) public onlyMaintainer {
+        require(_tokenIdList.length == _tokenURIList.length, "input must have same length");
+        for (uint256 i = 0; i < _tokenIdList.length; i++) {
+            _setTokenURI(_tokenIdList[i], _tokenURIList[i]);
         }
-        return super.tokenURI(tokenId);
     }
 
     function _baseURI() internal view override returns (string memory) {
         return
-            bytes(_customBaseTokenURI).length > 0
-                ? _customBaseTokenURI
+            bytes(customBaseTokenURI).length > 0
+                ? customBaseTokenURI
                 : string(abi.encodePacked(DEFAULT_BASE_URL, _bytesToString(abi.encodePacked(address(this))), SLASH));
     }
 
-    function setCustomBaseTokenURI(string memory customBaseTokenURI) public onlyMaintainer {
-        _customBaseTokenURI = customBaseTokenURI;
+    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
+        string memory _tokenURI = _tokenURIs[_tokenId];
+        if (bytes(_tokenURI).length > 0) {
+            return _tokenURI;
+        }
+        return super.tokenURI(_tokenId);
     }
 
-    function setTokenURI(uint256 tokenId, string memory _tokenURI) public onlyMaintainer {
-        _setTokenURI(tokenId, _tokenURI);
-    }
-
-    function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal {
-        require(_exists(tokenId), "URI set of nonexistent token");
-        _tokenURIs[tokenId] = _tokenURI;
-    }
-
-    function mint(address to, uint256 tokenId) public onlyMaintainer {
-        _mint(to, tokenId);
-    }
-
-    function mint(
-        address to,
-        uint256 tokenId,
+    function _mint(
+        address _to,
+        uint256 _tokenId,
         string memory _tokenURI
-    ) public onlyMaintainer {
-        _mint(to, tokenId);
-        _setTokenURI(tokenId, _tokenURI);
-    }
-
-    function burn(uint256 tokenId) public override {
-        super._burn(tokenId);
-        if (bytes(_tokenURIs[tokenId]).length > 0) {
-            delete _tokenURIs[tokenId];
+    ) internal {
+        _mint(_to, _tokenId);
+        if (bytes(_tokenURI).length > 0) {
+            _setTokenURI(_tokenId, _tokenURI);
         }
     }
 
-    function _bytesToString(bytes memory input) internal pure returns (string memory) {
+    function mint(
+        address _to,
+        uint256 _tokenId,
+        string memory _tokenURI
+    ) public {
+        _mint(_to, _tokenId, _tokenURI);
+    }
+
+    function bulkMint(
+        address[] memory _toList,
+        uint256[] memory _tokenIdList,
+        string[] memory _tokenURIList
+    ) public onlyMaintainer {
+        require(
+            _toList.length == _tokenIdList.length && _toList.length == _tokenURIList.length,
+            "input must have same length"
+        );
+        for (uint256 i = 0; i < _toList.length; i++) {
+            _mint(_toList[i], _tokenIdList[i], _tokenURIList[i]);
+        }
+    }
+
+    function burn(uint256 _tokenId) public override {
+        super._burn(_tokenId);
+        if (bytes(_tokenURIs[_tokenId]).length > 0) {
+            delete _tokenURIs[_tokenId];
+        }
+    }
+
+    function _bytesToString(bytes memory _input) internal pure returns (string memory) {
         bytes memory alphabet = "0123456789abcdef";
-        bytes memory output = new bytes(2 + input.length * 2);
+        bytes memory output = new bytes(2 + _input.length * 2);
         output[0] = "0";
         output[1] = "x";
-        for (uint256 i = 0; i < input.length; i++) {
-            output[2 + i * 2] = alphabet[uint256(uint8(input[i] >> 4))];
-            output[3 + i * 2] = alphabet[uint256(uint8(input[i] & 0x0f))];
+        for (uint256 i = 0; i < _input.length; i++) {
+            output[2 + i * 2] = alphabet[uint256(uint8(_input[i] >> 4))];
+            output[3 + i * 2] = alphabet[uint256(uint8(_input[i] & 0x0f))];
         }
         return string(output);
     }
