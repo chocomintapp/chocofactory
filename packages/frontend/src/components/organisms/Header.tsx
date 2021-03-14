@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
 
+import { name, mainIcon, personIcon } from "../../configs.json";
 import { shortenAddress } from "../../modules/util";
 import { initializeWeb3Modal, web3Modal, selectedAddressState } from "../../modules/web3";
 
@@ -26,7 +27,9 @@ export const Header: React.FC = () => {
     <header>
       <div className="relative h-24">
         <Link to="/">
-          <div className="px-4 py-8 absolute left-0 font-bold">Chocofactory 🏭</div>
+          <div className="px-4 py-8 absolute left-0 font-bold">
+            {name} {mainIcon}
+          </div>
         </Link>
         <div className="p-4 absolute right-0">
           {!selectedAddress ? (
@@ -37,7 +40,7 @@ export const Header: React.FC = () => {
             <Link to={`/creator/${selectedAddress}`}>
               <Button type="tertiary">
                 {shortenAddress(selectedAddress)}
-                <span className="ml-2">👷</span>
+                <span className="ml-2">{personIcon}</span>
               </Button>
             </Link>
           )}

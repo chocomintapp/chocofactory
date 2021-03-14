@@ -7,7 +7,7 @@ const args: ModalProps = {
 };
 
 export default {
-  title: "atoms/Modal",
+  title: "Atoms/Modal",
   component: Modal,
   args,
 };

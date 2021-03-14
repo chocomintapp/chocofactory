@@ -7,7 +7,7 @@ const args: ButtonProps = {
 };
 
 export default {
-  title: "atoms/Button",
+  title: "Atoms/Button",
   component: Button,
   args,
 };
