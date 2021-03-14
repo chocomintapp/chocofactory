@@ -1,7 +1,9 @@
 import React from "react";
 
+import { ContractTemplate } from "../components/templates/Contract";
+
 export const Contract: React.FC = () => {
-  return <>Contract</>;
+  return <ContractTemplate />;
 };
 
 export default Contract;
