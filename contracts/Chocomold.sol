@@ -8,14 +8,15 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable {
-    bytes32 public constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
-    string public constant defaultBaseUrl = "https://localhost:8080/";
+    bytes32 constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
+    string constant DEFAULT_BASE_URL = "https://localhost:8080/";
+    string constant SLASH = "/";
 
-    mapping(uint256 => string) private _tokenURIs;
+    mapping(uint256 => string) internal _tokenURIs;
 
-    string private _name;
-    string private _symbol;
-    string private _customBaseTokenURI;
+    string internal _name;
+    string internal _symbol;
+    string internal _customBaseTokenURI;
 
     modifier onlyMaintainer() {
         require(hasRole(MAINTAINER_ROLE, _msgSender()), "must have maintainer role");
@@ -25,23 +26,18 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
     constructor(
         string memory name_,
         string memory symbol_,
-        string memory customBaseTokenURI_,
         address owner_
     ) ERC721("", "") {
-        initialize(name_, symbol_, customBaseTokenURI_, owner_);
+        initialize(name_, symbol_, owner_);
     }
 
     function initialize(
         string memory name_,
         string memory symbol_,
-        string memory customBaseTokenURI_,
         address owner_
     ) public initializer {
         _name = name_;
         _symbol = symbol_;
-        if (bytes(customBaseTokenURI_).length > 0) {
-            _customBaseTokenURI = customBaseTokenURI_;
-        }
         _setupRole(DEFAULT_ADMIN_ROLE, owner_);
         _setupRole(MAINTAINER_ROLE, owner_);
     }
@@ -72,7 +68,10 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
     }
 
     function _baseURI() internal view override returns (string memory) {
-        return bytes(_customBaseTokenURI).length > 0 ? _customBaseTokenURI : defaultBaseUrl;
+        return
+            bytes(_customBaseTokenURI).length > 0
+                ? _customBaseTokenURI
+                : string(abi.encodePacked(DEFAULT_BASE_URL, _bytesToString(abi.encodePacked(address(this))), SLASH));
     }
 
     function setCustomBaseTokenURI(string memory customBaseTokenURI) public onlyMaintainer {
@@ -106,5 +105,17 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         if (bytes(_tokenURIs[tokenId]).length > 0) {
             delete _tokenURIs[tokenId];
         }
+    }
+
+    function _bytesToString(bytes memory input) internal pure returns (string memory) {
+        bytes memory alphabet = "0123456789abcdef";
+        bytes memory output = new bytes(2 + input.length * 2);
+        output[0] = "0";
+        output[1] = "x";
+        for (uint256 i = 0; i < input.length; i++) {
+            output[2 + i * 2] = alphabet[uint256(uint8(input[i] >> 4))];
+            output[3 + i * 2] = alphabet[uint256(uint8(input[i] & 0x0f))];
+        }
+        return string(output);
     }
 }
