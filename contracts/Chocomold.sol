@@ -5,62 +5,54 @@ import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable, ERC721URIStorage {
-    using Counters for Counters.Counter;
+contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable {
+    bytes32 public constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
+    string public constant defaultBaseUrl = "https://localhost:8080/";
 
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-
-    Counters.Counter private _tokenIdTracker;
+    mapping(uint256 => string) private _tokenURIs;
 
     string private _name;
     string private _symbol;
-    string private _baseTokenURI;
+    string private _customBaseTokenURI;
+
+    modifier onlyMaintainer() {
+        require(hasRole(MAINTAINER_ROLE, _msgSender()), "must have maintainer role");
+        _;
+    }
 
     constructor(
         string memory name_,
         string memory symbol_,
-        string memory baseTokenURI,
-        address owner
+        string memory customBaseTokenURI_,
+        address owner_
     ) ERC721("", "") {
-        initialize(name_, symbol_, baseTokenURI, owner);
+        initialize(name_, symbol_, customBaseTokenURI_, owner_);
     }
 
     function initialize(
         string memory name_,
         string memory symbol_,
-        string memory baseTokenURI,
-        address owner
+        string memory customBaseTokenURI_,
+        address owner_
     ) public initializer {
         _name = name_;
         _symbol = symbol_;
-        _baseTokenURI = baseTokenURI;
-        _setupRole(DEFAULT_ADMIN_ROLE, owner);
-        _setupRole(MINTER_ROLE, owner);
+        if (bytes(customBaseTokenURI_).length > 0) {
+            _customBaseTokenURI = customBaseTokenURI_;
+        }
+        _setupRole(DEFAULT_ADMIN_ROLE, owner_);
+        _setupRole(MAINTAINER_ROLE, owner_);
     }
 
-    function _mint(address to) internal returns (uint256) {
-        require(hasRole(MINTER_ROLE, _msgSender()), "ERC721PresetMinterPauserAutoId: must have minter role to mint");
-        uint256 tokenId = _tokenIdTracker.current();
-        _mint(to, _tokenIdTracker.current());
-        _tokenIdTracker.increment();
-        return tokenId;
-    }
-
-    function mint(address to) public {
-        _mint(to);
-    }
-
-    function mint(address to, string memory _tokenURI) public {
-        uint256 tokenId = _mint(to);
-        _setTokenURI(tokenId, _tokenURI);
-    }
-
-    function setTokenURI(uint256 tokenId, string memory _tokenURI) public {
-        require(hasRole(MINTER_ROLE, _msgSender()), "ERC721PresetMinterPauserAutoId: must have minter role to mint");
-        _setTokenURI(tokenId, _tokenURI);
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(AccessControlEnumerable, ERC721)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 
     function name() public view override returns (string memory) {
@@ -71,25 +63,48 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         return _symbol;
     }
 
-    function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {
-        return ERC721URIStorage.tokenURI(tokenId);
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        string memory _tokenURI = _tokenURIs[tokenId];
+        if (bytes(_tokenURI).length > 0) {
+            return _tokenURI;
+        }
+        return super.tokenURI(tokenId);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(AccessControlEnumerable, ERC721)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
+    function _baseURI() internal view override returns (string memory) {
+        return bytes(_customBaseTokenURI).length > 0 ? _customBaseTokenURI : defaultBaseUrl;
     }
 
-    function _baseURI() internal view virtual override returns (string memory) {
-        return _baseTokenURI;
+    function setCustomBaseTokenURI(string memory customBaseTokenURI) public onlyMaintainer {
+        _customBaseTokenURI = customBaseTokenURI;
     }
 
-    function _burn(uint256 tokenId) internal virtual override(ERC721, ERC721URIStorage) {
-        ERC721URIStorage._burn(tokenId);
+    function setTokenURI(uint256 tokenId, string memory _tokenURI) public onlyMaintainer {
+        _setTokenURI(tokenId, _tokenURI);
+    }
+
+    function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal {
+        require(_exists(tokenId), "URI set of nonexistent token");
+        _tokenURIs[tokenId] = _tokenURI;
+    }
+
+    function mint(address to, uint256 tokenId) public onlyMaintainer {
+        _mint(to, tokenId);
+    }
+
+    function mint(
+        address to,
+        uint256 tokenId,
+        string memory _tokenURI
+    ) public onlyMaintainer {
+        _mint(to, tokenId);
+        _setTokenURI(tokenId, _tokenURI);
+    }
+
+    function burn(uint256 tokenId) public override {
+        super._burn(tokenId);
+        if (bytes(_tokenURIs[tokenId]).length > 0) {
+            delete _tokenURIs[tokenId];
+        }
     }
 }

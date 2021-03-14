@@ -29,15 +29,6 @@ contract Chocofactory {
         _deploy(owner, implementation, data);
     }
 
-    function predictDeployResult(
-        address owner,
-        address implementation,
-        bytes memory data
-    ) public view returns (address) {
-        bytes32 salt = keccak256(abi.encodePacked(data, owner));
-        return implementation.predictDeterministicAddress(salt, address(this));
-    }
-
     function _deploy(
         address owner,
         address implementation,
@@ -47,5 +38,14 @@ contract Chocofactory {
         address deployedContract = implementation.cloneDeterministic(salt);
         deployedContract.functionCallWithValue(data, msg.value);
         emit Deployed(owner, implementation, deployedContract, data);
+    }
+
+    function predictDeployResult(
+        address owner,
+        address implementation,
+        bytes memory data
+    ) public view returns (address) {
+        bytes32 salt = keccak256(abi.encodePacked(data, owner));
+        return implementation.predictDeterministicAddress(salt, address(this));
     }
 }
