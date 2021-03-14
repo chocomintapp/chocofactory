@@ -20,24 +20,14 @@
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@typechain/ethers-v5": "^5.0.0",
     "@types/mocha": "^8.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
     "chai": "^4.3.1",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
     "ethereum-waffle": "^3.2.2",
     "ethers": "^5.0.31",
     "hardhat": "^2.0.10",
     "hardhat-gas-reporter": "^1.0.4",
     "hardhat-typechain": "^0.3.4",
-    "prettier": "^2.2.1",
-    "prettier-plugin-solidity": "1.0.0-beta.5",
     "solidity-coverage": "^0.7.15",
-    "ts-generator": "^0.1.1",
-    "ts-node": "^9.1.1",
-    "typechain": "^4.0.1",
-    "typescript": "^4.1.5"
+    "typechain": "^4.0.1"
   },
   "dependencies": {
     "@openzeppelin/contracts": "4.0.0-rc.0"
