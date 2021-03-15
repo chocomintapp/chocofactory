@@ -3,7 +3,7 @@ import React from "react";
 export const ImageUploadIcon: React.FC = () => {
   return (
     <svg
-      className="mx-auto h-20 w-20 text-gray-400"
+      className="mx-auto w-full text-gray-400"
       stroke="currentColor"
       fill="none"
       viewBox="0 0 48 48"

@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { CreateTokenForm } from "./CreateTokenForm";
 
 export default {
-  title: "Organisms/CreateTokenForm",
+  title: "Molecules/CreateTokenForm",
   component: CreateTokenForm,
 };
 

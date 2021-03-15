@@ -6,7 +6,7 @@ export interface LabelProps {
 
 export const Label: React.FC<LabelProps> = ({ text }) => {
   return (
-    <label htmlFor="cover_photo" className="block text-sm font-bold text-gray-600">
+    <label htmlFor="cover_photo" className="block text-xs font-bold text-gray-600">
       {text}
     </label>
   );

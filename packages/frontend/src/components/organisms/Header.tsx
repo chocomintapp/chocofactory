@@ -27,11 +27,11 @@ export const Header: React.FC = () => {
     <header>
       <div className="relative h-24">
         <Link to="/">
-          <div className="px-2 py-4 absolute left-0 font-bold">
+          <div className="p-6 absolute left-0 font-bold">
             {name} {mainIcon}
           </div>
         </Link>
-        <div className="p-2 absolute right-0">
+        <div className="p-4 absolute right-0">
           {!selectedAddress ? (
             <Button onClick={connectWallet} type="tertiary">
               Connect<span className="ml-2">🔌</span>
