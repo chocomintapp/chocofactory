@@ -21,7 +21,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
 
   const columnDefs = [
     {
-      field: "tokenId",
+      field: "token_id",
       rowGroup: true,
       hide: true,
     },
@@ -37,6 +37,9 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
     {
       field: "animation_url",
     },
+    {
+      field: "ipfs_hash",
+    },
   ];
 
   const defaultColDef = {
@@ -45,8 +48,8 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
   };
 
   const autoGroupColumnDef = {
-    headerName: "tokenId",
-    field: "tokenId",
+    headerName: "token_id",
+    field: "token_id",
     cellRendererParams: { checkbox: true },
   };
 

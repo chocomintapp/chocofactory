@@ -1,7 +1,6 @@
 import React from "react";
+import { ImageUploadIcon } from "../atoms/ImageUploadIcon";
 import { Label } from "../atoms/Label";
-
-import { ImageUpload } from "./ImageUpload";
 
 export interface FormImageUploadProps {
   label: string;
@@ -11,10 +10,36 @@ export interface FormImageUploadProps {
 }
 
 export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, status, imagePreview, onChange }) => {
+  const clickInputFile = () => {
+    document.getElementById("file")!.click();
+  };
+
   return (
     <div>
       <Label text={label} />
-      <ImageUpload status={status} imagePreview={imagePreview} onChange={onChange} />
+      <div id="dropContainer h-full">
+        <div className="mt-1 h-full flex justify-center p-8 border border-gray-300 border-dashed rounded-xl shadow-sm">
+          <div className={"cursor-pointer"} onClick={clickInputFile}>
+            <div
+              className={`
+              ${
+                status == "isImageLoading"
+                  ? "animate-bounce"
+                  : status == "isWaitingTransactionConfirmation"
+                  ? "animate-bounce opacity-50"
+                  : ""
+              }`}
+            >
+              {!imagePreview ? (
+                <ImageUploadIcon />
+              ) : (
+                <img className="rounded-xl shadow-md object-cover mx-auto" src={imagePreview} />
+              )}
+            </div>
+            <input onChange={onChange} id="file" type="file" accept="image/*" className="sr-only" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

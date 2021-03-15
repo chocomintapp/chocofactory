@@ -7,27 +7,27 @@
   "nfts": [
     {
       "contractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
-      "tokenId": "1",
+      "token_id": "1",
       "name": "Choco",
       "description": "This is Choco NFT",
       "image": "http://localhost:6006/sample.png",
-      "animation_url": ""
+      "animation_url": "http://localhost:6006/sample.png"
     },
     {
       "contractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
-      "tokenId": "2",
+      "token_id": "2",
       "name": "Choco",
       "description": "This is Choco NFT",
       "image": "http://localhost:6006/sample.png",
-      "animation_url": ""
+      "animation_url": "http://localhost:6006/sample.png"
     },
     {
       "contractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
-      "tokenId": "3",
+      "token_id": "3",
       "name": "Choco",
       "description": "This is Choco NFT",
       "image": "http://localhost:6006/sample.png",
-      "animation_url": ""
+      "animation_url": "http://localhost:6006/sample.png"
     }
   ]
 }
