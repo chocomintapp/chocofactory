@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 
 import Contract from "./pages/contract";
 import Create from "./pages/create";
+import Dashboard from "./pages/dashboard";
 import Home from "./pages/index";
 
 const App: React.FC = () => {
@@ -21,6 +22,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/contract/:contractAddress" exact>
               <Contract />
+            </Route>
+            <Route path="/dashboard" exact>
+              <Dashboard />
             </Route>
           </Switch>
         </Router>

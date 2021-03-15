@@ -6,14 +6,17 @@ import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
 
 export const CreateTokenForm: React.FC = () => {
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
+
   const handleNameChange = () => {
     console.log("ok");
   };
 
   return (
     <Form>
-      <FormInput type="text" label="Name" onChange={handleNameChange} />
-      <FormTextArea label="Description" onChange={handleNameChange} />
+      <FormInput type="text" label="Name" setState={setName} />
+      <FormTextArea label="Description" setState={setDescription} />
       <FormImageUpload label="Image" status="normal" imagePreview="" onChange={handleNameChange} />
       <FormImageUpload label="Animation URL" status="normal" imagePreview="" onChange={handleNameChange} />
     </Form>

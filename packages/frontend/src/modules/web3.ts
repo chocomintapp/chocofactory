@@ -5,12 +5,20 @@ import { atom, useRecoilState } from "recoil";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 
-export const networkName = process.env.REACT_APP_NETWORK_NAME ? process.env.REACT_APP_NETWORK_NAME : "localhost";
+import { abi as chocofactoryAbi } from "../../../contracts/artifacts/contracts/Chocofactory.sol/Chocofactory.json";
+import { abi as chocomoldAbi } from "../../../contracts/artifacts/contracts/Chocomold.sol/Chocomold.json";
+import { NetworkName } from "../../../contracts/helpers/types";
+import network from "../../../contracts/network.json";
+import { Chocomold, Chocofactory } from "../../../contracts/typechain";
 
-const network = require("../../../contracts/network.json");
-export const { rpc, chainId, explore, ChocopoundOwnership, Chocopound } = network[networkName];
+export const networkName = process.env.REACT_APP_NETWORK_NAME
+  ? (process.env.REACT_APP_NETWORK_NAME as NetworkName)
+  : "localhost";
 
+export const { rpc, chainId, explore, chocofactory, chocomold } = network[networkName];
 export const provider = new ethers.providers.JsonRpcProvider(rpc);
+export const chocomoldContract = new ethers.Contract(chocomold, chocomoldAbi, provider) as Chocomold;
+export const chocofactoryContract = new ethers.Contract(chocofactory, chocofactoryAbi, provider) as Chocofactory;
 
 export const providerOptions = {
   walletconnect: {
@@ -52,12 +60,12 @@ export const selectedAddressState = atom({
 });
 
 export const useWallet = () => {
-  const [selectedAddress, setSelectedAddress] = useRecoilState(selectedAddressState);
+  const [, setSelectedAddress] = useRecoilState(selectedAddressState);
 
   const connectWallet = async () => {
     const provider = await initializeWeb3Modal();
     setSelectedAddress(provider.selectedAddress);
     return provider;
   };
-  return { selectedAddress, connectWallet };
+  return { connectWallet };
 };

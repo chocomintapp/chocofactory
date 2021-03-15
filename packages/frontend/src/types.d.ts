@@ -1,6 +1,6 @@
 export interface Metadata {
   contractAddress: string;
-  tokenId: string;
+  token_id: string;
   name: string;
   description: string;
   image: string;

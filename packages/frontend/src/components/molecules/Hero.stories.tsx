@@ -1,14 +1,14 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { CreateTokenForm } from "./CreateTokenForm";
+import { Hero } from "./Hero";
 
 export default {
-  title: "Molecules/CreateTokenForm",
-  component: CreateTokenForm,
+  title: "Molecules/Hero",
+  component: Hero,
 };
 
 export const Control: React.FC = () => (
   <MemoryRouter>
-    <CreateTokenForm />
+    <Hero />
   </MemoryRouter>
 );

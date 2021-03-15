@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { CreateContractForm } from "./CreateContractForm";
 
 export default {
-  title: "Molecules/CreateContractForm",
+  title: "Organisms/CreateContractForm",
   component: CreateContractForm,
 };
 

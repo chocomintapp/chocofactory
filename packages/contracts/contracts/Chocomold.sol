@@ -7,16 +7,15 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable {
+import "./utils/IPFS.sol";
+
+contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable, IPFS {
     bytes32 constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
-    string constant DEFAULT_BASE_URL = "http://localhost:5001/chocofactory-prod/asia-northeast1/metadata/";
-    string constant SLASH = "/";
 
-    mapping(uint256 => string) internal _tokenURIs;
+    mapping(uint256 => bytes32) public ipfsHashes;
 
-    string public name_;
-    string public symbol_;
-    string public customBaseTokenURI;
+    string private name_;
+    string private symbol_;
 
     function initialize(
         string memory _name,
@@ -46,14 +45,6 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         _;
     }
 
-    function name() public view override returns (string memory) {
-        return name_;
-    }
-
-    function symbol() public view override returns (string memory) {
-        return symbol_;
-    }
-
     function supportsInterface(bytes4 _interfaceId)
         public
         view
@@ -63,90 +54,46 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         return super.supportsInterface(_interfaceId);
     }
 
-    function setCustomBaseTokenURI(string memory _customBaseTokenURI) public onlyMaintainer {
-        customBaseTokenURI = _customBaseTokenURI;
+    function name() public view override returns (string memory) {
+        return name_;
     }
 
-    function _setTokenURI(uint256 _tokenId, string memory _tokenURI) internal {
-        _tokenURIs[_tokenId] = _tokenURI;
-    }
-
-    function setTokenURI(uint256 _tokenId, string memory _tokenURI) public onlyMaintainer {
-        require(_exists(_tokenId), "URI set of nonexistent token");
-        _setTokenURI(_tokenId, _tokenURI);
-    }
-
-    function bulkSetTokenURI(uint256[] memory _tokenIdList, string[] memory _tokenURIList) public onlyMaintainer {
-        require(_tokenIdList.length == _tokenURIList.length, "input must have same length");
-        for (uint256 i = 0; i < _tokenIdList.length; i++) {
-            _setTokenURI(_tokenIdList[i], _tokenURIList[i]);
-        }
-    }
-
-    function _baseURI() internal view override returns (string memory) {
-        return
-            bytes(customBaseTokenURI).length > 0
-                ? customBaseTokenURI
-                : string(abi.encodePacked(DEFAULT_BASE_URL, _bytesToString(abi.encodePacked(address(this))), SLASH));
+    function symbol() public view override returns (string memory) {
+        return symbol_;
     }
 
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-        string memory _tokenURI = _tokenURIs[_tokenId];
-        if (bytes(_tokenURI).length > 0) {
-            return _tokenURI;
-        }
-        return super.tokenURI(_tokenId);
-    }
-
-    function _mint(
-        address _to,
-        uint256 _tokenId,
-        string memory _tokenURI
-    ) internal {
-        _mint(_to, _tokenId);
-        if (bytes(_tokenURI).length > 0) {
-            _setTokenURI(_tokenId, _tokenURI);
-        }
+        require(_exists(_tokenId), "token must exist");
+        return string(_addIpfsBaseUrlPrefix(_bytesToBase58(_addSha256FunctionCodePrefix(ipfsHashes[_tokenId]))));
     }
 
     function mint(
         address _to,
         uint256 _tokenId,
-        string memory _tokenURI
-    ) public {
-        _mint(_to, _tokenId, _tokenURI);
+        bytes32 _ipfsHash
+    ) public onlyMaintainer {
+        _mint(_to, _tokenId);
+        ipfsHashes[_tokenId] = _ipfsHash;
     }
 
     function bulkMint(
         address[] memory _toList,
         uint256[] memory _tokenIdList,
-        string[] memory _tokenURIList
+        bytes32[] memory _ipfsHashList
     ) public onlyMaintainer {
         require(
-            _toList.length == _tokenIdList.length && _toList.length == _tokenURIList.length,
+            _toList.length == _tokenIdList.length && _toList.length == _ipfsHashList.length,
             "input must have same length"
         );
         for (uint256 i = 0; i < _toList.length; i++) {
-            _mint(_toList[i], _tokenIdList[i], _tokenURIList[i]);
+            mint(_toList[i], _tokenIdList[i], _ipfsHashList[i]);
         }
     }
 
-    function burn(uint256 _tokenId) public override {
+    function _burn(uint256 _tokenId) internal virtual override {
         super._burn(_tokenId);
-        if (bytes(_tokenURIs[_tokenId]).length > 0) {
-            delete _tokenURIs[_tokenId];
+        if (bytes(abi.encodePacked(ipfsHashes[_tokenId])).length > 0) {
+            delete ipfsHashes[_tokenId];
         }
-    }
-
-    function _bytesToString(bytes memory _input) internal pure returns (string memory) {
-        bytes memory alphabet = "0123456789abcdef";
-        bytes memory output = new bytes(2 + _input.length * 2);
-        output[0] = "0";
-        output[1] = "x";
-        for (uint256 i = 0; i < _input.length; i++) {
-            output[2 + i * 2] = alphabet[uint256(uint8(_input[i] >> 4))];
-            output[3 + i * 2] = alphabet[uint256(uint8(_input[i] & 0x0f))];
-        }
-        return string(output);
     }
 }

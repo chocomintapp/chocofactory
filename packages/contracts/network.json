@@ -4,14 +4,14 @@
     "rpc": "https://mainnet.infura.io/v3/95f65ab099894076814e8526f52c9149",
     "explore": "https://etherscan.io/tx/",
     "chocofactory": "",
-    "chocotemplate_v1": ""
+    "chocomold": ""
   },
   "rinkeby": {
     "chainId": "4",
     "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
     "explore": "https://rinkeby.etherscan.io/tx/",
     "chocofactory": "",
-    "chocotemplate_v1": ""
+    "chocomold": ""
   },
   "localhost": {
     "chainId": "31337",
