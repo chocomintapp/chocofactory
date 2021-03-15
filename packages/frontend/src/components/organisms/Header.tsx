@@ -5,21 +5,18 @@ import { useRecoilState } from "recoil";
 
 import { name, mainIcon, personIcon } from "../../configs.json";
 import { shortenAddress } from "../../modules/util";
-import { initializeWeb3Modal, web3Modal, selectedAddressState } from "../../modules/web3";
+import { initializeWeb3Modal, web3Modal } from "../../modules/web3";
 
 import { Button } from "../atoms/Button";
 
 export const Header: React.FC = () => {
-  const [selectedAddress, setSelectedAddress] = useRecoilState(selectedAddressState);
+  // const [selectedAddress, setSelectedAddress] = useRecoilState(selectedAddressState);
 
-  const connectWallet = async () => {
-    const provider = await initializeWeb3Modal();
-    setSelectedAddress(provider.selectedAddress);
-  };
+  // const { connectWallet } = useWallet();
 
   React.useEffect(() => {
     if (web3Modal.cachedProvider) {
-      connectWallet();
+      // connectWallet();
     }
   }, []);
 
@@ -32,7 +29,7 @@ export const Header: React.FC = () => {
           </div>
         </Link>
         <div className="px-4 py-2 absolute right-0">
-          {!selectedAddress ? (
+          {/* {!selectedAddress ? (
             <Button onClick={connectWallet} type="tertiary">
               Connect<span className="ml-2">🔌</span>
             </Button>
@@ -43,7 +40,7 @@ export const Header: React.FC = () => {
                 <span className="ml-2">{personIcon}</span>
               </Button>
             </Link>
-          )}
+          )} */}
         </div>
       </div>
     </header>

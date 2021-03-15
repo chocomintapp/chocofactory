@@ -16,6 +16,7 @@ const app = firebase.initializeApp(firebaseConfig);
 
 const firestore = app.firestore();
 const functions = app.functions();
+const auth = app.auth();
 
 if (process.env.NODE_ENV === "development") {
   firestore.settings({
@@ -23,8 +24,9 @@ if (process.env.NODE_ENV === "development") {
     ssl: false,
   });
   functions.useEmulator("localhost", firebaseJson.emulators.functions.port);
+  auth.useEmulator(`http://localhost:${firebaseJson.emulators.auth.port}`);
 }
 
 export const collectionName = process.env.REACT_APP_NETWORK_NAME == "mainnet" ? "nft_production" : "nft_staging";
 
-export { firestore, functions };
+export { firestore, functions, auth };

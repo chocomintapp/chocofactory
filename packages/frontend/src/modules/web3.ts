@@ -1,7 +1,5 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
-import { atom, useRecoilState } from "recoil";
-
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 
@@ -52,20 +50,4 @@ export const getEthersSigner = async (provider: any) => {
 // this is only used for signing because torus wallet sign fails for ethers
 export const getWeb3 = async (provider: any) => {
   return new Web3(provider);
-};
-
-export const selectedAddressState = atom({
-  key: "selectedAddress",
-  default: "",
-});
-
-export const useWallet = () => {
-  const [, setSelectedAddress] = useRecoilState(selectedAddressState);
-
-  const connectWallet = async () => {
-    const provider = await initializeWeb3Modal();
-    setSelectedAddress(provider.selectedAddress);
-    return provider;
-  };
-  return { connectWallet };
 };

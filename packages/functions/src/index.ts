@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 
-import { chocomoldContract, chocofactoryContract, chainId } from "../../frontend/src/modules/web3";
+import { chocomoldContract, chocofactoryContract, chainId, contractCollectionName } from "./modules/web3";
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -17,20 +17,40 @@ export const metadata = functions.region("asia-northeast1").https.onRequest(asyn
   });
 });
 
-export const createContract = functions.region("asia-northeast1").https.onCall(async (data, context) => {
+export const createNFTAddress = functions.region("asia-northeast1").https.onCall(async (data, context) => {
   const { implementation, name, symbol, signature, singerAddress } = data;
-  console.log(implementation, name, symbol, signature);
-  const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, singerAddress]);
-  const messageHash = ethers.utils.solidityKeccak256(
+  const ownerAddress = singerAddress.toLocaleLowerCase();
+  const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, ownerAddress]);
+  const digest = ethers.utils.solidityKeccak256(
     ["uint256", "address", "address", "bytes"],
     [chainId, chocofactoryContract.address, implementation, functionData]
   );
-  const messageHashBinary = ethers.utils.arrayify(messageHash);
-  const recoveredAddress = ethers.utils.recoverAddress(messageHashBinary, signature);
-  console.log(recoveredAddress);
-  return "ok";
-  // corsHandler(req, res, async () => {
-  //   const [, contractAddress, tokenId] = req.originalUrl.split("/");
-  //   return res.send({ contractAddress, tokenId });
-  // });
+  const digestBinary = ethers.utils.arrayify(digest);
+  const messageDigest = ethers.utils.hashMessage(digestBinary);
+  const recoveredAddress = ethers.utils.recoverAddress(messageDigest, signature).toLowerCase();
+  if (ownerAddress != recoveredAddress) {
+    throw new functions.https.HttpsError("invalid-argument", "The function must be called with " + "valid signature.");
+  }
+  const deployedMold = await chocofactoryContract.predictDeployResult(
+    ownerAddress,
+    chocomoldContract.address,
+    functionData
+  );
+  const nftAddress = deployedMold.toLocaleLowerCase();
+  const moldAddress = implementation.toLocaleLowerCase();
+
+  await firestore
+    .collection(contractCollectionName)
+    .doc(nftAddress)
+    .set({ name, symbol, ownerAddress, moldAddress, signature });
+  return { name, symbol, ownerAddress, moldAddress, signature, nftAddress };
+});
+
+export const connectWallet = functions.region("asia-northeast1").https.onRequest(async (req, res) => {
+  corsHandler(req, res, async () => {
+    const { signature, message, singerAddress } = req.body;
+    const recoveredAddress = ethers.utils.verifyMessage(message, signature).toLowerCase();
+    const customToken = await admin.auth().createCustomToken(recoveredAddress);
+    res.send(customToken);
+  });
 });

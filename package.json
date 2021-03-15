@@ -7,7 +7,7 @@
     "packages/**"
   ],
   "scripts": {
-    "killport": "kill-port --port 3000,5000,6006,8080,8545",
+    "killport": "kill-port --port 3000,5000,5001,5002,6006,8080,8545,9099",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{.ts,.js,tsx,jsx,json,md,sol}\"",
     "lint": "eslint . --ignore-path .gitignore",
     "test": "yarn workspace contracts test",
@@ -18,7 +18,7 @@
     "dev:frontend": "wait-on http://localhost:8545 && cross-env REACT_APP_NETWORK_NAME=localhost yarn workspace frontend dev",
     "dev:storybook": "yarn workspace frontend storybook",
     "dev:functions": "yarn workspace functions dev:watch",
-    "dev:firebase": "firebase emulators:start --only firestore,functions",
+    "dev:firebase": "firebase emulators:start --only firestore,functions,auth",
     "prepare": "husky install"
   },
   "devDependencies": {
