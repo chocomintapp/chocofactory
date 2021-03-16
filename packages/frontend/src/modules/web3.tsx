@@ -2,7 +2,6 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-
 import { abi as chocofactoryAbi } from "../../../contracts/artifacts/contracts/Chocofactory.sol/Chocofactory.json";
 import { abi as chocomoldAbi } from "../../../contracts/artifacts/contracts/Chocomold.sol/Chocomold.json";
 import { NetworkName } from "../../../contracts/helpers/types";
