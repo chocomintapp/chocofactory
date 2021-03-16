@@ -5,6 +5,7 @@ import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
 import { GridList } from "../molecules/GridList";
+import { SpreadSheet } from "../molecules/SpreadSheet";
 
 export interface ContractProps {
   nftContract?: NFTContract;
@@ -12,6 +13,8 @@ export interface ContractProps {
 }
 
 export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList }) => {
+  const [isBulkEditMode, setIsBulkEditMode] = React.useState(false);
+
   return nftContract ? (
     <section>
       <div>
@@ -22,8 +25,16 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
       <Link to={`/contracts/${nftContract.nftContractAddress}/create-nft`}>
         <Button type="primary">Add</Button>
       </Link>
+      <Button
+        onClick={() => {
+          setIsBulkEditMode(!isBulkEditMode);
+        }}
+        type="primary"
+      >
+        Bulk Update
+      </Button>
       <div>
-        <GridList metadataList={metadataList} />
+        {isBulkEditMode ? <SpreadSheet metadataList={metadataList} /> : <GridList metadataList={metadataList} />}
       </div>
     </section>
   ) : (

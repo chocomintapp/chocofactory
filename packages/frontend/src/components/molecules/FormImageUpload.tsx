@@ -10,8 +10,13 @@ export interface FormImageUploadProps {
 }
 
 export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, setState }) => {
-  const [imagePreview, setImagePreview] = React.useState(value);
+  const [imagePreview, setImagePreview] = React.useState("");
   const [isImageLoading, setIsImageLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!value) return;
+    setImagePreview(value);
+  }, [value]);
 
   const clickInputFile = () => {
     document.getElementById("file")!.click();
@@ -64,7 +69,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
         <div className="mt-1 h-full flex justify-center p-8 border border-gray-300 border-dashed rounded-xl shadow-sm">
           <div className={"cursor-pointer"} onClick={clickInputFile}>
             <div
-              className={`
+              className={`h-32 w-32
               ${isImageLoading ? "" : ""}`}
             >
               {!imagePreview ? (

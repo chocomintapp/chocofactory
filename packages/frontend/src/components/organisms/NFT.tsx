@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../../modules/auth";
 import { firestore } from "../../modules/firebase";
 import { networkName } from "../../modules/web3";
@@ -24,6 +25,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
 
   const { connectWallet } = useAuth();
   const { messageModal, openModal, closeModal } = useMessageModal();
+  const history = useHistory();
 
   React.useEffect(() => {
     if (!metadata) return;
@@ -56,7 +58,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
       .collection("metadata")
       .doc(tokenId)
       .set(metadata);
-    openModal("🎉", `Your NFT is created!`, "Check", `/contracts/${nftContract.nftContractAddress}`, false);
+    history.push(`/contracts/${nftContract.nftContractAddress}`);
   };
   return nftContract ? (
     <>
@@ -70,7 +72,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
         </Form>
       </div>
       <Button onClick={createNFT} type="primary">
-        Create
+        Save
       </Button>
       {messageModal && <MessageModal {...messageModal} onClickDismiss={closeModal} />}
     </>
