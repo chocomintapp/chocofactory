@@ -49,9 +49,9 @@ export const createNFTAddress = functions.region("asia-northeast1").https.onCall
 
 export const connectWallet = functions.region("asia-northeast1").https.onRequest(async (req, res) => {
   corsHandler(req, res, async () => {
-    const { signature } = req.body;
+    const { signature, signerAddress } = req.body;
     const message = signInMessage;
-    const recoveredAddress = ethers.utils.verifyMessage(message, signature).toLowerCase();
+    const recoveredAddress = ethers.utils.verifyMessage(`${message}${signerAddress}`, signature).toLowerCase();
     const customToken = await admin.auth().createCustomToken(recoveredAddress);
     res.send(customToken);
   });

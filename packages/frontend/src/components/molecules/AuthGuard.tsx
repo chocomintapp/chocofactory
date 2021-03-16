@@ -7,6 +7,6 @@ export interface AuthGuardProps {
 }
 
 export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
-  const { signerAddress } = useAuth();
-  return <>{signerAddress ? children : <WalletConnect />}</>;
+  const { signerAddressState } = useAuth();
+  return <>{signerAddressState ? children : <WalletConnect />}</>;
 };
