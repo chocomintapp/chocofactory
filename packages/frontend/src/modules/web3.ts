@@ -54,3 +54,15 @@ export const getWeb3 = async (provider: any) => {
 export const getChainIdFromNetworkName = (networkName: NetworkName) => {
   return network[networkName].chainId;
 };
+
+export const getNetworkNameFromChainId = (chainId: string) => {
+  const result = Object.keys(network).filter((netWorkName) => {
+    return network[netWorkName as NetworkName].chainId == chainId;
+  });
+  console;
+  if (result.length > 0) {
+    return result[0];
+  } else {
+    return "invalid";
+  }
+};

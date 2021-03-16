@@ -20,7 +20,7 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({ label, value, setSta
       <textarea
         onChange={handleChange}
         value={value}
-        className="mt-1 block w-full focus:ring-green-400 focus:border-green-400 text-xs border-gray-300 rounded-xl shadow-sm"
+        className="mt-1 block w-full focus:ring-green-400 focus:border-green-400 text-xs border-gray-300 rounded-xl"
       />
     </div>
   );

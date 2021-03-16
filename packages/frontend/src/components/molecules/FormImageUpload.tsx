@@ -66,7 +66,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
     <div>
       <Label text={label} />
       <div id="dropContainer h-full">
-        <div className="mt-1 h-full flex justify-center p-8 border border-gray-300 border-dashed rounded-xl shadow-sm">
+        <div className="mt-1 h-full flex justify-center p-8 border border-gray-300 border-dashed rounded-xl">
           <div className={"cursor-pointer"} onClick={clickInputFile}>
             <div
               className={`h-32 w-32
@@ -75,7 +75,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
               {!imagePreview ? (
                 <ImageUploadIcon />
               ) : (
-                <img className="rounded-xl shadow-md object-cover mx-auto" src={imagePreview} />
+                <img className="rounded-xl object-cover mx-auto" src={imagePreview} />
               )}
             </div>
             <input onChange={handleChange} id="file" type="file" accept="image/*" className="sr-only" />

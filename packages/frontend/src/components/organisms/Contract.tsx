@@ -5,6 +5,7 @@ import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
 import { GridList } from "../molecules/GridList";
+import { NFTCard } from "../molecules/NFTCard";
 import { SpreadSheet } from "../molecules/SpreadSheet";
 
 export interface ContractProps {
@@ -17,10 +18,8 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
 
   return nftContract ? (
     <section>
-      <div>
-        <h3>{nftContract.nftContractAddress}</h3>
-        <p>{nftContract.name}</p>
-        <p>{nftContract.symbol}</p>
+      <div className="mb-8">
+        <NFTCard nftContract={nftContract} />
       </div>
       <Link to={`/contracts/${nftContract.nftContractAddress}/create-nft`}>
         <Button type="primary">Add</Button>

@@ -11,7 +11,7 @@ export const CreateNFTContractTemplate: React.FC = () => {
   return (
     <Main>
       <Header />
-      <Container>
+      <Container type="wide">
         <AuthGuard>
           <CreateNFTContractForm />
         </AuthGuard>

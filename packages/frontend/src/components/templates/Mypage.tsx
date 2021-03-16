@@ -17,7 +17,7 @@ export const MypageTemplate: React.FC<MypageTemplateProps> = ({ nftContractList 
   return (
     <Main>
       <Header />
-      <Container>
+      <Container type="wide">
         <AuthGuard>
           <Mypage nftContractList={nftContractList} />
         </AuthGuard>

@@ -15,7 +15,7 @@ export const CreateNFTTemplate: React.FC<CreateNFTTemplateProps> = ({ nftContrac
   return (
     <Main>
       <Header />
-      <Container>
+      <Container type="wide">
         <AuthGuard>
           <CreateNFTForm nftContractAddress={nftContractAddress} />
         </AuthGuard>

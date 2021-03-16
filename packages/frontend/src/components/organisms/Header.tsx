@@ -19,19 +19,19 @@ export const Header: React.FC = () => {
 
   return (
     <header>
-      <div className="relative h-14">
+      <div className="relative h-20">
         <Link to="/">
-          <div className="px-4 py-4 absolute left-0 font-bold">
+          <div className="px-4 py-8 absolute left-0 font-bold">
             {name} {mainIcon}
           </div>
         </Link>
-        <div className="px-4 py-2 absolute right-0">
+        <div className="px-4 py-6 absolute right-0">
           {!signerAddressState ? (
             <Button onClick={connectWallet} type="tertiary">
               Connect<span className="ml-2">🔌</span>
             </Button>
           ) : (
-            <Link to={`/creator/${signerAddressState}`}>
+            <Link to="/mypage">
               <Button type="tertiary">
                 {shortenAddress(signerAddressState)}
                 <span className="ml-2">{personIcon}</span>

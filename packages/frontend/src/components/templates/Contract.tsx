@@ -17,7 +17,7 @@ export const ContractTemplate: React.FC<ContractTemplateProps> = ({ nftContract,
   return (
     <Main>
       <Header />
-      <Container>
+      <Container type="wide">
         <AuthGuard>
           <Contract nftContract={nftContract} metadataList={metadataList} />
         </AuthGuard>
