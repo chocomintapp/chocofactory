@@ -18,7 +18,7 @@ export const metadata = functions.region("asia-northeast1").https.onRequest(asyn
   });
 });
 
-export const createContract = functions.region("asia-northeast1").https.onCall(async (data, context) => {
+export const createNFTContract = functions.region("asia-northeast1").https.onCall(async (data, context) => {
   const { moldAddress, name, symbol, signature, signerAddress } = data;
   const ownerAddress = signerAddress.toLocaleLowerCase();
   const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, ownerAddress]);

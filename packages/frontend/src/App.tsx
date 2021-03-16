@@ -24,7 +24,7 @@ const App: React.FC = () => {
             <Route path="/contracts/:nftContractAddress" exact>
               <Contract />
             </Route>
-            <Route path="/contracts/:nftContractAddress/create" exact>
+            <Route path="/contracts/:nftContractAddress/create-nft" exact>
               <CreateNFT />
             </Route>
             <Route path="/mypage" exact>

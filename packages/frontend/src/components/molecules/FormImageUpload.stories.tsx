@@ -3,9 +3,7 @@ import { FormImageUpload, FormImageUploadProps } from "./FormImageUpload";
 
 const args: FormImageUploadProps = {
   label: "label",
-  status: "normal",
-  imagePreview: "/sample.png",
-  onChange: () => {
+  setState: () => {
     console.log("onchange");
   },
 };

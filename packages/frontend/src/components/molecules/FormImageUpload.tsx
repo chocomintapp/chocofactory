@@ -1,17 +1,58 @@
 import React from "react";
+import { ipfs, ipfsHttpsBaseUrl } from "../../modules/ipfs";
 import { ImageUploadIcon } from "../atoms/ImageUploadIcon";
 import { Label } from "../atoms/Label";
 
 export interface FormImageUploadProps {
   label: string;
-  status: "normal" | "isImageLoading" | "isWaitingTransactionConfirmation";
-  imagePreview: string;
-  onChange: () => void;
+  setState: (input: any) => void;
 }
 
-export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, status, imagePreview, onChange }) => {
+export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, setState }) => {
+  const [imagePreview, setImagePreview] = React.useState("");
+  const [isImageLoading, setIsImageLoading] = React.useState(false);
+
   const clickInputFile = () => {
     document.getElementById("file")!.click();
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      processImage(event.target.files[0]);
+    }
+  };
+
+  const readAsArrayBufferAsync = (file: File) => {
+    return new Promise((resolve) => {
+      const fr = new FileReader();
+      fr.onload = () => {
+        resolve(fr.result);
+      };
+      fr.readAsArrayBuffer(file);
+    });
+  };
+
+  const uploadFileToIpfs = async (file: File) => {
+    const { name } = file;
+    const type = name.substring(name.lastIndexOf(".") + 1);
+    const fileBuffer = await readAsArrayBufferAsync(file);
+    const fileUint8Array = new Uint8Array(fileBuffer as Buffer);
+    const path = `nft.${type}`;
+    const { cid } = await ipfs.add({
+      path: `images/${path}`,
+      content: fileUint8Array,
+    });
+    return `${ipfsHttpsBaseUrl}${cid}/${path}`;
+  };
+
+  const processImage = async (file: File) => {
+    setImagePreview("");
+    setIsImageLoading(true);
+    const preview = URL.createObjectURL(file);
+    const url = await uploadFileToIpfs(file);
+    setImagePreview(preview);
+    setState(url);
+    setIsImageLoading(false);
   };
 
   return (
@@ -22,13 +63,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, status,
           <div className={"cursor-pointer"} onClick={clickInputFile}>
             <div
               className={`
-              ${
-                status == "isImageLoading"
-                  ? "animate-bounce"
-                  : status == "isWaitingTransactionConfirmation"
-                  ? "animate-bounce opacity-50"
-                  : ""
-              }`}
+              ${isImageLoading ? "" : ""}`}
             >
               {!imagePreview ? (
                 <ImageUploadIcon />
@@ -36,7 +71,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, status,
                 <img className="rounded-xl shadow-md object-cover mx-auto" src={imagePreview} />
               )}
             </div>
-            <input onChange={onChange} id="file" type="file" accept="image/*" className="sr-only" />
+            <input onChange={handleChange} id="file" type="file" accept="image/*" className="sr-only" />
           </div>
         </div>
       </div>

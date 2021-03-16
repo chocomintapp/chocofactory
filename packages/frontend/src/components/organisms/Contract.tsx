@@ -19,7 +19,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         <p>{nftContract.name}</p>
         <p>{nftContract.symbol}</p>
       </div>
-      <Link to={`contracts/${nftContract.nftContractAddress}/create-nft`}>
+      <Link to={`/contracts/${nftContract.nftContractAddress}/create-nft`}>
         <Button type="primary">Add</Button>
       </Link>
       <div>
