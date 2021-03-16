@@ -4,7 +4,7 @@ import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 
 import { signInMessage } from "../../common/config.json";
-import { chocomoldContract, chocofactoryContract, chainId, contractCollectionName } from "./modules/web3";
+import { chocomoldContract, chocofactoryContract, chainId, contractCollectionName, NFTContract } from "./modules/web3";
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -13,18 +13,18 @@ const corsHandler = cors({ origin: true });
 
 export const metadata = functions.region("asia-northeast1").https.onRequest(async (req, res) => {
   corsHandler(req, res, async () => {
-    const [, contractAddress, tokenId] = req.originalUrl.split("/");
-    return res.send({ contractAddress, tokenId });
+    const [, nftContractAddress, tokenId] = req.originalUrl.split("/");
+    return res.send({ nftContractAddress, tokenId });
   });
 });
 
-export const createNFTAddress = functions.region("asia-northeast1").https.onCall(async (data, context) => {
-  const { implementation, name, symbol, signature, signerAddress } = data;
+export const createContract = functions.region("asia-northeast1").https.onCall(async (data, context) => {
+  const { moldAddress, name, symbol, signature, signerAddress } = data;
   const ownerAddress = signerAddress.toLocaleLowerCase();
   const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, ownerAddress]);
   const digest = ethers.utils.solidityKeccak256(
     ["uint256", "address", "address", "bytes"],
-    [chainId, chocofactoryContract.address, implementation, functionData]
+    [chainId, chocofactoryContract.address, moldAddress, functionData]
   );
   const digestBinary = ethers.utils.arrayify(digest);
   const messageDigest = ethers.utils.hashMessage(digestBinary);
@@ -37,14 +37,17 @@ export const createNFTAddress = functions.region("asia-northeast1").https.onCall
     chocomoldContract.address,
     functionData
   );
-  const nftAddress = deployedMold.toLocaleLowerCase();
-  const moldAddress = implementation.toLocaleLowerCase();
-
-  await firestore
-    .collection(contractCollectionName)
-    .doc(nftAddress)
-    .set({ name, symbol, ownerAddress, moldAddress, signature });
-  return { name, symbol, ownerAddress, moldAddress, signature, nftAddress };
+  const nftContractAddress = deployedMold.toLocaleLowerCase();
+  const nftContract: NFTContract = {
+    name,
+    symbol,
+    ownerAddress,
+    moldAddress,
+    signature,
+    nftContractAddress,
+  };
+  await firestore.collection(contractCollectionName).doc(nftContractAddress).set(nftContract);
+  return { name, symbol, ownerAddress, moldAddress, signature, nftContractAddress };
 });
 
 export const connectWallet = functions.region("asia-northeast1").https.onRequest(async (req, res) => {

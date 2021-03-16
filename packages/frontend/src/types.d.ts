@@ -1,11 +1,14 @@
 export interface NFTContract {
   name: string;
   symbol: string;
-  contractAddress: string;
+  nftContractAddress: string;
+  moldAddress: string;
+  ownerAddress: string;
+  signature?: string;
 }
 
 export interface Metadata {
-  contractAddress: string;
+  nftContractAddress: string;
   token_id: string;
   name: string;
   description: string;

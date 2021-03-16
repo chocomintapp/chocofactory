@@ -5,7 +5,7 @@ import { RecoilRoot } from "recoil";
 
 import Contract from "./pages/contracts/_contractAddress";
 import CreateNFT from "./pages/contracts/_contractAddress/create-nft";
-import CreateContract from "./pages/create-contract";
+import CreateNFTContract from "./pages/create-nft-contract";
 import Home from "./pages/index";
 import Mypage from "./pages/mypage";
 
@@ -18,8 +18,8 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/create-contract" exact>
-              <CreateContract />
+            <Route path="/create-nft-contract" exact>
+              <CreateNFTContract />
             </Route>
             <Route path="/contracts/:contractAddress" exact>
               <Contract />

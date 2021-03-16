@@ -1,16 +1,17 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { CreateContractForm } from "./CreateContractForm";
+import { CreateNFTContractTemplate } from "./CreateNFTContract";
+
 export default {
-  title: "Organisms/CreateContractForm",
-  component: CreateContractForm,
+  title: "Templates/CreateNFTContractTemplate",
+  component: CreateNFTContractTemplate,
 };
 
 export const Control: React.FC = () => (
   <RecoilRoot>
     <MemoryRouter>
-      <CreateContractForm />
+      <CreateNFTContractTemplate />
     </MemoryRouter>
   </RecoilRoot>
 );

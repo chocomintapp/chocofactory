@@ -3,17 +3,17 @@ import React from "react";
 import { Container } from "../atoms/Container";
 import { Main } from "../atoms/Main";
 import { AuthGuard } from "../molecules/AuthGuard";
-import { CreateContractForm } from "../organisms/CreateContractForm";
+import { CreateNFTContractForm } from "../organisms/CreateNFTContractForm";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 
-export const CreateContractTemplate: React.FC = () => {
+export const CreateNFTContractTemplate: React.FC = () => {
   return (
     <Main>
       <Header />
       <Container>
         <AuthGuard>
-          <CreateContractForm />
+          <CreateNFTContractForm />
         </AuthGuard>
       </Container>
       <Footer />

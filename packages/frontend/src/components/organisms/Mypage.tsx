@@ -11,7 +11,7 @@ export interface MypageProps {
 export const Mypage: React.FC<MypageProps> = ({ nftContractList }) => {
   return (
     <section>
-      <Link to="/create-contract">
+      <Link to="/create-nft-contract">
         <Button type="primary">Create Contract</Button>{" "}
       </Link>
       <ul>

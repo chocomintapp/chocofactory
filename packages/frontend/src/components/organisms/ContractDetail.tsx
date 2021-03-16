@@ -15,11 +15,11 @@ export const ContractDetail: React.FC<ContractDetailProps> = ({ nftContract, met
   return (
     <section>
       <div>
-        <h3>{nftContract.contractAddress}</h3>
+        <h3>{nftContract.nftContractAddress}</h3>
         <p>{nftContract.name}</p>
         <p>{nftContract.symbol}</p>
       </div>
-      <Link to="./create-nft">
+      <Link to={`contracts/${nftContract.nftContractAddress}/create-nft`}>
         <Button type="primary">Add</Button>
       </Link>
       <div>

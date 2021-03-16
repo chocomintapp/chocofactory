@@ -4,6 +4,8 @@ import { abi as chocomoldAbi } from "../../../contracts/artifacts/contracts/Choc
 import { NetworkName } from "../../../contracts/helpers/types";
 import network from "../../../contracts/network.json";
 import { Chocomold, Chocofactory } from "../../../contracts/typechain";
+export { NFTContract } from "../../../frontend/src/types";
+
 export const networkName = process.env.FUNCTION_APP_NETWORK_NAME
   ? (process.env.FUNCTION_APP_NETWORK_NAME as NetworkName)
   : "localhost";

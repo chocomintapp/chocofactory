@@ -9,7 +9,7 @@ import { Form } from "../atoms/Form";
 import { FormInput } from "../molecules/FormInput";
 import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
-export const CreateContractForm: React.FC = () => {
+export const CreateNFTContractForm: React.FC = () => {
   const [chainId, setChainId] = React.useState("");
   const [name, setName] = React.useState("");
   const [symbol, setSymbol] = React.useState("");
@@ -26,15 +26,15 @@ export const CreateContractForm: React.FC = () => {
       [chainId, chocofactoryContract.address, chocomoldContract.address, functionData]
     );
     const signature = await web3.eth.personal.sign(digest, signerAddress, "");
-    const result = await functions.httpsCallable("createNFTAddress")({
-      implementation: chocomoldContract.address,
+    const result = await functions.httpsCallable("createContract")({
+      moldAddress: chocomoldContract.address.toLowerCase(),
       signature,
       name,
       symbol,
       signerAddress,
     });
-    const { nftAddress } = result.data;
-    openModal("🎉", `Your NFT address is ${nftAddress}!`, "Check", `/contracts/${nftAddress}`, false);
+    const { nftContractAddress } = result.data;
+    openModal("🎉", `Your NFT address is ${nftContractAddress}!`, "Check", `/contracts/${nftContractAddress}`, false);
   };
 
   return (
