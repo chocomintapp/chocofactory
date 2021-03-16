@@ -37,9 +37,6 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
     {
       field: "animationUrl",
     },
-    {
-      field: "ipfs_hash",
-    },
   ];
 
   const defaultColDef = {
@@ -54,7 +51,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
   };
 
   return (
-    <div className="ag-theme-alpine w-full" style={{ height: 400 }}>
+    <div className="ag-theme-alpine" style={{ height: 400 }}>
       <AgGridReact
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}

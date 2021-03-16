@@ -41,7 +41,7 @@ export const CreateNFTContractForm: React.FC = () => {
       signerAddress,
     });
     const { nftContractAddress } = result.data;
-    openModal("🎉", `Your NFT address is ${nftContractAddress}!`, "Check", `/contracts/${nftContractAddress}`, false);
+    openModal("🎉", `Your NFT contract is created!`, "Check", `/contracts/${nftContractAddress}`, false);
   };
 
   return (

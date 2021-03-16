@@ -14,10 +14,13 @@ export const GridList: React.FC<GridListProps> = ({ metadataList }) => {
         {metadataList.map((metadata, i) => {
           return (
             <Link key={i} to={`/contracts/${metadata.nftContractAddress}/${metadata.tokenId}`}>
-              <li className="rounded-xl overflow-hidden">
+              <li className="rounded-xl border overflow-hidden relative">
+                <div className="absolute right-0 p-1 px-2 m-1 text-xs bg-gray-900 rounded-full text-white opacity-80">
+                  #{metadata.tokenId}
+                </div>
                 <img className="w-full" src={metadata.image} />
                 <div className="p-2">
-                  <div className="text-gray-700 text-sm font-bold mb-1">{metadata.name}</div>
+                  <p className="text-gray-700 text-sm font-bold mb-1">{metadata.name}</p>
                   <p className="text-gray-500 text-xs">{metadata.description}</p>
                 </div>
               </li>

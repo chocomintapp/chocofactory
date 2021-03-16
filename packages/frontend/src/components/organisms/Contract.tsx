@@ -21,17 +21,27 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
       <div className="mb-8">
         <NFTCard nftContract={nftContract} />
       </div>
-      <Link to={`/contracts/${nftContract.nftContractAddress}/create-nft`}>
-        <Button type="primary">Add</Button>
-      </Link>
-      <Button
-        onClick={() => {
-          setIsBulkEditMode(!isBulkEditMode);
-        }}
-        type="primary"
-      >
-        Bulk Update
-      </Button>
+      <div className="flex justify-between mb-8">
+        <p className="text-gray-700 text-2xl font-medium">NFTs</p>
+        <div className="flex">
+          <div className="mr-2">
+            <Button
+              onClick={() => {
+                setIsBulkEditMode(!isBulkEditMode);
+              }}
+              type="tertiary"
+            >
+              Sheet View
+            </Button>
+          </div>
+          <div>
+            <Link to={`/contracts/${nftContract.nftContractAddress}/create-nft`}>
+              <Button type="primary">NEW +</Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div>
         {isBulkEditMode ? <SpreadSheet metadataList={metadataList} /> : <GridList metadataList={metadataList} />}
       </div>

@@ -22,7 +22,7 @@ export const FormInput: React.FC<FormInputProps> = ({ type, value, label, setSta
         onChange={handleChange}
         value={value}
         type={type}
-        className="mt-1 block w-full focus:ring-green-400 focus:border-green-400 text-xs border-gray-300 rounded-xl"
+        className="mt-1 p-2 block w-full focus:ring-green-400 focus:border-green-400 text-xs border-gray-300 rounded-xl"
       />
     </div>
   );

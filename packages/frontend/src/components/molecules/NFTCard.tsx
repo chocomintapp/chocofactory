@@ -14,7 +14,7 @@ export const NFTCard: React.FC<NFTCardProps> = ({ nftContract }) => {
       </p>
       <p className="text-xl font-medium text-gray-700">{nftContract.name}</p>
       <p className="text-xs text-gray-400 mb-4">{nftContract.symbol}</p>
-      <p className="text-xs font-medium text-gray-400">{nftContract.nftContractAddress}</p>
+      <p className="text-xs text-gray-400">{nftContract.nftContractAddress}</p>
     </div>
   );
 };
