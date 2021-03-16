@@ -9,7 +9,7 @@ import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 
 export interface ContractTemplateProps {
-  nftContract: NFTContract;
+  nftContract?: NFTContract;
 }
 
 export const ContractTemplate: React.FC<ContractTemplateProps> = ({ nftContract }) => {
@@ -17,9 +17,7 @@ export const ContractTemplate: React.FC<ContractTemplateProps> = ({ nftContract 
     <Main>
       <Header />
       <Container>
-        <AuthGuard>
-          <Contract nftContract={nftContract} metadataList={[]} />
-        </AuthGuard>
+        <AuthGuard>{nftContract && <Contract nftContract={nftContract} metadataList={[]} />}</AuthGuard>
       </Container>
       <Footer />
     </Main>
