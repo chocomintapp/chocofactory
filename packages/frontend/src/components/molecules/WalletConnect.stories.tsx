@@ -6,8 +6,8 @@ export default {
   component: WalletConnect,
 };
 
-export const Control: React.FC = () => (
+export const Control: React.FC = (props) => (
   <RecoilRoot>
-    <WalletConnect />
+    <WalletConnect {...props}>{props.children}</WalletConnect>
   </RecoilRoot>
 );

@@ -7,8 +7,8 @@ export default {
   component: CreateNFTForm,
 };
 
-export const Control: React.FC = () => (
+export const Control: React.FC = (props) => (
   <MemoryRouter>
-    <CreateNFTForm />
+    <CreateNFTForm {...props}>{props.children}</CreateNFTForm>
   </MemoryRouter>
 );

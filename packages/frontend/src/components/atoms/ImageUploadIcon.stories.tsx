@@ -6,4 +6,4 @@ export default {
   component: ImageUploadIcon,
 };
 
-export const Control: React.FC = () => <ImageUploadIcon />;
+export const Control: React.FC = (props) => <ImageUploadIcon {...props}>{props.children}</ImageUploadIcon>;

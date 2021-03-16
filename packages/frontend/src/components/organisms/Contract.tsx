@@ -6,12 +6,12 @@ import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { GridList } from "../molecules/GridList";
 
-export interface ContractDetailProps {
+export interface ContractProps {
   nftContract: NFTContract;
   metadataList: Metadata[];
 }
 
-export const ContractDetail: React.FC<ContractDetailProps> = ({ nftContract, metadataList }) => {
+export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList }) => {
   return (
     <section>
       <div>

@@ -8,10 +8,10 @@ export default {
   component: CreateNFTTemplate,
 };
 
-export const Control: React.FC = () => (
+export const Control: React.FC = (props) => (
   <RecoilRoot>
     <MemoryRouter>
-      <CreateNFTTemplate />
+      <CreateNFTTemplate {...props}>{props.children}</CreateNFTTemplate>
     </MemoryRouter>
   </RecoilRoot>
 );

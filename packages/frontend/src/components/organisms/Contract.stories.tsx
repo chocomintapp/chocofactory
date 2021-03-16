@@ -2,23 +2,23 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { nftContractList, metadataList } from "../../__fixtures__/mock.stories.json";
-import { ContractDetail, ContractDetailProps } from "./ContractDetail";
+import { Contract, ContractProps } from "./Contract";
 
-const args: ContractDetailProps = {
+const args: ContractProps = {
   nftContract: nftContractList[0],
   metadataList,
 };
 
 export default {
-  title: "Organisms/ContractDetail",
-  component: ContractDetail,
+  title: "Organisms/Contract",
+  component: Contract,
   args,
 };
 
-export const Control: React.FC<ContractDetailProps> = (props) => (
+export const Control: React.FC<ContractProps> = (props) => (
   <RecoilRoot>
     <MemoryRouter>
-      <ContractDetail {...props}>{props.children}</ContractDetail>
+      <Contract {...props}>{props.children}</Contract>
     </MemoryRouter>
   </RecoilRoot>
 );

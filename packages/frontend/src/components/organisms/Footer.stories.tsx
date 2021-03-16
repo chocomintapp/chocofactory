@@ -7,8 +7,8 @@ export default {
   component: Footer,
 };
 
-export const Control: React.FC = () => (
+export const Control: React.FC = (props) => (
   <MemoryRouter>
-    <Footer />
+    <Footer {...props}>{props.children}</Footer>
   </MemoryRouter>
 );

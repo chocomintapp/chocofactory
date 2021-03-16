@@ -10,5 +10,5 @@ export default {
   component: Label,
   args,
 };
-Label;
+
 export const Control: React.FC<LabelProps> = (props) => <Label {...props}>{props.children}</Label>;

@@ -8,10 +8,10 @@ export default {
   component: Header,
 };
 
-export const Control: React.FC = () => (
+export const Control: React.FC = (props) => (
   <RecoilRoot>
     <MemoryRouter>
-      <Header />
+      <Header {...props}>{props.children}</Header>
     </MemoryRouter>
   </RecoilRoot>
 );

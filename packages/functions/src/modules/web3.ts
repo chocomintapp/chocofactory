@@ -4,6 +4,7 @@ import { abi as chocomoldAbi } from "../../../contracts/artifacts/contracts/Choc
 import { NetworkName } from "../../../contracts/helpers/types";
 import network from "../../../contracts/network.json";
 import { Chocomold, Chocofactory } from "../../../contracts/typechain";
+
 export { NFTContract } from "../../../frontend/src/types";
 
 export const networkName = process.env.FUNCTION_APP_NETWORK_NAME
@@ -13,4 +14,4 @@ export const { rpc, chainId, explore, chocofactory, chocomold } = network[networ
 export const provider = new ethers.providers.JsonRpcProvider(rpc);
 export const chocomoldContract = new ethers.Contract(chocomold, chocomoldAbi, provider) as Chocomold;
 export const chocofactoryContract = new ethers.Contract(chocofactory, chocofactoryAbi, provider) as Chocofactory;
-export const contractCollectionName = `contract_${networkName}`;
+export const contractCollectionName = `nftContract_${networkName}`;

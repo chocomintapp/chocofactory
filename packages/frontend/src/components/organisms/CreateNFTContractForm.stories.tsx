@@ -7,10 +7,10 @@ export default {
   component: CreateNFTContractForm,
 };
 
-export const Control: React.FC = () => (
+export const Control: React.FC = (props) => (
   <RecoilRoot>
     <MemoryRouter>
-      <CreateNFTContractForm />
+      <CreateNFTContractForm {...props}>{props.children}</CreateNFTContractForm>
     </MemoryRouter>
   </RecoilRoot>
 );

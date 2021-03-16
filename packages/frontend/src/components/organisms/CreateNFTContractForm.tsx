@@ -19,7 +19,6 @@ export const CreateNFTContractForm: React.FC = () => {
 
   const createNFTAddress = async () => {
     const { web3, signerAddress } = await connectWallet();
-    console.log(web3, signerAddress);
     const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, signerAddress]);
     const digest = ethers.utils.solidityKeccak256(
       ["uint256", "address", "address", "bytes"],

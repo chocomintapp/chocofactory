@@ -7,8 +7,8 @@ export default {
   component: Hero,
 };
 
-export const Control: React.FC = () => (
+export const Control: React.FC = (props) => (
   <MemoryRouter>
-    <Hero />
+    <Hero {...props}>{props.children}</Hero>
   </MemoryRouter>
 );

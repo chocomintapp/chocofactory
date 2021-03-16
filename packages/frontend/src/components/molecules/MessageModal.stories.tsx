@@ -17,6 +17,6 @@ export default {
 
 export const Control: React.FC<MessageModalProps> = (props) => (
   <MemoryRouter>
-    <MessageModal {...props} />
+    <MessageModal {...props}>{props.children}</MessageModal>
   </MemoryRouter>
 );

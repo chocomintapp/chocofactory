@@ -1,1 +1,23 @@
-{"mainnet":{"chainId":"1","rpc":"https://mainnet.infura.io/v3/95f65ab099894076814e8526f52c9149","explore":"https://etherscan.io/tx/","chocofactory":"","chocomold":""},"rinkeby":{"chainId":"4","rpc":"https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149","explore":"https://rinkeby.etherscan.io/tx/","chocofactory":"","chocomold":""},"localhost":{"chainId":"31337","rpc":"http://localhost:8545","explore":"https://rinkeby.etherscan.io/tx/","chocofactory":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","chocomold":"0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"}}
+{
+  "mainnet": {
+    "chainId": "1",
+    "rpc": "https://mainnet.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "explore": "https://etherscan.io/tx/",
+    "chocofactory": "",
+    "chocomold": ""
+  },
+  "rinkeby": {
+    "chainId": "4",
+    "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "explore": "https://rinkeby.etherscan.io/tx/",
+    "chocofactory": "",
+    "chocomold": ""
+  },
+  "localhost": {
+    "chainId": "31337",
+    "rpc": "http://localhost:8545",
+    "explore": "https://rinkeby.etherscan.io/tx/",
+    "chocofactory": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "chocomold": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+  }
+}
