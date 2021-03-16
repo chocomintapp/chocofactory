@@ -17,6 +17,11 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
     string private name_;
     string private symbol_;
 
+    // this is intentionally set as constant value with hard coding
+    // because if you set this as initialize parameter, user needs to pay more gas cost
+    string public constant defaultBaseURI = "http://localhost:5001/chocofactory-prod/asia-northeast1/metadata/";
+    string public customBaseURI;
+
     function initialize(
         string memory _name,
         string memory _symbol,
@@ -62,9 +67,26 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         return symbol_;
     }
 
+    function _baseURI() internal view override returns (string memory) {
+        if (bytes(customBaseURI).length > 0) {
+            return customBaseURI;
+        } else {
+            return defaultBaseURI;
+        }
+    }
+
+    function setCustomBaseURI(string memory _customBaseURI) public onlyMaintainer {
+        customBaseURI = _customBaseURI;
+    }
+
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
         require(_exists(_tokenId), "token must exist");
-        return string(_addIpfsBaseUrlPrefix(_bytesToBase58(_addSha256FunctionCodePrefix(ipfsHashes[_tokenId]))));
+        bytes32 ipfsHash = ipfsHashes[_tokenId];
+        if (abi.encodePacked(ipfsHash).length > 0) {
+            return string(_addIpfsBaseUrlPrefix(_bytesToBase58(_addSha256FunctionCodePrefix(ipfsHashes[_tokenId]))));
+        } else {
+            return super.tokenURI(_tokenId);
+        }
     }
 
     function mint(

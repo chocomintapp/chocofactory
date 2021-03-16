@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import { solidity } from "ethereum-waffle";
 import { ethers } from "hardhat";
-import { MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS } from "../helpers/constants";
+import { MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS, MODAL_BASE_URL } from "../helpers/constants";
 import { main } from "../scripts/98_internalBatchMigration";
 
 chai.use(solidity);
@@ -21,6 +21,7 @@ describe("Chocofactory", function () {
   it("deploy normaly", async function () {
     expect(await moldContract.name()).to.equal(MODAL_NAME);
     expect(await moldContract.symbol()).to.equal(MODAL_SYMBOL);
+    expect(await moldContract.baseURI()).to.equal(MODAL_BASE_URL);
   });
 
   it("factory deploy", async function () {
@@ -30,6 +31,7 @@ describe("Chocofactory", function () {
     const deployedMoldContract = moldContract.attach(deployedMold);
     expect(await deployedMoldContract.name()).to.equal(MODAL_NAME);
     expect(await deployedMoldContract.symbol()).to.equal(MODAL_SYMBOL);
+    expect(await deployedMoldContract.baseURI()).to.equal(MODAL_BASE_URL);
   });
 
   it("factory deployWithSig", async function () {
@@ -45,5 +47,6 @@ describe("Chocofactory", function () {
     const deployedMoldContract = moldContract.attach(deployedMold);
     expect(await deployedMoldContract.name()).to.equal(MODAL_NAME);
     expect(await deployedMoldContract.symbol()).to.equal(MODAL_SYMBOL);
+    expect(await deployedMoldContract.baseURI()).to.equal(MODAL_BASE_URL);
   });
 });
