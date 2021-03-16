@@ -35,7 +35,7 @@ export const deployFactory = async () => {
 export const deployMold = async () => {
   const contractName = "Chocomold";
   const Contract = await ethers.getContractFactory(contractName);
-  const contract = await Contract.deploy(MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS, {
+  const contract = await Contract.deploy({
     gasPrice,
   });
   updateJson(contractName, contract.address);

@@ -22,6 +22,12 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
     string public constant defaultBaseURI = "http://localhost:5001/chocofactory-prod/asia-northeast1/metadata/";
     string public customBaseURI;
 
+    // this is template contract
+    // so original contract is created with fixed null value
+    constructor() ERC721("", "") {
+        initialize("", "", address(0x0));
+    }
+
     function initialize(
         string memory _name,
         string memory _symbol,
@@ -31,14 +37,6 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         symbol_ = _symbol;
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MAINTAINER_ROLE, _owner);
-    }
-
-    constructor(
-        string memory _name,
-        string memory _symbol,
-        address _owner
-    ) ERC721("", "") {
-        initialize(_name, _symbol, _owner);
     }
 
     function validateIsMaintainer(address _maintainer) internal view {
@@ -89,26 +87,70 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
         }
     }
 
+    function _setIpfsHash(uint256 _tokenId, bytes32 _ipfsHash) internal {
+        ipfsHashes[_tokenId] = _ipfsHash;
+    }
+
+    function setIpfsHash(uint256 _tokenId, bytes32 _ipfsHash) public onlyMaintainer {
+        _setIpfsHash(_tokenId, _ipfsHash);
+    }
+
+    function setIpfsHash(uint256[] memory _tokenIdList, bytes32[] memory _ipfsHashList) public onlyMaintainer {
+        for (uint256 i = 0; i < _tokenIdList.length; i++) {
+            _setIpfsHash(_tokenIdList[i], _ipfsHashList[i]);
+        }
+    }
+
+    function mint(address _to, uint256 _tokenId) public onlyMaintainer {
+        _mint(_to, _tokenId);
+    }
+
+    function _mint(
+        address _to,
+        uint256 _tokenId,
+        bytes32 _ipfsHash
+    ) internal {
+        _mint(_to, _tokenId);
+        _setIpfsHash(_tokenId, _ipfsHash);
+    }
+
+    function mint(address _to, uint256[] memory _tokenIdList) public onlyMaintainer {
+        for (uint256 i = 0; i < _tokenIdList.length; i++) {
+            _mint(_to, _tokenIdList[i]);
+        }
+    }
+
+    function mint(address[] memory _toList, uint256[] memory _tokenIdList) public onlyMaintainer {
+        for (uint256 i = 0; i < _tokenIdList.length; i++) {
+            _mint(_toList[i], _tokenIdList[i]);
+        }
+    }
+
     function mint(
         address _to,
         uint256 _tokenId,
         bytes32 _ipfsHash
     ) public onlyMaintainer {
-        _mint(_to, _tokenId);
-        ipfsHashes[_tokenId] = _ipfsHash;
+        _mint(_to, _tokenId, _ipfsHash);
     }
 
-    function bulkMint(
+    function mint(
+        address _to,
+        uint256[] memory _tokenIdList,
+        bytes32[] memory _ipfsHashList
+    ) public onlyMaintainer {
+        for (uint256 i = 0; i < _tokenIdList.length; i++) {
+            _mint(_to, _tokenIdList[i], _ipfsHashList[i]);
+        }
+    }
+
+    function mint(
         address[] memory _toList,
         uint256[] memory _tokenIdList,
         bytes32[] memory _ipfsHashList
     ) public onlyMaintainer {
-        require(
-            _toList.length == _tokenIdList.length && _toList.length == _ipfsHashList.length,
-            "input must have same length"
-        );
-        for (uint256 i = 0; i < _toList.length; i++) {
-            mint(_toList[i], _tokenIdList[i], _ipfsHashList[i]);
+        for (uint256 i = 0; i < _tokenIdList.length; i++) {
+            _mint(_toList[i], _tokenIdList[i], _ipfsHashList[i]);
         }
     }
 
