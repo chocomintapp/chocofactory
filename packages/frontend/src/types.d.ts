@@ -1,8 +1,10 @@
 export interface NFTContract {
+  chainId: string;
+  factoryAddress: string;
+  moldAddress: string;
+  nftContractAddress: string;
   name: string;
   symbol: string;
-  nftContractAddress: string;
-  moldAddress: string;
   ownerAddress: string;
   signature?: string;
 }

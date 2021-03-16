@@ -5,7 +5,8 @@ service cloud.firestore {
       function nftContract() {
         return get(/databases/$(database)/documents/v1/$(networkName)/nftContract/$(nftContractAddress)).data
       }
-      allow read: if nftContract().ownerAddress == request.auth.uid;
+      allow read: if resource.data.ownerAddress == request.auth.uid;
+      // allow read: if nftContract().ownerAddress == request.auth.uid;
       match /metadata/{tokenId} {
         allow read, write: if nftContract().ownerAddress == request.auth.uid;
       }

@@ -17,7 +17,7 @@
     "chainId": "31337",
     "rpc": "http://localhost:8545",
     "explore": "https://rinkeby.etherscan.io/tx/",
-    "chocofactory": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
-    "chocomold": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f"
+    "chocofactory": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "chocomold": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
   }
 }

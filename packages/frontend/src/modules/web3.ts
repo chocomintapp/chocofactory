@@ -50,3 +50,7 @@ export const getEthersSigner = async (provider: any) => {
 export const getWeb3 = async (provider: any) => {
   return new Web3(provider);
 };
+
+export const getChainIdFromNetworkName = (networkName: NetworkName) => {
+  return network[networkName].chainId;
+};

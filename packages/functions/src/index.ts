@@ -4,7 +4,7 @@ import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 
 import { signInMessage } from "../../common/config.json";
-import { chocomoldContract, chocofactoryContract, chainId, NFTContract, networkName } from "./modules/web3";
+import { chocomoldContract, chocofactoryContract, NFTContract, networkName } from "./modules/web3";
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -19,12 +19,12 @@ export const metadata = functions.region("asia-northeast1").https.onRequest(asyn
 });
 
 export const createNFTContract = functions.region("asia-northeast1").https.onCall(async (data, context) => {
-  const { moldAddress, name, symbol, signature, signerAddress } = data;
+  const { chainId, factoryAddress, moldAddress, name, symbol, signature, signerAddress } = data;
   const ownerAddress = signerAddress.toLocaleLowerCase();
   const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, ownerAddress]);
   const digest = ethers.utils.solidityKeccak256(
     ["uint256", "address", "address", "bytes"],
-    [chainId, chocofactoryContract.address, moldAddress, functionData]
+    [chainId, factoryAddress, moldAddress, functionData]
   );
   const digestBinary = ethers.utils.arrayify(digest);
   const messageDigest = ethers.utils.hashMessage(digestBinary);
@@ -32,22 +32,22 @@ export const createNFTContract = functions.region("asia-northeast1").https.onCal
   if (ownerAddress != recoveredAddress) {
     throw new functions.https.HttpsError("invalid-argument", "The function must be called with " + "valid signature.");
   }
-  const deployedMold = await chocofactoryContract.predictDeployResult(
-    ownerAddress,
-    chocomoldContract.address,
-    functionData
-  );
+  const deployedMold = await chocofactoryContract
+    .attach(factoryAddress)
+    .predictDeployResult(ownerAddress, chocomoldContract.address, functionData);
   const nftContractAddress = deployedMold.toLocaleLowerCase();
   const nftContract: NFTContract = {
+    chainId,
+    moldAddress,
+    factoryAddress,
+    nftContractAddress,
     name,
     symbol,
     ownerAddress,
-    moldAddress,
     signature,
-    nftContractAddress,
   };
   await firestore.collection("v1").doc(networkName).collection("nftContract").doc(nftContractAddress).set(nftContract);
-  return { name, symbol, ownerAddress, moldAddress, signature, nftContractAddress };
+  return { chainId, moldAddress, factoryAddress, nftContractAddress, name, symbol, ownerAddress, signature };
 });
 
 export const connectWallet = functions.region("asia-northeast1").https.onRequest(async (req, res) => {

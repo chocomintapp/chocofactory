@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import { solidity } from "ethereum-waffle";
 import { ethers } from "hardhat";
-import { MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS } from "../helpers/constants";
+import { MODAL_NAME, MODAL_SYMBOL } from "../helpers/constants";
 import { main } from "../scripts/98_internalBatchMigration";
 
 chai.use(solidity);

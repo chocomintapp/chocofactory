@@ -13,6 +13,7 @@ export const Mypage: React.FC = () => {
 
   React.useEffect(() => {
     if (signerAddressState) {
+      console.log(signerAddressState);
       firestore
         .collection("v1")
         .doc(networkName)
