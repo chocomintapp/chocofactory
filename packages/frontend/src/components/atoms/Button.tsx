@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({ type, disabled, onClick, childre
     <button
       onClick={onClick}
       disabled={disabled}
-      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-white text-sm font-medium bg-gray-700 py-2 px-4 rounded-xl"
+      className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none w-full text-gray-800 text-sm font-medium bg-gray-200 py-2 px-4 rounded-xl"
     >
       {children}
     </button>
