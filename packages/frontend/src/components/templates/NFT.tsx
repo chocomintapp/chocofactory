@@ -4,22 +4,23 @@ import { NFTContract, Metadata } from "../../types";
 import { Container } from "../atoms/Container";
 import { Main } from "../atoms/Main";
 import { AuthGuard } from "../molecules/AuthGuard";
-import { Contract } from "../organisms/Contract";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
+import { NFT } from "../organisms/NFT";
 
-export interface ContractTemplateProps {
+export interface NFTTemplateProps {
   nftContract?: NFTContract;
-  metadataList: Metadata[];
+  metadata?: Metadata;
+  tokenId: string;
 }
 
-export const ContractTemplate: React.FC<ContractTemplateProps> = ({ nftContract, metadataList }) => {
+export const NFTTemplate: React.FC<NFTTemplateProps> = ({ nftContract, metadata, tokenId }) => {
   return (
     <Main>
       <Header />
       <Container>
         <AuthGuard>
-          <Contract nftContract={nftContract} metadataList={metadataList} />
+          <NFT nftContract={nftContract} metadata={metadata} tokenId={tokenId} />
         </AuthGuard>
       </Container>
       <Footer />

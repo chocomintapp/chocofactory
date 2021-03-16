@@ -2,23 +2,24 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { nftContractList, metadataList } from "../../__fixtures__/mock.stories.json";
-import { ContractTemplate, ContractTemplateProps } from "./Contract";
+import { NFT, NFTProps } from "./NFT";
 
-const args: ContractTemplateProps = {
+const args: NFTProps = {
   nftContract: nftContractList[0],
-  metadataList,
+  metadata: metadataList[0],
+  tokenId: metadataList[0].token_id,
 };
 
 export default {
-  title: "Templates/ContractTemplate",
-  component: ContractTemplate,
+  title: "Organisms/NFT",
+  component: NFT,
   args,
 };
 
-export const Control: React.FC<ContractTemplateProps> = (props) => (
+export const Control: React.FC<NFTProps> = (props) => (
   <RecoilRoot>
     <MemoryRouter>
-      <ContractTemplate {...props}>{props.children}</ContractTemplate>
+      <NFT {...props}>{props.children}</NFT>
     </MemoryRouter>
   </RecoilRoot>
 );

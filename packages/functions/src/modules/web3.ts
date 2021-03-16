@@ -14,4 +14,3 @@ export const { rpc, chainId, explore, chocofactory, chocomold } = network[networ
 export const provider = new ethers.providers.JsonRpcProvider(rpc);
 export const chocomoldContract = new ethers.Contract(chocomold, chocomoldAbi, provider) as Chocomold;
 export const chocofactoryContract = new ethers.Contract(chocofactory, chocofactoryAbi, provider) as Chocofactory;
-export const contractCollectionName = `nftContract_${networkName}`;

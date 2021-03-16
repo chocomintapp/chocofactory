@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
 import Contract from "./pages/contracts/_contractAddress";
+import NFT from "./pages/contracts/_contractAddress/_tokenId";
 import CreateNFT from "./pages/contracts/_contractAddress/create-nft";
 import CreateNFTContract from "./pages/create-nft-contract";
 import Home from "./pages/index";
@@ -26,6 +27,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/contracts/:nftContractAddress/create-nft" exact>
               <CreateNFT />
+            </Route>
+            <Route path="/contracts/:nftContractAddress/:tokenId" exact>
+              <NFT />
             </Route>
             <Route path="/mypage" exact>
               <Mypage />

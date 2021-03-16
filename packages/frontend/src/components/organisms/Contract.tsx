@@ -7,12 +7,12 @@ import { Button } from "../atoms/Button";
 import { GridList } from "../molecules/GridList";
 
 export interface ContractProps {
-  nftContract: NFTContract;
+  nftContract?: NFTContract;
   metadataList: Metadata[];
 }
 
 export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList }) => {
-  return (
+  return nftContract ? (
     <section>
       <div>
         <h3>{nftContract.nftContractAddress}</h3>
@@ -26,5 +26,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         <GridList metadataList={metadataList} />
       </div>
     </section>
+  ) : (
+    <></>
   );
 };

@@ -2,7 +2,8 @@ import React from "react";
 
 import { MypageTemplate } from "../components/templates/Mypage";
 import { useAuth } from "../modules/auth";
-import { firestore, nftContractCollectionName } from "../modules/firebase";
+import { firestore } from "../modules/firebase";
+import { networkName } from "../modules/web3";
 import { NFTContract } from "../types";
 
 export const Mypage: React.FC = () => {
@@ -11,11 +12,11 @@ export const Mypage: React.FC = () => {
   const { signerAddressState } = useAuth();
 
   React.useEffect(() => {
-    console.log(nftContractCollectionName);
-    console.log(signerAddressState);
     if (signerAddressState) {
       firestore
-        .collection(nftContractCollectionName)
+        .collection("v1")
+        .doc(networkName)
+        .collection("nftContract")
         .where("ownerAddress", "==", signerAddressState)
         .get()
         .then((querySnapshot) => {

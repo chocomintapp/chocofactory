@@ -5,11 +5,12 @@ import { Label } from "../atoms/Label";
 
 export interface FormImageUploadProps {
   label: string;
+  preview: string;
   setState: (input: any) => void;
 }
 
-export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, setState }) => {
-  const [imagePreview, setImagePreview] = React.useState("");
+export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, preview, setState }) => {
+  const [imagePreview, setImagePreview] = React.useState(preview);
   const [isImageLoading, setIsImageLoading] = React.useState(false);
 
   const clickInputFile = () => {

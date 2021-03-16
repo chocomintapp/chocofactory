@@ -4,7 +4,7 @@ import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 
 import { signInMessage } from "../../common/config.json";
-import { chocomoldContract, chocofactoryContract, chainId, contractCollectionName, NFTContract } from "./modules/web3";
+import { chocomoldContract, chocofactoryContract, chainId, NFTContract, networkName } from "./modules/web3";
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -46,7 +46,7 @@ export const createNFTContract = functions.region("asia-northeast1").https.onCal
     signature,
     nftContractAddress,
   };
-  await firestore.collection(contractCollectionName).doc(nftContractAddress).set(nftContract);
+  await firestore.collection("v1").doc(networkName).collection("nftContract").doc(nftContractAddress).set(nftContract);
   return { name, symbol, ownerAddress, moldAddress, signature, nftContractAddress };
 });
 

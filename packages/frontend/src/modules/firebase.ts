@@ -28,6 +28,4 @@ if (process.env.NODE_ENV === "development") {
   auth.useEmulator(`http://localhost:${firebaseJson.emulators.auth.port}`);
 }
 
-export const nftContractCollectionName = `nftContract_${networkName}`;
-
 export { firestore, functions, auth };
