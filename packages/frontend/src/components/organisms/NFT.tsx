@@ -17,29 +17,36 @@ export interface NFTProps {
 }
 
 export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
-  const [token_id, setTokenId] = React.useState(tokenId);
-  const [name, setName] = React.useState(metadata ? metadata.name : "");
-  const [description, setDescription] = React.useState(metadata ? metadata.description : "");
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState("");
-  const [animation_url, setAnimationUrl] = React.useState("");
+  const [animationUrl, setAnimationUrl] = React.useState("");
 
   const { connectWallet } = useAuth();
   const { messageModal, openModal, closeModal } = useMessageModal();
 
+  React.useEffect(() => {
+    if (!metadata) return;
+    setName(metadata.name);
+    setDescription(metadata.description);
+    setImage(metadata.image);
+    setAnimationUrl(metadata.animationUrl);
+  }, [metadata]);
+
   const createNFT = async () => {
     if (!nftContract) return;
-    console.log(token_id);
+    console.log(tokenId);
     console.log(name);
     console.log(description);
     console.log(image);
-    console.log(animation_url);
+    console.log(animationUrl);
     const metadata: Metadata = {
       nftContractAddress: nftContract.nftContractAddress,
-      token_id,
+      tokenId,
       name,
       description,
       image,
-      animation_url,
+      animationUrl,
     };
     await firestore
       .collection("v1")
@@ -47,7 +54,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
       .collection("nftContract")
       .doc(nftContract.nftContractAddress)
       .collection("metadata")
-      .doc(token_id)
+      .doc(tokenId)
       .set(metadata);
     openModal("🎉", `Your NFT is created!`, "Check", `/contracts/${nftContract.nftContractAddress}`, false);
   };
@@ -55,11 +62,11 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
     <>
       <div className="mb-8">
         <Form>
-          <FormInput type="number" label="TokenID" setState={setTokenId} />
-          <FormInput type="text" label="Name" setState={setName} />
-          <FormTextArea label="Description" setState={setDescription} />
-          <FormImageUpload label="Image" preview={image} setState={setImage} />
-          <FormImageUpload label="Animation URL" preview={animation_url} setState={setAnimationUrl} />
+          <FormInput type="number" value={tokenId} label="TokenID" />
+          <FormInput type="text" value={name} label="Name" setState={setName} />
+          <FormTextArea label="Description" value={description} setState={setDescription} />
+          <FormImageUpload label="Image" value={image} setState={setImage} />
+          <FormImageUpload label="Animation URL" value={animationUrl} setState={setAnimationUrl} />
         </Form>
       </div>
       <Button onClick={createNFT} type="primary">

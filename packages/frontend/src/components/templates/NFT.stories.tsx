@@ -7,7 +7,7 @@ import { NFTTemplate, NFTTemplateProps } from "./NFT";
 const args: NFTTemplateProps = {
   nftContract: nftContractList[0],
   metadata: metadataList[0],
-  tokenId: metadataList[0].token_id,
+  tokenId: metadataList[0].tokenId,
 };
 
 export default {

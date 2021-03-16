@@ -9,9 +9,9 @@ export interface NFTContract {
 
 export interface Metadata {
   nftContractAddress: string;
-  token_id: string;
+  tokenId: string;
   name: string;
   description: string;
   image: string;
-  animation_url: string;
+  animationUrl: string;
 }

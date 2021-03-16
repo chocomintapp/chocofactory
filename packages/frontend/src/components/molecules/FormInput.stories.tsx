@@ -4,6 +4,7 @@ import { FormInput, FormInputProps } from "./FormInput";
 const args: FormInputProps = {
   label: "label",
   type: "text",
+  value: "value",
   setState: () => {
     console.log("onchange");
   },

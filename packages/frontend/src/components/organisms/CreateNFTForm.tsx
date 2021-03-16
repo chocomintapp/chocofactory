@@ -10,17 +10,17 @@ export interface CreateNFTFormProps {
 }
 
 export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress }) => {
-  const [token_id, setTokenId] = React.useState("");
+  const [tokenId, setTokenId] = React.useState("");
   const history = useHistory();
 
   const createNFT = async () => {
-    history.push(`/contracts/${nftContractAddress}/${token_id}`);
+    history.push(`/contracts/${nftContractAddress}/${tokenId}`);
   };
   return (
     <>
       <div className="mb-8">
         <Form>
-          <FormInput type="number" label="TokenID" setState={setTokenId} />
+          <FormInput type="number" value={tokenId} label="TokenID" setState={setTokenId} />
         </Form>
       </div>
       <Button onClick={createNFT} type="primary">

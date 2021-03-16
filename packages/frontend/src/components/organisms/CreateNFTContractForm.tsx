@@ -40,9 +40,9 @@ export const CreateNFTContractForm: React.FC = () => {
     <>
       <div className="mb-8">
         <Form>
-          <FormInput type="text" label="ChainId" setState={setChainId} />
-          <FormInput type="text" label="Name" setState={setName} />
-          <FormInput type="text" label="Symbol" setState={setSymbol} />
+          <FormInput type="text" value={chainId} label="ChainId" setState={setChainId} />
+          <FormInput type="text" value={name} label="Name" setState={setName} />
+          <FormInput type="text" value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
       </div>
       <Button onClick={createNFTContract} type="primary">

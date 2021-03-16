@@ -7,7 +7,7 @@ import { NFT, NFTProps } from "./NFT";
 const args: NFTProps = {
   nftContract: nftContractList[0],
   metadata: metadataList[0],
-  tokenId: metadataList[0].token_id,
+  tokenId: metadataList[0].tokenId,
 };
 
 export default {

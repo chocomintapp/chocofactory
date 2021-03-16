@@ -13,7 +13,7 @@ export const GridList: React.FC<GridListProps> = ({ metadataList }) => {
       <ul className="grid grid-cols-2 md:grid-cols-5 gap-2">
         {metadataList.map((metadata, i) => {
           return (
-            <Link key={i} to={`/${metadataList}/${metadata.token_id}`}>
+            <Link key={i} to={`/contracts/${metadata.nftContractAddress}/${metadata.tokenId}`}>
               <li className="rounded-xl overflow-hidden shadow-md">
                 <img className="w-full" src={metadata.image} />
                 <div className="p-2">

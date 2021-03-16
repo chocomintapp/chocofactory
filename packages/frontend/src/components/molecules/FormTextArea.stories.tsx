@@ -3,7 +3,7 @@ import { FormTextArea, FormTextAreaProps } from "./FormTextArea";
 
 const args: FormTextAreaProps = {
   label: "label",
-
+  value: "value",
   setState: () => {
     console.log("onchange");
   },
