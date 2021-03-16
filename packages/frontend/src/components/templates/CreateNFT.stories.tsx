@@ -1,17 +1,17 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { CreateTokenTemplate } from "./CreateToken";
+import { CreateNFTTemplate } from "./CreateNFT";
 
 export default {
-  title: "Templates/CreateTokenTemplate",
-  component: CreateTokenTemplate,
+  title: "Templates/CreateNFTTemplate",
+  component: CreateNFTTemplate,
 };
 
 export const Control: React.FC = () => (
   <RecoilRoot>
     <MemoryRouter>
-      <CreateTokenTemplate />
+      <CreateNFTTemplate />
     </MemoryRouter>
   </RecoilRoot>
 );

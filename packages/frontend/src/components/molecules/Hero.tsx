@@ -10,8 +10,8 @@ export const Hero: React.FC = () => {
           <img className="max-w-96 max-h-80 mt-6 mb-3" src="/hero.png" />
           <div className="mx-auto py-4">
             <div className="flex items-center justify-center sm:px-1 space-x-4 mb-2">
-              <Link to="/dashboard" className="w-32">
-                <Button type="primary">Dashboard</Button>
+              <Link to="/mypage" className="w-32">
+                <Button type="primary">Mypage</Button>
               </Link>
               <a href="https://docs.chocomint.app" className="w-32">
                 <Button type="tertiary">Docs</Button>

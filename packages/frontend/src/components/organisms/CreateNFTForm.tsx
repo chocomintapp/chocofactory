@@ -5,7 +5,7 @@ import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
 
-export const CreateTokenForm: React.FC = () => {
+export const CreateNFTForm: React.FC = () => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
 

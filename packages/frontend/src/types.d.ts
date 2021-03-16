@@ -1,3 +1,9 @@
+export interface NFTContract {
+  name: string;
+  symbol: string;
+  contractAddress: string;
+}
+
 export interface Metadata {
   contractAddress: string;
   token_id: string;

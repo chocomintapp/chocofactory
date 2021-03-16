@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { RecoilRoot } from "recoil";
 
-import Contract from "./pages/contract";
-import Create from "./pages/create";
-import Dashboard from "./pages/dashboard";
+import Contract from "./pages/contracts/_contractAddress";
+import CreateNFT from "./pages/contracts/_contractAddress/create-nft";
+import CreateContract from "./pages/create-contract";
 import Home from "./pages/index";
+import Mypage from "./pages/mypage";
 
 const App: React.FC = () => {
   return (
@@ -17,14 +18,17 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/create" exact>
-              <Create />
+            <Route path="/create-contract" exact>
+              <CreateContract />
             </Route>
-            <Route path="/contract/:contractAddress" exact>
+            <Route path="/contracts/:contractAddress" exact>
               <Contract />
             </Route>
-            <Route path="/dashboard" exact>
-              <Dashboard />
+            <Route path="/contracts/:contractAddress/create" exact>
+              <CreateNFT />
+            </Route>
+            <Route path="/mypage" exact>
+              <Mypage />
             </Route>
           </Switch>
         </Router>

@@ -13,7 +13,7 @@ export const ContractTemplate: React.FC = () => {
       <Header />
       <Container>
         <AuthGuard>
-          <ContractDetail />
+          <ContractDetail nftContract={{} as any} metadataList={[]} />
         </AuthGuard>
       </Container>
       <Footer />

@@ -1,9 +1,9 @@
 import React from "react";
-import { nfts } from "../../__fixtures__/mock.stories.json";
+import { metadataList } from "../../__fixtures__/mock.stories.json";
 import { SpreadSheet, SpreadSheetProps } from "./SpreadSheet";
 
 const args: SpreadSheetProps = {
-  metadataList: nfts,
+  metadataList,
 };
 
 export default {

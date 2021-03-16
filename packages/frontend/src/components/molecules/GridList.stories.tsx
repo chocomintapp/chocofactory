@@ -1,10 +1,10 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { nfts } from "../../__fixtures__/mock.stories.json";
+import { metadataList } from "../../__fixtures__/mock.stories.json";
 import { GridList, GridListProps } from "./GridList";
 
 const args: GridListProps = {
-  metadataList: nfts,
+  metadataList,
 };
 
 export default {

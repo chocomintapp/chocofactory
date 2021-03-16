@@ -1,6 +1,6 @@
 import React from "react";
+import { RecoilRoot } from "recoil";
 import { AuthGuard, AuthGuardProps } from "./AuthGuard";
-
 const args: AuthGuardProps = {
   children: "Authed Content",
 };
@@ -11,4 +11,8 @@ export default {
   args,
 };
 
-export const Control: React.FC<AuthGuardProps> = (props) => <AuthGuard {...props}>{props.children}</AuthGuard>;
+export const Control: React.FC<AuthGuardProps> = (props) => (
+  <RecoilRoot>
+    <AuthGuard {...props}>{props.children}</AuthGuard>
+  </RecoilRoot>
+);

@@ -1,14 +1,16 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import { CreateContractForm } from "./CreateContractForm";
-
 export default {
   title: "Organisms/CreateContractForm",
   component: CreateContractForm,
 };
 
 export const Control: React.FC = () => (
-  <MemoryRouter>
-    <CreateContractForm />
-  </MemoryRouter>
+  <RecoilRoot>
+    <MemoryRouter>
+      <CreateContractForm />
+    </MemoryRouter>
+  </RecoilRoot>
 );

@@ -1,14 +1,14 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { CreateTokenForm } from "./CreateTokenForm";
+import { CreateNFTForm } from "./CreateNFTForm";
 
 export default {
-  title: "Organisms/CreateTokenForm",
-  component: CreateTokenForm,
+  title: "Organisms/CreateNFTForm",
+  component: CreateNFTForm,
 };
 
 export const Control: React.FC = () => (
   <MemoryRouter>
-    <CreateTokenForm />
+    <CreateNFTForm />
   </MemoryRouter>
 );

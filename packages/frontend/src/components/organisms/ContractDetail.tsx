@@ -1,27 +1,30 @@
-import { AgGridColumn, AgGridReact } from "ag-grid-react";
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import { NFTContract, Metadata } from "../../types";
 
-export const ContractDetail = () => {
-  const [gridApi, setGridApi] = useState(null);
-  const [gridColumnApi, setGridColumnApi] = useState(null);
+import { Button } from "../atoms/Button";
+import { GridList } from "../molecules/GridList";
 
-  const [rowData, setRowData] = useState([]);
+export interface ContractDetailProps {
+  nftContract: NFTContract;
+  metadataList: Metadata[];
+}
 
-  const onGridReady = (params: any) => {
-    setGridApi(params.api);
-    setGridColumnApi(params.columnApi);
-  };
-
+export const ContractDetail: React.FC<ContractDetailProps> = ({ nftContract, metadataList }) => {
   return (
-    <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
-      <AgGridReact onGridReady={onGridReady} rowData={rowData}>
-        <AgGridColumn field="make"></AgGridColumn>
-        <AgGridColumn field="model"></AgGridColumn>
-        <AgGridColumn field="price"></AgGridColumn>
-      </AgGridReact>
-    </div>
+    <section>
+      <div>
+        <h3>{nftContract.contractAddress}</h3>
+        <p>{nftContract.name}</p>
+        <p>{nftContract.symbol}</p>
+      </div>
+      <Link to="./create-nft">
+        <Button type="primary">Add</Button>
+      </Link>
+      <div>
+        <GridList metadataList={metadataList} />
+      </div>
+    </section>
   );
 };

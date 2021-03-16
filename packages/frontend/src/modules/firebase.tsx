@@ -1,6 +1,7 @@
 import firebase from "firebase";
 
 import firebaseJson from "../../../../firebase.json";
+import { networkName } from "./web3";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHZ8KnF2Im82fgDcZCVR3A1RhE5lL1Knc",
@@ -27,6 +28,6 @@ if (process.env.NODE_ENV === "development") {
   auth.useEmulator(`http://localhost:${firebaseJson.emulators.auth.port}`);
 }
 
-export const collectionName = process.env.REACT_APP_NETWORK_NAME == "mainnet" ? "nft_production" : "nft_staging";
+export const contractCollectionName = `contract_${networkName}`;
 
 export { firestore, functions, auth };
