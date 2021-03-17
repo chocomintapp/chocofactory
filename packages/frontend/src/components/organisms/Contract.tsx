@@ -36,10 +36,10 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
           </Button>
         </div>
       </div>
-      <div className="mb-6 relative">
+      <div className="mb-8 relative">
         <NFTCard nftContract={nftContract} />
       </div>
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between mb-4">
         <p className="text-gray-700 text-xl font-medium">NFTs</p>
         <div className="flex">
           <div>
@@ -67,8 +67,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         {isBulkEditMode ? (
           <SpreadSheet
             setState={setInternalMetadataList}
-            chainId={nftContract.chainId}
-            nftContractAddress={nftContract.nftContractAddress}
+            nftContract={nftContract}
             metadataList={internalMetadataList}
           />
         ) : (

@@ -4,18 +4,11 @@ import { Link } from "react-router-dom";
 import { name, mainIcon, personIcon } from "../../configs.json";
 import { useAuth } from "../../modules/auth";
 import { shortenAddress } from "../../modules/util";
-import { web3Modal } from "../../modules/web3";
 
 import { Button } from "../atoms/Button";
 
 export const Header: React.FC = () => {
   const { connectWallet, signerAddressState } = useAuth();
-
-  React.useEffect(() => {
-    if (web3Modal.cachedProvider) {
-      // connectWallet();
-    }
-  }, []);
 
   return (
     <header>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract } from "../../types";
 import { Button } from "../atoms/Button";
 

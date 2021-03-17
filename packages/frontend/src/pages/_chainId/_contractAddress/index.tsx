@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { ContractTemplate } from "../../../components/templates/Contract";
 import { useAuth } from "../../../modules/auth";
 import { firestore } from "../../../modules/firebase";
-import { networkName } from "../../../modules/web3";
 import { NFTContract, Metadata } from "../../../types";
 
 export const Contract: React.FC = () => {

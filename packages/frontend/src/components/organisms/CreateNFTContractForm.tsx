@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 import React from "react";
-
-import { NetworkName } from "../../../../contracts/helpers/types";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../../modules/auth";
 import { functions } from "../../modules/firebase";
 import { chocofactoryContract, chocomoldContract, chainIdLabels, chainIdValues } from "../../modules/web3";
@@ -9,7 +8,6 @@ import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
-import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 export const CreateNFTContractForm: React.FC = () => {
   const [chainId, setChainId] = React.useState(chainIdValues[0]);
@@ -17,7 +15,7 @@ export const CreateNFTContractForm: React.FC = () => {
   const [symbol, setSymbol] = React.useState("");
 
   const { connectWallet } = useAuth();
-  const { messageModal, openModal, closeModal } = useMessageModal();
+  const history = useHistory();
 
   const createNFTContract = async () => {
     const { web3, signerAddress } = await connectWallet();
@@ -37,7 +35,7 @@ export const CreateNFTContractForm: React.FC = () => {
       signerAddress,
     });
     const { nftContractAddress } = result.data;
-    openModal("🎉", `Your NFT contract is created!`, "Check", `/${chainId}/${nftContractAddress}`, false);
+    history.push(`/${chainId}/${nftContractAddress}`);
   };
 
   return (
@@ -52,7 +50,6 @@ export const CreateNFTContractForm: React.FC = () => {
       <Button onClick={createNFTContract} type="primary">
         Create
       </Button>
-      {messageModal && <MessageModal {...messageModal} onClickDismiss={closeModal} />}
     </>
   );
 };

@@ -35,27 +35,30 @@
   ],
   "metadataList": [
     {
+      "chainId": "1",
       "nftContractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "tokenId": 1,
       "name": "Choco",
       "description": "This is Choco NFT",
-      "image": "http://localhost:6006/sample.png",
+      "image": "https://ipfs.io/ipfs/QmWYJDgg9we8jdjV3gqr4fBeZk9CbpfetCyKR4iVnNmMjY/nft.png",
       "animationUrl": "http://localhost:6006/sample.png"
     },
     {
+      "chainId": "1",
       "nftContractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "tokenId": 2,
       "name": "Choco",
       "description": "This is Choco NFT",
-      "image": "http://localhost:6006/sample.png",
+      "image": "https://ipfs.io/ipfs/QmZdMu4uEkmmygxt99GnZeN3EEPQfx8aJoCLgkDbApaBuB/nft.png",
       "animationUrl": "http://localhost:6006/sample.png"
     },
     {
+      "chainId": "1",
       "nftContractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "tokenId": 3,
       "name": "Choco",
       "description": "This is Choco NFT",
-      "image": "http://localhost:6006/sample.png",
+      "image": "https://ipfs.io/ipfs/Qma42xHxFTehX77kaqAj9kViydaz1gYCPTYSA1eJdeUkiA/nft.png",
       "animationUrl": "http://localhost:6006/sample.png"
     }
   ]

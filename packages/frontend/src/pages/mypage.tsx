@@ -3,7 +3,6 @@ import React from "react";
 import { MypageTemplate } from "../components/templates/Mypage";
 import { useAuth } from "../modules/auth";
 import { firestore } from "../modules/firebase";
-import { networkName } from "../modules/web3";
 import { NFTContract } from "../types";
 
 export const Mypage: React.FC = () => {
@@ -13,7 +12,6 @@ export const Mypage: React.FC = () => {
 
   React.useEffect(() => {
     if (signerAddressState) {
-      console.log(signerAddressState);
       firestore
         .collection("v1")
         .doc("31337")

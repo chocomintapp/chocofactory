@@ -5,30 +5,38 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
 import { firestore } from "../../modules/firebase";
-import { Metadata } from "../../types";
+import { NFTContract, Metadata } from "../../types";
 
 export interface SpreadSheetProps {
-  chainId: string;
-  nftContractAddress: string;
+  nftContract: NFTContract;
   metadataList: Metadata[];
   setState: (input: any) => void;
 }
 
-export const SpreadSheet: React.FC<SpreadSheetProps> = ({ chainId, nftContractAddress, metadataList, setState }) => {
+export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataList, setState }) => {
   const [gridApi, setGridApi] = React.useState<any>();
   const [, setGridColumnApi] = React.useState<any>();
-
   const [internalList, setInternalList] = React.useState<Metadata[]>([]);
 
   React.useEffect(() => {
-    console.log("ok");
+    if (!metadataList) return;
     setInternalList(metadataList);
-  }, [metadataList, internalList]);
+  }, [metadataList]);
 
   const addRow = () => {
     const tokenId = gridApi.getDisplayedRowCount() + 1;
+    const metadata: Metadata = {
+      chainId: nftContract.chainId,
+      nftContractAddress: nftContract.nftContractAddress,
+      tokenId,
+      name: "",
+      description: "",
+      image: "",
+      animationUrl: "",
+    };
+
     gridApi.updateRowData({
-      add: [{ tokenId: tokenId }],
+      add: [metadata],
       addIndex: tokenId,
     });
   };
@@ -41,9 +49,9 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ chainId, nftContractAd
       batch.set(
         firestore
           .collection("v1")
-          .doc(chainId)
+          .doc(nftContract.chainId)
           .collection("nftContract")
-          .doc(nftContractAddress)
+          .doc(nftContract.nftContractAddress)
           .collection("metadata")
           .doc(rowData[i].tokenId.toString()),
         rowData[i]

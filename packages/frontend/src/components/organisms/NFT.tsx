@@ -1,30 +1,23 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../modules/auth";
 import { firestore } from "../../modules/firebase";
-import { networkName } from "../../modules/web3";
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
-import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 export interface NFTProps {
   nftContract?: NFTContract;
   metadata?: Metadata;
-  tokenId: number;
 }
 
-export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
+export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState("");
   const [animationUrl, setAnimationUrl] = React.useState("");
-
-  const { connectWallet } = useAuth();
-  const { messageModal, openModal, closeModal } = useMessageModal();
   const history = useHistory();
 
   React.useEffect(() => {
@@ -36,10 +29,11 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
   }, [metadata]);
 
   const createNFT = async () => {
-    if (!nftContract) return;
-    const metadata: Metadata = {
+    if (!nftContract || !metadata) return;
+    const newMetadata: Metadata = {
+      chainId: nftContract.chainId,
       nftContractAddress: nftContract.nftContractAddress,
-      tokenId: tokenId,
+      tokenId: metadata.tokenId,
       name,
       description,
       image,
@@ -51,15 +45,15 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
       .collection("nftContract")
       .doc(nftContract.nftContractAddress)
       .collection("metadata")
-      .doc(tokenId.toString())
-      .set(metadata);
+      .doc(metadata.tokenId.toString())
+      .set(newMetadata);
     history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
   };
-  return nftContract ? (
+  return nftContract && metadata ? (
     <>
       <div className="mb-8">
         <Form>
-          <FormInput type="number" value={tokenId} label="TokenID" readonly={true} />
+          <FormInput type="number" value={metadata.tokenId} label="TokenID" readonly={true} />
           <FormInput type="text" value={name} label="Name" setState={setName} />
           <FormTextArea label="Description" value={description} setState={setDescription} />
           <FormImageUpload label="Image" value={image} setState={setImage} />
@@ -69,7 +63,6 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
       <Button onClick={createNFT} type="primary">
         Save
       </Button>
-      {messageModal && <MessageModal {...messageModal} onClickDismiss={closeModal} />}
     </>
   ) : (
     <></>

@@ -5,10 +5,11 @@ import { Label } from "../atoms/Label";
 export interface FormTextAreaProps {
   label: string;
   value: string;
+  readonly?: boolean;
   setState?: (input: any) => void;
 }
 
-export const FormTextArea: React.FC<FormTextAreaProps> = ({ label, value, setState }) => {
+export const FormTextArea: React.FC<FormTextAreaProps> = ({ label, value, readonly, setState }) => {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!setState) return;
     setState(event.target.value);
@@ -20,6 +21,7 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({ label, value, setSta
       <textarea
         onChange={handleChange}
         value={value}
+        readOnly={readonly}
         className="mt-1 p-2 block w-full focus:ring-green-400 focus:border-green-400 text-xs border-gray-300 rounded-xl"
       />
     </div>

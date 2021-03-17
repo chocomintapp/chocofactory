@@ -11,16 +11,15 @@ import { NFT } from "../organisms/NFT";
 export interface NFTTemplateProps {
   nftContract?: NFTContract;
   metadata?: Metadata;
-  tokenId: number;
 }
 
-export const NFTTemplate: React.FC<NFTTemplateProps> = ({ nftContract, metadata, tokenId }) => {
+export const NFTTemplate: React.FC<NFTTemplateProps> = ({ nftContract, metadata }) => {
   return (
     <Main>
       <Header />
       <Container type="narrow">
         <AuthGuard>
-          <NFT nftContract={nftContract} metadata={metadata} tokenId={tokenId} />
+          <NFT nftContract={nftContract} metadata={metadata} />
         </AuthGuard>
       </Container>
       <Footer />

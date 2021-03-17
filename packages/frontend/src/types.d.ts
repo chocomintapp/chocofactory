@@ -10,6 +10,7 @@ export interface NFTContract {
 }
 
 export interface Metadata {
+  chainId: string;
   nftContractAddress: string;
   tokenId: number;
   name: string;

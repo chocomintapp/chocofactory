@@ -41,12 +41,22 @@ export const NFTGrid: React.FC = () => {
         .then((doc) => {
           if (doc.exists) {
             setMetadata(doc.data() as Metadata);
+          } else {
+            setMetadata({
+              chainId,
+              nftContractAddress,
+              tokenId: parseInt(tokenId),
+              name: "",
+              description: "",
+              image: "",
+              animationUrl: "",
+            });
           }
         });
     }
   }, [signerAddressState]);
 
-  return <NFTTemplate nftContract={nftContract} metadata={metadata} tokenId={parseInt(tokenId)} />;
+  return <NFTTemplate nftContract={nftContract} metadata={metadata} />;
 };
 
 export default NFTGrid;

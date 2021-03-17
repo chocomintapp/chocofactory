@@ -3,8 +3,7 @@ import { nftContractList, metadataList } from "../../__fixtures__/mock.stories.j
 import { SpreadSheet, SpreadSheetProps } from "./SpreadSheet";
 
 const args: SpreadSheetProps = {
-  chainId: nftContractList[0].chainId,
-  nftContractAddress: nftContractList[0].nftContractAddress,
+  nftContract: nftContractList[0],
   metadataList,
   setState: () => {
     console.log("set state");
