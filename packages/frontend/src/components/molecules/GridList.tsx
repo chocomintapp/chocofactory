@@ -29,7 +29,7 @@ export const GridList: React.FC<GridListProps> = ({ nftContract, metadataList })
           const imageType = getFileType(metadata.image);
           return (
             <Link key={i} to={`/${metadata.chainId}/${metadata.nftContractAddress}/${metadata.tokenId}`}>
-              <li className="gridlist-container rounded-xl border overflow-hidden relative">
+              <li className="gridlist-container rounded-xl border overflow-hidden relative shadow-sm">
                 <div className="gridlist-dummy"></div>
                 <div className="gridlist-element">
                   {imageType == "mp4" ? (
