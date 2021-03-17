@@ -14,13 +14,21 @@ service cloud.firestore {
       return path([['databases', database, 'documents'].join('/'), paths.join('/')].join('/'));
     }
 
+    function existingData() {
+      return resource.data;
+    }
+
+    function getData(path) {
+      return get(path).data;
+    }
+
     function nftContract(name, address) {
-      return get(documentPath('v1', name, 'nftContract', address)).data
+      return getData(documentPath('v1', name, 'nftContract', address)))
     }
 
     match /v1/{networkName}/ {
       match /nftContract/{nftContractAddress} {
-        allow read: if isUserAuthenticated(resource.data.ownerAddress);
+        allow read: if isUserAuthenticated(existingData().ownerAddress);
     
         match /metadata/{tokenId} {
           allow read, write: if isUserAuthenticated(nftContract(networkName, nftContractAddress).ownerAddress);
