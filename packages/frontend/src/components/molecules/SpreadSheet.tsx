@@ -2,7 +2,7 @@ import { AgGridReact } from "ag-grid-react";
 import React from "react";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
 import { Metadata } from "../../types";
 
@@ -37,10 +37,15 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
     {
       field: "animationUrl",
     },
+    {
+      field: "minted",
+    },
   ];
 
   const defaultColDef = {
     sortable: true,
+    editable: true,
+    flex: 1,
   };
 
   const autoGroupColumnDef = {
@@ -50,18 +55,16 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
   };
 
   return (
-    <div className="ag-theme-alpine" style={{ height: 400 }}>
+    <div className="ag-theme-balham" style={{ height: 400 }}>
       <AgGridReact
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}
         autoGroupColumnDef={autoGroupColumnDef}
         onGridReady={onGridReady}
-        undoRedoCellEditing={true}
-        pagination={true}
-        paginationAutoPageSize={true}
+        enableRangeSelection={true}
+        suppressMultiRangeSelection={true}
         rowSelection="multiple"
         rowMultiSelectWithClick={true}
-        suppressRowClickSelection={true}
         rowData={metadataList}
       />
     </div>
