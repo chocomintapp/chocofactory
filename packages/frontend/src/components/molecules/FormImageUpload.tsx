@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { ipfs, ipfsHttpsBaseUrl } from "../../modules/ipfs";
 import { ImageUploadIcon } from "../atoms/ImageUploadIcon";
 import { Label } from "../atoms/Label";
@@ -6,20 +7,26 @@ import { Label } from "../atoms/Label";
 export interface FormImageUploadProps {
   label: string;
   value: string;
+  accept?: string;
   setState?: (input: any) => void;
 }
 
-export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, setState }) => {
+export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, accept, setState }) => {
   const [imagePreview, setImagePreview] = React.useState("");
   const [isImageLoading, setIsImageLoading] = React.useState(false);
+  const [type, setType] = React.useState("");
+
+  const id = uuidv4();
 
   React.useEffect(() => {
     if (!value) return;
+    const type = value.substring(value.lastIndexOf(".") + 1);
+    setType(type);
     setImagePreview(value);
   }, [value]);
 
   const clickInputFile = () => {
-    document.getElementById("file")!.click();
+    document.getElementById(id)!.click();
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +55,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
       path: `images/${path}`,
       content: fileUint8Array,
     });
-    return `${ipfsHttpsBaseUrl}${cid}/${path}`;
+    return { url: `${ipfsHttpsBaseUrl}${cid}/${path}`, type };
   };
 
   const processImage = async (file: File) => {
@@ -56,7 +63,9 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
     setImagePreview("");
     setIsImageLoading(true);
     const preview = URL.createObjectURL(file);
-    const url = await uploadFileToIpfs(file);
+    const { url, type } = await uploadFileToIpfs(file);
+    console.log(preview);
+    setType(type);
     setImagePreview(preview);
     setState(url);
     setIsImageLoading(false);
@@ -73,12 +82,23 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
                 <ImageUploadIcon />
               </div>
             ) : (
-              <div className="h-32 w-32 m-4">
-                <img className="rounded-xl h-full w-full object-cover mx-auto" src={imagePreview} />
+              <div className="h-32 m-4">
+                {type == "png" || type == "jpg" || type == "jpeg" || type == "gif" ? (
+                  <img className="rounded-xl h-full w-32 object-cover mx-auto" src={imagePreview} />
+                ) : type == "mp3" ? (
+                  <audio className="h-full w-64" controls>
+                    <source src={imagePreview} type="audio/mpeg" />
+                  </audio>
+                ) : type == "mp4" ? (
+                  <video className="rounded-xl h-full w-32 object-cover mx-auto" width="320" height="240" controls>
+                    <source src={imagePreview} type="video/mp4" />
+                  </video>
+                ) : (
+                  <></>
+                )}
               </div>
             )}
-
-            <input onChange={handleChange} id="file" type="file" accept="image/*" className="sr-only" />
+            <input onChange={handleChange} id={id} type="file" accept={accept} className="sr-only" />
           </div>
         </div>
       </div>

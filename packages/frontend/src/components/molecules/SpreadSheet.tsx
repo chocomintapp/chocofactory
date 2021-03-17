@@ -128,6 +128,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
           animateRows={true}
           enableRangeSelection={true}
           suppressMultiRangeSelection={true}
+          undoRedoCellEditing={true}
           rowSelection="multiple"
           rowMultiSelectWithClick={true}
           rowData={internalList}

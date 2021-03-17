@@ -56,8 +56,13 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
           <FormInput type="number" value={metadata.tokenId} label="TokenID" readonly={true} />
           <FormInput type="text" value={name} label="Name" setState={setName} />
           <FormTextArea label="Description" value={description} setState={setDescription} />
-          <FormImageUpload label="Image" value={image} setState={setImage} />
-          <FormImageUpload label="Animation URL" value={animationUrl} setState={setAnimationUrl} />
+          <FormImageUpload label="Image" accept="video/*,image/*" value={image} setState={setImage} />
+          <FormImageUpload
+            label="Animation URL"
+            accept="audio/*,video/*,image/*"
+            value={animationUrl}
+            setState={setAnimationUrl}
+          />
         </Form>
       </div>
       <Button onClick={createNFT} type="primary">
