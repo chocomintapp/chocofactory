@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 import React from "react";
 
 import { useHistory } from "react-router-dom";
@@ -10,14 +9,16 @@ import { Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { Modal } from "../atoms/Modal";
-import { FormInput } from "../molecules/FormInput";
-import { FormRadio } from "../molecules/FormRadio";
+import { FormInput } from "./FormInput";
+import { FormRadio } from "./FormRadio";
 
-export interface CreateNFTFormProps {
+export interface CreateNFTModalProps {
+  chainId: string;
   nftContractAddress: string;
+  onClickDismiss?: () => void;
 }
 
-export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress }) => {
+export const CreateNFTModal: React.FC<CreateNFTModalProps> = ({ chainId, nftContractAddress, onClickDismiss }) => {
   const numberingLabels = ["Serial", "Free"];
   const numberingValues = ["serial", "free"];
 
@@ -26,6 +27,7 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
   const [tokenId, setTokenId] = React.useState<number>(1);
   const [copyFromId, setCopyFromId] = React.useState("");
   const [amount, setAmount] = React.useState(1);
+
   const history = useHistory();
 
   const createNFT = async () => {
@@ -35,7 +37,7 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
     } else {
       const querySnapshots = await firestore
         .collection("v1")
-        .doc(networkName)
+        .doc(chainId)
         .collection("nftContract")
         .doc(nftContractAddress)
         .collection("metadata")
@@ -53,7 +55,7 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
     if (copyFromId) {
       const doc = await firestore
         .collection("v1")
-        .doc(networkName)
+        .doc(chainId)
         .collection("nftContract")
         .doc(nftContractAddress)
         .collection("metadata")
@@ -79,14 +81,14 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
         }
         await batch.commit();
       }
-      history.push(`/${nftContractAddress}`);
+      history.push(`/${chainId}/${nftContractAddress}`);
     } else {
-      history.push(`/${nftContractAddress}/${newTokenId}`);
+      history.push(`/${chainId}/${nftContractAddress}/${newTokenId}`);
     }
   };
   return (
     <section>
-      <Modal icon={mainIcon}>
+      <Modal icon={mainIcon} onClickDismiss={onClickDismiss}>
         <div className="text-left my-8">
           <Form>
             <FormRadio label="Numbering" labels={numberingLabels} values={numberingValues} setState={setNumbering} />
@@ -103,4 +105,14 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
       </Modal>
     </section>
   );
+};
+
+export const useCreateNFTModal = () => {
+  const [createNFTModal, setCreateNFTModal] = React.useState<boolean>(false);
+
+  const toggleModal = () => {
+    setCreateNFTModal(!createNFTModal);
+  };
+
+  return { createNFTModal, toggleModal };
 };

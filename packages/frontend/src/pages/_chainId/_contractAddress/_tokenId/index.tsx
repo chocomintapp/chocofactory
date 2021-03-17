@@ -9,7 +9,11 @@ import { Metadata, NFTContract } from "../../../../types";
 export const NFT: React.FC = () => {
   const [nftContract, setNFTContract] = React.useState<NFTContract>();
   const [metadata, setMetadata] = React.useState<Metadata>();
-  const { nftContractAddress, tokenId } = useParams<{ nftContractAddress: string; tokenId: string }>();
+  const { chainId, nftContractAddress, tokenId } = useParams<{
+    chainId: string;
+    nftContractAddress: string;
+    tokenId: string;
+  }>();
 
   const { signerAddressState } = useAuth();
 
@@ -17,7 +21,7 @@ export const NFT: React.FC = () => {
     if (signerAddressState) {
       firestore
         .collection("v1")
-        .doc(networkName)
+        .doc(chainId)
         .collection("nftContract")
         .doc(nftContractAddress)
         .get()
@@ -29,7 +33,7 @@ export const NFT: React.FC = () => {
 
       firestore
         .collection("v1")
-        .doc(networkName)
+        .doc(chainId)
         .collection("nftContract")
         .doc(nftContractAddress)
         .collection("metadata")

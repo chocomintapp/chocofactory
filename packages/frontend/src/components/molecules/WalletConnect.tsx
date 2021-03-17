@@ -10,10 +10,14 @@ export const WalletConnect: React.FC = () => {
   return (
     <section>
       <Modal icon={mainIcon}>
-        <p className="my-4 text-sm text-gray-400">Please connect wallet for access here</p>
-        <Button type="primary" onClick={connectWallet}>
-          Connect
-        </Button>
+        <p className="my-8 text-sm font-medium text-gray-600">Please connect wallet for access here</p>
+        <div className="flex justify-center">
+          <div className="w-6/12">
+            <Button type="primary" onClick={connectWallet}>
+              Connect
+            </Button>
+          </div>
+        </div>
       </Modal>
     </section>
   );

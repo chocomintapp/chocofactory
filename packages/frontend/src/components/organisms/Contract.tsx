@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
+import { CreateNFTModal, useCreateNFTModal } from "../molecules/CreateNFTModal";
 import { GridList } from "../molecules/GridList";
 import { NFTCard } from "../molecules/NFTCard";
 import { SpreadSheet } from "../molecules/SpreadSheet";
@@ -15,6 +16,8 @@ export interface ContractProps {
 
 export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList }) => {
   const [isBulkEditMode, setIsBulkEditMode] = React.useState(false);
+
+  const { createNFTModal, toggleModal } = useCreateNFTModal();
 
   return nftContract ? (
     <section>
@@ -48,9 +51,9 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
             </Button>
           </div>
           <div>
-            <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/create-nft`}>
-              <Button type="primary">NEW＋</Button>
-            </Link>
+            <Button onClick={toggleModal} type="primary">
+              NEW＋
+            </Button>
           </div>
         </div>
       </div>
@@ -58,6 +61,13 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
       <div>
         {isBulkEditMode ? <SpreadSheet metadataList={metadataList} /> : <GridList metadataList={metadataList} />}
       </div>
+      {createNFTModal && (
+        <CreateNFTModal
+          nftContractAddress={nftContract.nftContractAddress}
+          chainId={nftContract.chainId}
+          onClickDismiss={toggleModal}
+        />
+      )}
     </section>
   ) : (
     <></>

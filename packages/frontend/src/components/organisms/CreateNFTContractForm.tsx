@@ -4,7 +4,7 @@ import React from "react";
 import { NetworkName } from "../../../../contracts/helpers/types";
 import { useAuth } from "../../modules/auth";
 import { functions } from "../../modules/firebase";
-import { chocofactoryContract, chocomoldContract, getChainIdFromNetworkName } from "../../modules/web3";
+import { chocofactoryContract, chocomoldContract, chainIdLabels, chainIdValues } from "../../modules/web3";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormInput } from "../molecules/FormInput";
@@ -12,10 +12,7 @@ import { FormRadio } from "../molecules/FormRadio";
 import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 export const CreateNFTContractForm: React.FC = () => {
-  const networkLabels = ["Local", "Rinkeby"];
-  const networkValues = ["localhost", "rinkeby"];
-
-  const [networkName, setNetworkName] = React.useState(networkValues[0]);
+  const [chainId, setChainId] = React.useState(chainIdValues[0]);
   const [name, setName] = React.useState("");
   const [symbol, setSymbol] = React.useState("");
 
@@ -23,7 +20,6 @@ export const CreateNFTContractForm: React.FC = () => {
   const { messageModal, openModal, closeModal } = useMessageModal();
 
   const createNFTContract = async () => {
-    const chainId = getChainIdFromNetworkName(networkName as NetworkName);
     const { web3, signerAddress } = await connectWallet();
     const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, signerAddress]);
     const digest = ethers.utils.solidityKeccak256(
@@ -48,7 +44,7 @@ export const CreateNFTContractForm: React.FC = () => {
     <>
       <div className="mb-8">
         <Form>
-          <FormRadio label="Network" labels={networkLabels} values={networkValues} setState={setNetworkName} />
+          <FormRadio label="Network" labels={chainIdLabels} values={chainIdValues} setState={setChainId} />
           <FormInput type="text" value={name} label="Name" setState={setName} />
           <FormInput type="text" value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
