@@ -13,7 +13,7 @@ service cloud.firestore {
       return get(documentPath('v1', name, 'nftContract', address)).data
     }
 
-    match /v1/{networkName}/nftContract/{nftContractAddress} {
+    match /v1/{networkName}/ {
       match /nftContract/{nftContractAddress} {
         allow read: if isUserAuthenticated(resource.data.ownerAddress);
     
