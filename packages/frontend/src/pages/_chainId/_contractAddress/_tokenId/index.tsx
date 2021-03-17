@@ -5,7 +5,7 @@ import { useAuth } from "../../../../modules/auth";
 import { firestore } from "../../../../modules/firebase";
 import { Metadata, NFTContract } from "../../../../types";
 
-export const NFT: React.FC = () => {
+export const NFTGrid: React.FC = () => {
   const [nftContract, setNFTContract] = React.useState<NFTContract>();
   const [metadata, setMetadata] = React.useState<Metadata>();
   const { chainId, nftContractAddress, tokenId } = useParams<{
@@ -49,4 +49,4 @@ export const NFT: React.FC = () => {
   return <NFTTemplate nftContract={nftContract} metadata={metadata} tokenId={parseInt(tokenId)} />;
 };
 
-export default NFT;
+export default NFTGrid;

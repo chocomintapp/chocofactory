@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { WalletConnect } from "./WalletConnect";
 export default {
@@ -8,6 +9,8 @@ export default {
 
 export const Control: React.FC = (props) => (
   <RecoilRoot>
-    <WalletConnect {...props}>{props.children}</WalletConnect>
+    <MemoryRouter>
+      <WalletConnect {...props}>{props.children}</WalletConnect>
+    </MemoryRouter>
   </RecoilRoot>
 );

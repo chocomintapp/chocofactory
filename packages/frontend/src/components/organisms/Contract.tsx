@@ -15,6 +15,11 @@ export interface ContractProps {
 
 export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList }) => {
   const [isBulkEditMode, setIsBulkEditMode] = React.useState(false);
+  const [internalMetadataList, setInternalMetadataList] = React.useState<Metadata[]>([]);
+
+  React.useEffect(() => {
+    setInternalMetadataList(metadataList);
+  }, [metadataList]);
 
   return nftContract ? (
     <section>
@@ -59,7 +64,16 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         </div>
       </div>
       <div>
-        {isBulkEditMode ? <SpreadSheet metadataList={metadataList} /> : <GridList metadataList={metadataList} />}
+        {isBulkEditMode ? (
+          <SpreadSheet
+            setState={setInternalMetadataList}
+            chainId={nftContract.chainId}
+            nftContractAddress={nftContract.nftContractAddress}
+            metadataList={internalMetadataList}
+          />
+        ) : (
+          <GridList metadataList={internalMetadataList} />
+        )}
       </div>
     </section>
   ) : (

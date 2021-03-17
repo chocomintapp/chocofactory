@@ -1,9 +1,14 @@
 import React from "react";
-import { metadataList } from "../../__fixtures__/mock.stories.json";
+import { nftContractList, metadataList } from "../../__fixtures__/mock.stories.json";
 import { SpreadSheet, SpreadSheetProps } from "./SpreadSheet";
 
 const args: SpreadSheetProps = {
+  chainId: nftContractList[0].chainId,
+  nftContractAddress: nftContractList[0].nftContractAddress,
   metadataList,
+  setState: () => {
+    console.log("set state");
+  },
 };
 
 export default {
