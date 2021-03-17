@@ -63,7 +63,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
     }
     await batch.commit();
     setState(rowData);
-    openMessageModal("🎉", "NFTs metadata is saved!", closeMessageModal, closeMessageModal);
+    openMessageModal("🎉", "NFTs are saved!", "Close", closeMessageModal, closeMessageModal);
   };
 
   const exportCSV = () => {
@@ -116,24 +116,28 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
 
   return (
     <>
-      <div className="mb-2 flex justify-start">
-        <button
-          onClick={saveToFirestore}
-          className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2"
-        >
-          Save
-        </button>
-        <button onClick={addRow} className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">
-          Add
-        </button>
-        <button className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">Mint</button>
-        <button
-          onClick={exportCSV}
-          className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2"
-        >
+      <div className="mb-2 flex justify-between">
+        <div>
+          <button
+            onClick={addRow}
+            className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2"
+          >
+            Add
+          </button>
+          <button
+            onClick={saveToFirestore}
+            className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2"
+          >
+            Save
+          </button>
+
+          <button className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2">Mint</button>
+        </div>
+        <button onClick={exportCSV} className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600">
           Export
         </button>
       </div>
+
       <div className="ag-theme-balham" style={{ height: 400 }}>
         <AgGridReact
           columnDefs={columnDefs}

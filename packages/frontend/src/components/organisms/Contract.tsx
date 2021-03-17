@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { NFTContract, Metadata } from "../../types";
 
@@ -26,14 +25,14 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
       <div className="flex justify-between mb-4">
         <p className="text-gray-700 text-xl font-medium">NFT Contracts</p>
         <div>
-          <Button
+          <button
+            className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white"
             onClick={() => {
               console.log("deploy");
             }}
-            type="primary"
           >
-            DEPLOY
-          </Button>
+            Deploy
+          </button>
         </div>
       </div>
       <div className="mb-8 relative">
@@ -43,23 +42,14 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         <p className="text-gray-700 text-xl font-medium">NFTs</p>
         <div className="flex">
           <div>
-            <Button
+            <button
+              className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600"
               onClick={() => {
                 setIsBulkEditMode(!isBulkEditMode);
               }}
-              type="tertiary"
             >
-              {isBulkEditMode ? "Grid" : "Spread"}
-            </Button>
-          </div>
-          <div>
-            {!isBulkEditMode && (
-              <div className="ml-4">
-                <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
-                  <Button type="primary">NEW＋</Button>
-                </Link>
-              </div>
-            )}
+              {isBulkEditMode ? "Grid View" : "Spread View"}
+            </button>
           </div>
         </div>
       </div>
@@ -71,7 +61,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
             metadataList={internalMetadataList}
           />
         ) : (
-          <GridList metadataList={internalMetadataList} />
+          <GridList nftContract={nftContract} metadataList={internalMetadataList} />
         )}
       </div>
     </section>

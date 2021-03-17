@@ -20,7 +20,7 @@ export const MessageModal: React.FC<MessageModalProps> = ({
 }) => {
   return (
     <Modal onClickDismiss={onClickDismiss} icon={icon}>
-      <p className="my-8 text-sm font-medium text-gray-600">{messageText}</p>
+      <p className="my-8 text-xs font-medium text-gray-600">{messageText}</p>
       {onClickConfirm && (
         <div className="flex justify-center">
           <div className="w-6/12">
@@ -40,12 +40,14 @@ export const useMessageModal = () => {
   const openMessageModal = (
     icon: string,
     messageText: string,
+    buttonText?: string,
     onClickConfirm?: () => void,
     onClickDismiss?: () => void
   ) => {
     setMessageModalProps({
       icon,
       messageText,
+      buttonText,
       onClickConfirm,
       onClickDismiss,
     });

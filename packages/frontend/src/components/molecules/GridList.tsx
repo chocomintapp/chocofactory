@@ -2,17 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getFileType, shortenText } from "../../modules/util";
-import { Metadata } from "../../types";
+import { NFTContract, Metadata } from "../../types";
 
 import "./GridList.scss";
 
 export interface GridListProps {
+  nftContract: NFTContract;
   metadataList: Metadata[];
 }
 
-export const GridList: React.FC<GridListProps> = ({ metadataList }) => {
+export const GridList: React.FC<GridListProps> = ({ nftContract, metadataList }) => {
   return (
     <section>
+      <div className="mb-2 flex justify-start">
+        <div>
+          <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
+            <button className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2">Add</button>
+          </Link>
+        </div>
+      </div>
       <ul className="grid grid-cols-2 md:grid-cols-5 gap-2">
         {metadataList.map((metadata, i) => {
           const imageType = getFileType(metadata.image);

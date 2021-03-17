@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import React from "react";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../modules/auth";
 import { functions } from "../../modules/firebase";
@@ -40,6 +41,23 @@ export const CreateNFTContractForm: React.FC = () => {
 
   return (
     <>
+      <div className="flex justify-end mb-4">
+        <div>
+          <Link to={`/mypage`}>
+            <button className="mb-4 focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">
+              Cancel
+            </button>
+          </Link>
+        </div>
+        <div>
+          <button
+            onClick={createNFTContract}
+            className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white"
+          >
+            Save
+          </button>
+        </div>
+      </div>
       <div className="mb-8">
         <Form>
           <FormRadio label="Network" labels={chainIdLabels} values={chainIdValues} setState={setChainId} />
@@ -47,9 +65,6 @@ export const CreateNFTContractForm: React.FC = () => {
           <FormInput type="text" value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
       </div>
-      <Button onClick={createNFTContract} type="primary">
-        Create
-      </Button>
     </>
   );
 };

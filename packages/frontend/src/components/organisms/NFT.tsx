@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { firestore } from "../../modules/firebase";
 import { NFTContract, Metadata } from "../../types";
@@ -52,6 +53,27 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   return nftContract && metadata ? (
     <>
       <div className="mb-8">
+        <div className="flex justify-end mb-4">
+          <div>
+            <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}`}>
+              <button className="mb-4 focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">
+                Cancel
+              </button>
+            </Link>
+          </div>
+          <div>
+            <button
+              onClick={createNFT}
+              className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2"
+            >
+              Save
+            </button>
+            <button className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white">
+              Mint
+            </button>
+          </div>
+        </div>
+
         <Form>
           <FormInput type="number" value={metadata.tokenId} label="TokenID" readonly={true} />
           <FormInput type="text" value={name} label="Name" setState={setName} />
@@ -65,9 +87,6 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
           />
         </Form>
       </div>
-      <Button onClick={createNFT} type="primary">
-        Save
-      </Button>
     </>
   ) : (
     <></>
