@@ -42,20 +42,17 @@ export const CreateNFTContractForm: React.FC = () => {
   return (
     <>
       <div className="flex justify-end mb-4">
-        <div>
+        <div className="mr-2">
           <Link to={`/mypage`}>
-            <button className="mb-4 focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">
+            <Button size="small" type="tertiary">
               Cancel
-            </button>
+            </Button>
           </Link>
         </div>
         <div>
-          <button
-            onClick={createNFTContract}
-            className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white"
-          >
+          <Button onClick={createNFTContract} size="small" type="primary">
             Save
-          </button>
+          </Button>
         </div>
       </div>
       <div className="mb-8">

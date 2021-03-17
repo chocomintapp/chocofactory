@@ -17,9 +17,9 @@ export const Mypage: React.FC<MypageProps> = ({ nftContractList }) => {
         <p className="text-gray-700 text-xl font-medium">NFT Contracts</p>
         <div>
           <Link to="/create-nft-contract">
-            <button className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white">
-              New +
-            </button>
+            <Button type="primary" size="small">
+              New
+            </Button>
           </Link>
         </div>
       </div>

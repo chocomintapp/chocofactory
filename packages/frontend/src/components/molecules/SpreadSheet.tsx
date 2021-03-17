@@ -6,6 +6,7 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
 import { firestore } from "../../modules/firebase";
 import { NFTContract, Metadata } from "../../types";
+import { Button } from "../atoms/Button";
 
 import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
@@ -117,27 +118,29 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
   return (
     <>
       <div className="mb-2 flex justify-between">
-        <div>
-          <button
-            onClick={addRow}
-            className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2"
-          >
-            Add
-          </button>
-          <button
-            onClick={saveToFirestore}
-            className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2"
-          >
-            Save
-          </button>
-
-          <button className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2">Mint</button>
+        <div className="flex">
+          <div className="mr-2">
+            <Button onClick={addRow} type="primary" size="small">
+              Add
+            </Button>
+          </div>
+          <div className="mr-2">
+            <Button onClick={saveToFirestore} type="primary" size="small">
+              Save
+            </Button>
+          </div>
+          <div className="mr-2">
+            <Button onClick={saveToFirestore} type="primary" size="small">
+              Mint
+            </Button>
+          </div>
         </div>
-        <button onClick={exportCSV} className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600">
-          Export
-        </button>
+        <div>
+          <Button onClick={exportCSV} type="tertiary" size="small">
+            Export
+          </Button>
+        </div>
       </div>
-
       <div className="ag-theme-balham" style={{ height: 400 }}>
         <AgGridReact
           columnDefs={columnDefs}

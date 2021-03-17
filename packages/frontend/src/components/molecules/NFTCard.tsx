@@ -8,7 +8,7 @@ export interface NFTCardProps {
 
 export const NFTCard: React.FC<NFTCardProps> = ({ nftContract }) => {
   return (
-    <div className="border rounded-xl p-4 relative">
+    <div className="border rounded-md px-4 py-2 relative">
       <p className="absolute right-0 py-1 px-2 mx-2 text-xs font-medium text-gray-700">
         {getNetworkNameFromChainId(nftContract.chainId)}
       </p>

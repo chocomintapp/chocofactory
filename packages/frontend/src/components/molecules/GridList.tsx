@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getFileType, shortenText } from "../../modules/util";
 import { NFTContract, Metadata } from "../../types";
+import { Button } from "../atoms/Button";
 
 import "./GridList.scss";
 
@@ -17,7 +18,9 @@ export const GridList: React.FC<GridListProps> = ({ nftContract, metadataList })
       <div className="mb-2 flex justify-start">
         <div>
           <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
-            <button className="focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2">Add</button>
+            <Button type="primary" size="small">
+              Add
+            </Button>
           </Link>
         </div>
       </div>

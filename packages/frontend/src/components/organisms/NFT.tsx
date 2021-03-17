@@ -54,23 +54,22 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
     <>
       <div className="mb-8">
         <div className="flex justify-end mb-4">
-          <div>
+          <div className="mr-2">
             <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}`}>
-              <button className="mb-4 focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">
+              <Button type="tertiary" size="small">
                 Cancel
-              </button>
+              </Button>
             </Link>
           </div>
-          <div>
-            <button
-              onClick={createNFT}
-              className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white mr-2"
-            >
+          <div className="mr-2">
+            <Button onClick={createNFT} type="primary" size="small">
               Save
-            </button>
-            <button className="mb-4 focus:outline-none p-1 px-2 text-xs bg-green-400 rounded-md text-white">
+            </Button>
+          </div>
+          <div>
+            <Button type="primary" size="small">
               Mint
-            </button>
+            </Button>
           </div>
         </div>
 
