@@ -1,6 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isAnyAuthenticated() {
+      return request.auth != null;
+    }
+
     function isUserAuthenticated(address) {
       return isAnyAuthenticated() && request.auth.uid == address;
     }
