@@ -23,10 +23,10 @@ service cloud.firestore {
     }
 
     function nftContract(name, address) {
-      return getData(documentPath('v1', name, 'nftContract', address)))
+      return getData(documentPath('v1', name, 'nftContract', address));
     }
 
-    match /v1/{networkName}/ {
+    match /v1/{networkName} {
       match /nftContract/{nftContractAddress} {
         allow read: if isUserAuthenticated(existingData().ownerAddress);
     
