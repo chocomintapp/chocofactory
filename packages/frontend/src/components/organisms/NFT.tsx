@@ -53,7 +53,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
       .collection("metadata")
       .doc(tokenId.toString())
       .set(metadata);
-    history.push(`/contracts/${nftContract.nftContractAddress}`);
+    history.push(`/${nftContract.nftContractAddress}`);
   };
   return nftContract ? (
     <>

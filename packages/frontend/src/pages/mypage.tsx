@@ -16,7 +16,7 @@ export const Mypage: React.FC = () => {
       console.log(signerAddressState);
       firestore
         .collection("v1")
-        .doc(networkName)
+        .doc("31337")
         .collection("nftContract")
         .where("ownerAddress", "==", signerAddressState)
         .get()

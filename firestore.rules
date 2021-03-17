@@ -22,8 +22,8 @@ service cloud.firestore {
       return get(path).data;
     }
 
-    function nftContract(name, address) {
-      return getData(documentPath(['v1', name, 'nftContract', address]));
+    function nftContract(chainId, address) {
+      return getData(documentPath(['v1', chainId, 'nftContract', address]));
     }
 
     match /v1/{network} {

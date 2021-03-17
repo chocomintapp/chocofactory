@@ -10,7 +10,7 @@ export const Contract: React.FC = () => {
   const [nftContract, setNFTContract] = React.useState<NFTContract>();
   const [metadataList, setMetadataList] = React.useState<Metadata[]>([]);
 
-  const { nftContractAddress } = useParams<{ nftContractAddress: string }>();
+  const { nftContractAddress, chainId } = useParams<{ chainId: string; nftContractAddress: string }>();
 
   const { signerAddressState } = useAuth();
 
@@ -18,7 +18,7 @@ export const Contract: React.FC = () => {
     if (signerAddressState) {
       firestore
         .collection("v1")
-        .doc(networkName)
+        .doc(chainId)
         .collection("nftContract")
         .doc(nftContractAddress)
         .get()
@@ -30,7 +30,7 @@ export const Contract: React.FC = () => {
 
       firestore
         .collection("v1")
-        .doc(networkName)
+        .doc(chainId)
         .collection("nftContract")
         .doc(nftContractAddress)
         .collection("metadata")

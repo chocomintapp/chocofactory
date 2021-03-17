@@ -46,7 +46,7 @@ export const createNFTContract = functions.region("asia-northeast1").https.onCal
     ownerAddress,
     signature,
   };
-  await firestore.collection("v1").doc(networkName).collection("nftContract").doc(nftContractAddress).set(nftContract);
+  await firestore.collection("v1").doc(chainId).collection("nftContract").doc(nftContractAddress).set(nftContract);
   return { chainId, moldAddress, factoryAddress, nftContractAddress, name, symbol, ownerAddress, signature };
 });
 

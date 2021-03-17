@@ -79,9 +79,9 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
         }
         await batch.commit();
       }
-      history.push(`/contracts/${nftContractAddress}`);
+      history.push(`/${nftContractAddress}`);
     } else {
-      history.push(`/contracts/${nftContractAddress}/${newTokenId}`);
+      history.push(`/${nftContractAddress}/${newTokenId}`);
     }
   };
   return (
