@@ -5,7 +5,7 @@ import { Label } from "../atoms/Label";
 export interface FormInputProps {
   type: "text" | "number";
   label: string;
-  value: string;
+  value: string | number;
   setState?: (input: any) => void;
 }
 

@@ -23,12 +23,13 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
 
   const [numbering, setNumbering] = React.useState(numberingValues[0]);
 
-  const [tokenId, setTokenId] = React.useState("");
+  const [tokenId, setTokenId] = React.useState<number>(1);
   const [copyFromId, setCopyFromId] = React.useState("");
+  const [amount, setAmount] = React.useState(1);
   const history = useHistory();
 
   const createNFT = async () => {
-    let newTokenId = "";
+    let newTokenId;
     if (numbering == "free") {
       newTokenId = tokenId;
     } else {
@@ -43,10 +44,10 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
         .get();
       querySnapshots.forEach((querySnapshot) => {
         const { tokenId } = querySnapshot.data();
-        newTokenId = ethers.BigNumber.from(tokenId).add(1).toString();
+        newTokenId = tokenId + 1;
       });
       if (!newTokenId) {
-        newTokenId = "1";
+        newTokenId = 1;
       }
     }
     if (copyFromId) {
@@ -59,14 +60,24 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
         .doc(copyFromId)
         .get();
       if (doc.exists) {
-        await firestore
-          .collection("v1")
-          .doc(networkName)
-          .collection("nftContract")
-          .doc(nftContractAddress)
-          .collection("metadata")
-          .doc(newTokenId)
-          .set(doc.data() as Metadata);
+        const batch = firestore.batch();
+        const template = doc.data() as Metadata;
+        for (let i = 0; i < amount; i++) {
+          console.log("i", i);
+          template.tokenId = newTokenId + i;
+          console.log("tokenId", template.tokenId);
+          batch.set(
+            firestore
+              .collection("v1")
+              .doc(networkName)
+              .collection("nftContract")
+              .doc(nftContractAddress)
+              .collection("metadata")
+              .doc(template.tokenId.toString()),
+            template
+          );
+        }
+        await batch.commit();
       }
       history.push(`/contracts/${nftContractAddress}`);
     } else {
@@ -81,6 +92,9 @@ export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress
             <FormRadio label="Numbering" labels={numberingLabels} values={numberingValues} setState={setNumbering} />
             {numbering == "free" && <FormInput type="number" value={tokenId} label="TokenID" setState={setTokenId} />}
             <FormInput type="number" value={copyFromId} label="Copy from" setState={setCopyFromId} />
+            {numbering == "serial" && copyFromId && (
+              <FormInput type="number" value={amount} label="Amount" setState={setAmount} />
+            )}
           </Form>
         </div>
         <Button onClick={createNFT} type="primary">

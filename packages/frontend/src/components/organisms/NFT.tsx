@@ -14,7 +14,7 @@ import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 export interface NFTProps {
   nftContract?: NFTContract;
   metadata?: Metadata;
-  tokenId: string;
+  tokenId: number;
 }
 
 export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
@@ -37,14 +37,9 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
 
   const createNFT = async () => {
     if (!nftContract) return;
-    console.log(tokenId);
-    console.log(name);
-    console.log(description);
-    console.log(image);
-    console.log(animationUrl);
     const metadata: Metadata = {
       nftContractAddress: nftContract.nftContractAddress,
-      tokenId,
+      tokenId: tokenId,
       name,
       description,
       image,
@@ -56,7 +51,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
       .collection("nftContract")
       .doc(nftContract.nftContractAddress)
       .collection("metadata")
-      .doc(tokenId)
+      .doc(tokenId.toString())
       .set(metadata);
     history.push(`/contracts/${nftContract.nftContractAddress}`);
   };

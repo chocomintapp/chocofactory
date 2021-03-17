@@ -43,7 +43,7 @@ export const NFT: React.FC = () => {
     }
   }, [signerAddressState]);
 
-  return <NFTTemplate nftContract={nftContract} metadata={metadata} tokenId={tokenId} />;
+  return <NFTTemplate nftContract={nftContract} metadata={metadata} tokenId={parseInt(tokenId)} />;
 };
 
 export default NFT;

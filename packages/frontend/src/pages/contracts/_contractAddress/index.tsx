@@ -34,6 +34,7 @@ export const Contract: React.FC = () => {
         .collection("nftContract")
         .doc(nftContractAddress)
         .collection("metadata")
+        .orderBy("tokenId")
         .get()
         .then((querySnapshot) => {
           const metadataList: Metadata[] = [];
