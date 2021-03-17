@@ -19,7 +19,7 @@ export const GridList: React.FC<GridListProps> = ({ nftContract, metadataList })
         <div>
           <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
             <Button type="primary" size="small">
-              Add
+              New<span className="ml-2">✨</span>
             </Button>
           </Link>
         </div>

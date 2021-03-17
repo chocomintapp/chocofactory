@@ -44,14 +44,14 @@ export const CreateNFTContractForm: React.FC = () => {
       <div className="flex justify-end mb-4">
         <div className="mr-2">
           <Link to={`/mypage`}>
-            <Button size="small" type="tertiary">
-              Cancel
+            <Button size="small" type="secondary">
+              Cancel<span className="ml-2">↩</span>
             </Button>
           </Link>
         </div>
         <div>
           <Button onClick={createNFTContract} size="small" type="primary">
-            Save
+            Save<span className="ml-2">💾</span>
           </Button>
         </div>
       </div>

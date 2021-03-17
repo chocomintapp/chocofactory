@@ -121,23 +121,23 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
         <div className="flex">
           <div className="mr-2">
             <Button onClick={addRow} type="primary" size="small">
-              Add
+              New<span className="ml-2">✨</span>
             </Button>
           </div>
           <div className="mr-2">
             <Button onClick={saveToFirestore} type="primary" size="small">
-              Save
+              Save<span className="ml-2">💾</span>
             </Button>
           </div>
           <div className="mr-2">
             <Button onClick={saveToFirestore} type="primary" size="small">
-              Mint
+              Mint<span className="ml-2">💎</span>
             </Button>
           </div>
         </div>
         <div>
           <Button onClick={exportCSV} type="tertiary" size="small">
-            Export
+            Export<span className="ml-2">📁</span>
           </Button>
         </div>
       </div>

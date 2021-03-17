@@ -14,7 +14,7 @@ export const Header: React.FC = () => {
     <header>
       <div className="relative h-20">
         <Link to="/">
-          <div className="px-4 py-8 absolute left-0 font-bold">
+          <div className="px-4 py-8 absolute left-0 font-medium">
             {name} {mainIcon}
           </div>
         </Link>

@@ -26,7 +26,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         <p className="text-gray-700 text-xl font-medium">NFT Contracts</p>
         <div>
           <Button type="primary" size="small">
-            Deploy
+            Deploy<span className="ml-2">🔧</span>
           </Button>
         </div>
       </div>
@@ -38,13 +38,13 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         <div className="flex">
           <div>
             <Button
-              type="secondary"
+              type="tertiary"
               size="small"
               onClick={() => {
                 setIsBulkEditMode(!isBulkEditMode);
               }}
             >
-              {isBulkEditMode ? "Grid View" : "Spread View"}
+              {isBulkEditMode ? "Grid" : "Spread"} <span className="ml-2">👀</span>
             </Button>
           </div>
         </div>
