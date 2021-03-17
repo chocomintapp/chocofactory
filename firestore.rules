@@ -26,15 +26,12 @@ service cloud.firestore {
       return getData(documentPath(['v1', name, 'nftContract', address]));
     }
 
-    match /v1/{networkName} {
-      match /nftContract/{nftContractAddress} {
+    match /v1/{network} {
+      match /nftContract/{address} {
         allow read: if isUserAuthenticated(existingData().ownerAddress);
     
         match /metadata/{tokenId} {
-          allow read: if isUserAuthenticated(nftContract(networkName, nftContractAddress).ownerAddress);
-          allow create: if isUserAuthenticated(nftContract(networkName, nftContractAddress).ownerAddress);
-          allow update: if isUserAuthenticated(nftContract(networkName, nftContractAddress).ownerAddress);
-          allow delete: if isUserAuthenticated(nftContract(networkName, nftContractAddress).ownerAddress);
+          allow read, create, update, delete: if isUserAuthenticated(nftContract(network, address).ownerAddress);
         }
       }
     }
