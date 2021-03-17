@@ -56,19 +56,12 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
     cellRendererParams: { checkbox: true },
   };
 
-  const exportCSV = () => {
-    if (!gridApi) return;
-    gridApi.exportDataAsCsv();
-  };
-
   return (
     <>
       <div className="mb-2 flex justify-start">
-        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600 mr-2">save</button>
-        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600 mr-2">mint</button>
-        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600" onClick={exportCSV}>
-          export
-        </button>
+        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600 mr-2">Add</button>
+        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600 mr-2">Save</button>
+        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600 mr-2">Mint</button>
       </div>
       <div className="ag-theme-balham" style={{ height: 400 }}>
         <AgGridReact

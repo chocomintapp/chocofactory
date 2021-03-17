@@ -1,24 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { mainIcon } from "../../configs.json";
 import { useAuth } from "../../modules/auth";
 
 import { Button } from "../atoms/Button";
-import { Modal } from "../atoms/Modal";
 
 export const WalletConnect: React.FC = () => {
   const { connectWallet } = useAuth();
   return (
-    <section>
-      <Modal icon={mainIcon}>
-        <p className="my-8 text-sm font-medium text-gray-600">Please connect wallet for access here</p>
-        <div className="flex justify-center">
-          <div className="w-6/12">
-            <Button type="primary" onClick={connectWallet}>
-              Connect
-            </Button>
+    <section className="fixed inset-0 bg-white">
+      <div className="flex p-4 items-center justify-center min-h-full text-center">
+        <div className="bg-white border solidity p-6 px-4 transform max-w-lg w-full rounded-xl">
+          <p className="focus:outline-none absolute left-4 top-2 text-gray-400">{mainIcon}</p>
+          <p className="my-8 text-sm font-medium text-gray-600">Please connect wallet to access NFTs</p>
+          <div className="flex justify-center">
+            <div className="flex space-x-4">
+              <Link to="/">
+                <Button type="tertiary">Home</Button>
+              </Link>
+              <Button type="primary" onClick={connectWallet}>
+                Connect
+              </Button>
+            </div>
           </div>
         </div>
-      </Modal>
+      </div>
     </section>
   );
 };

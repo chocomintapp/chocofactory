@@ -1,24 +1,20 @@
 import React from "react";
 
 import { useHistory } from "react-router-dom";
-import { mainIcon } from "../../configs.json";
-
 import { firestore } from "../../modules/firebase";
-import { networkName } from "../../modules/web3";
 import { Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
-import { Modal } from "../atoms/Modal";
-import { FormInput } from "./FormInput";
-import { FormRadio } from "./FormRadio";
+import { FormInput } from "../molecules/FormInput";
+import { FormRadio } from "../molecules/FormRadio";
 
-export interface CreateNFTModalProps {
+export interface CreateNFTFormProps {
   chainId: string;
   nftContractAddress: string;
   onClickDismiss?: () => void;
 }
 
-export const CreateNFTModal: React.FC<CreateNFTModalProps> = ({ chainId, nftContractAddress, onClickDismiss }) => {
+export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ chainId, nftContractAddress }) => {
   const numberingLabels = ["Serial"];
   const numberingValues = ["serial"];
 
@@ -83,28 +79,16 @@ export const CreateNFTModal: React.FC<CreateNFTModalProps> = ({ chainId, nftCont
   };
   return (
     <section>
-      <Modal icon={mainIcon} onClickDismiss={onClickDismiss}>
-        <div className="text-left my-8">
-          <Form>
-            <FormRadio label="Numbering" labels={numberingLabels} values={numberingValues} setState={setNumbering} />
-            <FormInput type="number" value={copyFromId} label="Copy from" setState={setCopyFromId} />
-            {copyFromId && <FormInput type="number" value={quantity} label="Quantity" setState={setQuantity} />}
-          </Form>
-        </div>
-        <Button onClick={createNFT} type="primary">
-          Create
-        </Button>
-      </Modal>
+      <div className="text-left my-8">
+        <Form>
+          <FormRadio label="Numbering" labels={numberingLabels} values={numberingValues} setState={setNumbering} />
+          <FormInput type="number" value={copyFromId} label="Copy from" setState={setCopyFromId} />
+          {copyFromId && <FormInput type="number" value={quantity} label="Quantity" setState={setQuantity} />}
+        </Form>
+      </div>
+      <Button onClick={createNFT} type="primary">
+        Create
+      </Button>
     </section>
   );
-};
-
-export const useCreateNFTModal = () => {
-  const [createNFTModal, setCreateNFTModal] = React.useState<boolean>(false);
-
-  const toggleModal = () => {
-    setCreateNFTModal(!createNFTModal);
-  };
-
-  return { createNFTModal, toggleModal };
 };

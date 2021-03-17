@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
-import { CreateNFTModal, useCreateNFTModal } from "../molecules/CreateNFTModal";
 import { GridList } from "../molecules/GridList";
 import { NFTCard } from "../molecules/NFTCard";
 import { SpreadSheet } from "../molecules/SpreadSheet";
@@ -16,8 +15,6 @@ export interface ContractProps {
 
 export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList }) => {
   const [isBulkEditMode, setIsBulkEditMode] = React.useState(false);
-
-  const { createNFTModal, toggleModal } = useCreateNFTModal();
 
   return nftContract ? (
     <section>
@@ -40,7 +37,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
       <div className="flex justify-between mb-6">
         <p className="text-gray-700 text-xl font-medium">NFTs</p>
         <div className="flex">
-          <div className="mr-4">
+          <div>
             <Button
               onClick={() => {
                 setIsBulkEditMode(!isBulkEditMode);
@@ -51,22 +48,19 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
             </Button>
           </div>
           <div>
-            <Button onClick={toggleModal} type="primary">
-              NEW＋
-            </Button>
+            {!isBulkEditMode && (
+              <div className="ml-4">
+                <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
+                  <Button type="primary">NEW＋</Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
       <div>
         {isBulkEditMode ? <SpreadSheet metadataList={metadataList} /> : <GridList metadataList={metadataList} />}
       </div>
-      {createNFTModal && (
-        <CreateNFTModal
-          nftContractAddress={nftContract.nftContractAddress}
-          chainId={nftContract.chainId}
-          onClickDismiss={toggleModal}
-        />
-      )}
     </section>
   ) : (
     <></>

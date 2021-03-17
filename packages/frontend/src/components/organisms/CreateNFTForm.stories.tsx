@@ -1,21 +1,21 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { nftContractList } from "../../__fixtures__/mock.stories.json";
-import { CreateNFTModal, CreateNFTModalProps } from "./CreateNFTModal";
+import { CreateNFTForm, CreateNFTFormProps } from "./CreateNFTForm";
 
-const args: CreateNFTModalProps = {
+const args: CreateNFTFormProps = {
   chainId: nftContractList[0].chainId,
   nftContractAddress: nftContractList[0].nftContractAddress,
 };
 
 export default {
-  title: "Organisms/CreateNFTModal",
-  component: CreateNFTModal,
+  title: "Organisms/CreateNFTForm",
+  component: CreateNFTForm,
   args,
 };
 
-export const Control: React.FC<CreateNFTModalProps> = (props) => (
+export const Control: React.FC<CreateNFTFormProps> = (props) => (
   <MemoryRouter>
-    <CreateNFTModal {...props}>{props.children}</CreateNFTModal>
+    <CreateNFTForm {...props}>{props.children}</CreateNFTForm>
   </MemoryRouter>
 );
