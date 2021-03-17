@@ -31,10 +31,10 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
           </Button>
         </div>
       </div>
-      <div className="mb-8 relative">
+      <div className="mb-6 relative">
         <NFTCard nftContract={nftContract} />
       </div>
-      <div className="flex justify-between mb-8">
+      <div className="flex justify-between mb-6">
         <p className="text-gray-700 text-2xl font-medium">NFTs</p>
         <div className="flex">
           <div className="mr-4">

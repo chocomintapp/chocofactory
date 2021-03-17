@@ -11,8 +11,8 @@ export interface SpreadSheetProps {
 }
 
 export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
-  const [, setGridApi] = React.useState(null);
-  const [, setGridColumnApi] = React.useState(null);
+  const [gridApi, setGridApi] = React.useState<any>();
+  const [, setGridColumnApi] = React.useState<any>();
 
   const onGridReady = (params: any) => {
     setGridApi(params.api);
@@ -43,6 +43,8 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
   ];
 
   const defaultColDef = {
+    filter: "agTextColumnFilter",
+    resizable: true,
     sortable: true,
     editable: true,
     flex: 1,
@@ -54,19 +56,34 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
     cellRendererParams: { checkbox: true },
   };
 
+  const exportCSV = () => {
+    if (!gridApi) return;
+    gridApi.exportDataAsCsv();
+  };
+
   return (
-    <div className="ag-theme-balham" style={{ height: 400 }}>
-      <AgGridReact
-        columnDefs={columnDefs}
-        defaultColDef={defaultColDef}
-        autoGroupColumnDef={autoGroupColumnDef}
-        onGridReady={onGridReady}
-        enableRangeSelection={true}
-        suppressMultiRangeSelection={true}
-        rowSelection="multiple"
-        rowMultiSelectWithClick={true}
-        rowData={metadataList}
-      />
-    </div>
+    <>
+      <div className="mb-2 flex justify-start">
+        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600 mr-2">save</button>
+        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600 mr-2">mint</button>
+        <button className="p-1 px-2 text-xs border rounded-xl text-gray-600" onClick={exportCSV}>
+          export
+        </button>
+      </div>
+      <div className="ag-theme-balham" style={{ height: 400 }}>
+        <AgGridReact
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          autoGroupColumnDef={autoGroupColumnDef}
+          onGridReady={onGridReady}
+          animateRows={true}
+          enableRangeSelection={true}
+          suppressMultiRangeSelection={true}
+          rowSelection="multiple"
+          rowMultiSelectWithClick={true}
+          rowData={metadataList}
+        />
+      </div>
+    </>
   );
 };
