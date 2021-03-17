@@ -10,7 +10,7 @@ export const WalletConnect: React.FC = () => {
   return (
     <section>
       <Modal icon={mainIcon}>
-        <p className="my-8 text-sm font-medium  text-gray-600">Please connect web3 wallet</p>
+        <p className="my-4 text-xs text-gray-400">Please connect wallet for access here</p>
         <Button type="primary" onClick={connectWallet}>
           Connect
         </Button>

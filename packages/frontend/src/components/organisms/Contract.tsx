@@ -42,11 +42,21 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
               onClick={() => {
                 setIsBulkEditMode(!isBulkEditMode);
               }}
-              type="primary"
+              type="tertiary"
             >
-              MINT
+              {isBulkEditMode ? "Grid View" : "Spread View"}
             </Button>
           </div>
+          {isBulkEditMode && (
+            <>
+              <div className="mr-4">
+                <Button type="secondary">Bulk Save</Button>
+              </div>
+              <div className="mr-4">
+                <Button type="secondary">Bulk Mint</Button>
+              </div>
+            </>
+          )}
           <div>
             <Link to={`/contracts/${nftContract.nftContractAddress}/create-nft`}>
               <Button type="primary">NEW＋</Button>
@@ -56,7 +66,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
       </div>
 
       <div>
-        <GridList metadataList={metadataList} />
+        {isBulkEditMode ? <SpreadSheet metadataList={metadataList} /> : <GridList metadataList={metadataList} />}
       </div>
     </section>
   ) : (

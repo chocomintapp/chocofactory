@@ -41,7 +41,6 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ metadataList }) => {
 
   const defaultColDef = {
     sortable: true,
-    editable: true,
   };
 
   const autoGroupColumnDef = {

@@ -18,7 +18,7 @@ export const NFTTemplate: React.FC<NFTTemplateProps> = ({ nftContract, metadata,
   return (
     <Main>
       <Header />
-      <Container type="wide">
+      <Container type="narrow">
         <AuthGuard>
           <NFT nftContract={nftContract} metadata={metadata} tokenId={tokenId} />
         </AuthGuard>
