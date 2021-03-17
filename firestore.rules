@@ -1,14 +1,25 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isUserAuthenticated(address) {
+      return isAnyAuthenticated() && request.auth.uid == address;
+    }
+
+    function documentPath(paths) {
+      return path([['databases', database, 'documents'].join('/'), paths.join('/')].join('/'));
+    }
+
+    function nftContract(name, address) {
+      return get(documentPath('v1', name, 'nftContract', address)).data
+    }
+
     match /v1/{networkName}/nftContract/{nftContractAddress} {
-      function nftContract() {
-        return get(/databases/$(database)/documents/v1/$(networkName)/nftContract/$(nftContractAddress)).data
-      }
-      allow read: if resource.data.ownerAddress == request.auth.uid;
-      // allow read: if nftContract().ownerAddress == request.auth.uid;
-      match /metadata/{tokenId} {
-        allow read, write: if nftContract().ownerAddress == request.auth.uid;
+      match /nftContract/{nftContractAddress} {
+        allow read: if isUserAuthenticated(resource.data.ownerAddress);
+    
+        match /metadata/{tokenId} {
+          allow read, write: if isUserAuthenticated(nftContract(networkName, nftContractAddress).ownerAddress);
+        }
       }
     }
   }
