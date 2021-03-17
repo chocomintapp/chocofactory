@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 import { atom, useRecoilState } from "recoil";
 import { signInMessage } from "../../../common/config.json";
 import { auth } from "./firebase";

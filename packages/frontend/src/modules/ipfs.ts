@@ -1,6 +1,8 @@
 import canonicalize from "canonicalize";
 import createClient from "ipfs-http-client";
 import { Metadata } from "../types";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ipfsOnlyHash = require("ipfs-only-hash");
 
 export const ipfsBaseUrl = "ipfs://";

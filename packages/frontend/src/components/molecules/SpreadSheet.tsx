@@ -7,16 +7,20 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import { firestore } from "../../modules/firebase";
 import { NFTContract, Metadata } from "../../types";
 
+import { MessageModal, useMessageModal } from "../molecules/MessageModal";
+
 export interface SpreadSheetProps {
   nftContract: NFTContract;
   metadataList: Metadata[];
-  setState: (input: any) => void;
+  setState: (input: Metadata[]) => void;
 }
 
 export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataList, setState }) => {
   const [gridApi, setGridApi] = React.useState<any>();
   const [, setGridColumnApi] = React.useState<any>();
   const [internalList, setInternalList] = React.useState<Metadata[]>([]);
+
+  const { openMessageModal, closeMessageModal, messageModalProps } = useMessageModal();
 
   React.useEffect(() => {
     if (!metadataList) return;
@@ -59,6 +63,11 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
     }
     await batch.commit();
     setState(rowData);
+    openMessageModal("🎉", "NFTs metadata is saved!", closeMessageModal, closeMessageModal);
+  };
+
+  const exportCSV = () => {
+    gridApi.exportDataAsCsv();
   };
 
   const onGridReady = (params: any) => {
@@ -108,16 +117,22 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
   return (
     <>
       <div className="mb-2 flex justify-start">
-        <button onClick={addRow} className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">
-          Add
-        </button>
         <button
           onClick={saveToFirestore}
           className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2"
         >
           Save
         </button>
+        <button onClick={addRow} className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">
+          Add
+        </button>
         <button className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2">Mint</button>
+        <button
+          onClick={exportCSV}
+          className="focus:outline-none p-1 px-2 text-xs border rounded-md text-gray-600 mr-2"
+        >
+          Export
+        </button>
       </div>
       <div className="ag-theme-balham" style={{ height: 400 }}>
         <AgGridReact
@@ -134,6 +149,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
           rowData={internalList}
         />
       </div>
+      {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   );
 };

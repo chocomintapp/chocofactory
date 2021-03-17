@@ -4,7 +4,7 @@ import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 
 import { signInMessage } from "../../common/config.json";
-import { chocomoldContract, chocofactoryContract, NFTContract, networkName } from "./modules/web3";
+import { chocomoldContract, chocofactoryContract, NFTContract } from "./modules/web3";
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -18,6 +18,7 @@ export const metadata = functions.region("asia-northeast1").https.onRequest(asyn
   });
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createNFTContract = functions.region("asia-northeast1").https.onCall(async (data, context) => {
   const { chainId, factoryAddress, moldAddress, name, symbol, signature, signerAddress } = data;
   const ownerAddress = signerAddress.toLocaleLowerCase();

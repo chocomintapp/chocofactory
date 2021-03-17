@@ -1,7 +1,6 @@
 import firebase from "firebase";
 
 import firebaseJson from "../../../../firebase.json";
-import { networkName } from "./web3";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHZ8KnF2Im82fgDcZCVR3A1RhE5lL1Knc",
