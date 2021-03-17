@@ -47,19 +47,19 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata, tokenId }) => {
     };
     await firestore
       .collection("v1")
-      .doc(networkName)
+      .doc(nftContract.chainId)
       .collection("nftContract")
       .doc(nftContract.nftContractAddress)
       .collection("metadata")
       .doc(tokenId.toString())
       .set(metadata);
-    history.push(`/${nftContract.nftContractAddress}`);
+    history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
   };
   return nftContract ? (
     <>
       <div className="mb-8">
         <Form>
-          <FormInput type="number" value={tokenId} label="TokenID" />
+          <FormInput type="number" value={tokenId} label="TokenID" readonly={true} />
           <FormInput type="text" value={name} label="Name" setState={setName} />
           <FormTextArea label="Description" value={description} setState={setDescription} />
           <FormImageUpload label="Image" value={image} setState={setImage} />

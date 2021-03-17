@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { NFTTemplate } from "../../../../components/templates/NFT";
 import { useAuth } from "../../../../modules/auth";
 import { firestore } from "../../../../modules/firebase";
-import { networkName } from "../../../../modules/web3";
 import { Metadata, NFTContract } from "../../../../types";
 
 export const NFT: React.FC = () => {

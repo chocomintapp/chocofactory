@@ -19,39 +19,36 @@ export interface CreateNFTModalProps {
 }
 
 export const CreateNFTModal: React.FC<CreateNFTModalProps> = ({ chainId, nftContractAddress, onClickDismiss }) => {
-  const numberingLabels = ["Serial", "Free"];
-  const numberingValues = ["serial", "free"];
+  const numberingLabels = ["Serial"];
+  const numberingValues = ["serial"];
 
-  const [numbering, setNumbering] = React.useState(numberingValues[0]);
-
-  const [tokenId, setTokenId] = React.useState<number>(1);
+  const [, setNumbering] = React.useState(numberingValues[0]);
   const [copyFromId, setCopyFromId] = React.useState("");
-  const [amount, setAmount] = React.useState(1);
+  const [quantity, setQuantity] = React.useState(1);
+
+  const [newTokenId, setNewTokenId] = React.useState<number>(1);
 
   const history = useHistory();
 
-  const createNFT = async () => {
-    let newTokenId;
-    if (numbering == "free") {
-      newTokenId = tokenId;
-    } else {
-      const querySnapshots = await firestore
-        .collection("v1")
-        .doc(chainId)
-        .collection("nftContract")
-        .doc(nftContractAddress)
-        .collection("metadata")
-        .orderBy("tokenId", "desc")
-        .limit(1)
-        .get();
-      querySnapshots.forEach((querySnapshot) => {
-        const { tokenId } = querySnapshot.data();
-        newTokenId = tokenId + 1;
+  React.useEffect(() => {
+    firestore
+      .collection("v1")
+      .doc(chainId)
+      .collection("nftContract")
+      .doc(nftContractAddress)
+      .collection("metadata")
+      .orderBy("tokenId", "desc")
+      .limit(1)
+      .get()
+      .then((querySnapshots) => {
+        querySnapshots.forEach((querySnapshot) => {
+          const { tokenId } = querySnapshot.data();
+          setNewTokenId(tokenId + 1);
+        });
       });
-      if (!newTokenId) {
-        newTokenId = 1;
-      }
-    }
+  });
+
+  const createNFT = async () => {
     if (copyFromId) {
       const doc = await firestore
         .collection("v1")
@@ -64,14 +61,12 @@ export const CreateNFTModal: React.FC<CreateNFTModalProps> = ({ chainId, nftCont
       if (doc.exists) {
         const batch = firestore.batch();
         const template = doc.data() as Metadata;
-        for (let i = 0; i < amount; i++) {
-          console.log("i", i);
+        for (let i = 0; i < quantity; i++) {
           template.tokenId = newTokenId + i;
-          console.log("tokenId", template.tokenId);
           batch.set(
             firestore
               .collection("v1")
-              .doc(networkName)
+              .doc(chainId)
               .collection("nftContract")
               .doc(nftContractAddress)
               .collection("metadata")
@@ -92,11 +87,8 @@ export const CreateNFTModal: React.FC<CreateNFTModalProps> = ({ chainId, nftCont
         <div className="text-left my-8">
           <Form>
             <FormRadio label="Numbering" labels={numberingLabels} values={numberingValues} setState={setNumbering} />
-            {numbering == "free" && <FormInput type="number" value={tokenId} label="TokenID" setState={setTokenId} />}
             <FormInput type="number" value={copyFromId} label="Copy from" setState={setCopyFromId} />
-            {numbering == "serial" && copyFromId && (
-              <FormInput type="number" value={amount} label="Amount" setState={setAmount} />
-            )}
+            {copyFromId && <FormInput type="number" value={quantity} label="Quantity" setState={setQuantity} />}
           </Form>
         </div>
         <Button onClick={createNFT} type="primary">

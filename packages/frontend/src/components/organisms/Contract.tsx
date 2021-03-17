@@ -22,7 +22,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
   return nftContract ? (
     <section>
       <div className="flex justify-between mb-4">
-        <p className="text-gray-700 text-2xl font-medium">NFT Contracts</p>
+        <p className="text-gray-700 text-xl font-medium">NFT Contracts</p>
         <div>
           <Button
             onClick={() => {
@@ -38,7 +38,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
         <NFTCard nftContract={nftContract} />
       </div>
       <div className="flex justify-between mb-6">
-        <p className="text-gray-700 text-2xl font-medium">NFTs</p>
+        <p className="text-gray-700 text-xl font-medium">NFTs</p>
         <div className="flex">
           <div className="mr-4">
             <Button
@@ -47,7 +47,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
               }}
               type="tertiary"
             >
-              {isBulkEditMode ? "Grid View" : "Spread View"}
+              {isBulkEditMode ? "Grid" : "Spread"}
             </Button>
           </div>
           <div>
@@ -57,7 +57,6 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList })
           </div>
         </div>
       </div>
-
       <div>
         {isBulkEditMode ? <SpreadSheet metadataList={metadataList} /> : <GridList metadataList={metadataList} />}
       </div>

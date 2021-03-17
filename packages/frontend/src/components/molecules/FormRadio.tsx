@@ -18,7 +18,7 @@ export const FormRadio: React.FC<FormRadioProps> = ({ label, labels, values, set
   return (
     <div>
       <Label text={label} />
-      <div onChange={handleChange} className="text-xs mt-2">
+      <div onChange={handleChange} className="text-xs mt-1">
         {labels.map((label, i) => {
           return (
             <label key={i} className="inline-flex items-center">
