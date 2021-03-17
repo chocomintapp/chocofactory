@@ -8,8 +8,13 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 import "./utils/IPFS.sol";
+import "./utils/String.sol";
 
-contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable, IPFS {
+import "hardhat/console.sol";
+
+contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burnable, IPFS, String {
+    using Strings for uint256;
+
     bytes32 constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
 
     mapping(uint256 => bytes32) public ipfsHashes;
@@ -80,10 +85,25 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
         require(_exists(_tokenId), "token must exist");
         bytes32 ipfsHash = ipfsHashes[_tokenId];
-        if (abi.encodePacked(ipfsHash).length > 0) {
+        if (ipfsHash != "") {
             return string(_addIpfsBaseUrlPrefix(_bytesToBase58(_addSha256FunctionCodePrefix(ipfsHashes[_tokenId]))));
         } else {
-            return super.tokenURI(_tokenId);
+            if (bytes(customBaseURI).length == 0) {
+                string memory utf8Address = bytesToString(abi.encodePacked(address(this)));
+                return
+                    string(
+                        abi.encodePacked(
+                            defaultBaseURI,
+                            block.chainid.toString(),
+                            "/",
+                            utf8Address,
+                            "/",
+                            _tokenId.toString()
+                        )
+                    );
+            } else {
+                return super.tokenURI(_tokenId);
+            }
         }
     }
 
@@ -156,7 +176,7 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
 
     function _burn(uint256 _tokenId) internal virtual override {
         super._burn(_tokenId);
-        if (bytes(abi.encodePacked(ipfsHashes[_tokenId])).length > 0) {
+        if (ipfsHashes[_tokenId] != "") {
             delete ipfsHashes[_tokenId];
         }
     }
