@@ -1,5 +1,5 @@
 import React from "react";
-import { name, mainIcon } from "../../configs.json";
+import { mainIcon } from "../../configs.json";
 import { useAuth } from "../../modules/auth";
 
 import { Button } from "../atoms/Button";

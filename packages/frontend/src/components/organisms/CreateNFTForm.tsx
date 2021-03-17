@@ -1,31 +1,92 @@
+import { ethers } from "ethers";
 import React from "react";
-import { useHistory } from "react-router-dom";
 
+import { useHistory } from "react-router-dom";
+import { mainIcon } from "../../configs.json";
+
+import { firestore } from "../../modules/firebase";
+import { networkName } from "../../modules/web3";
+import { Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
+import { Modal } from "../atoms/Modal";
 import { FormInput } from "../molecules/FormInput";
+import { FormRadio } from "../molecules/FormRadio";
 
 export interface CreateNFTFormProps {
   nftContractAddress: string;
 }
 
 export const CreateNFTForm: React.FC<CreateNFTFormProps> = ({ nftContractAddress }) => {
+  const numberingLabels = ["Serial", "Free"];
+  const numberingValues = ["serial", "free"];
+
+  const [numbering, setNumbering] = React.useState(numberingValues[0]);
+
   const [tokenId, setTokenId] = React.useState("");
+  const [copyFromId, setCopyFromId] = React.useState("");
   const history = useHistory();
 
   const createNFT = async () => {
-    history.push(`/contracts/${nftContractAddress}/${tokenId}`);
+    let newTokenId = "";
+    if (numbering == "free") {
+      newTokenId = tokenId;
+    } else {
+      const querySnapshots = await firestore
+        .collection("v1")
+        .doc(networkName)
+        .collection("nftContract")
+        .doc(nftContractAddress)
+        .collection("metadata")
+        .orderBy("tokenId", "desc")
+        .limit(1)
+        .get();
+      querySnapshots.forEach((querySnapshot) => {
+        const { tokenId } = querySnapshot.data();
+        newTokenId = ethers.BigNumber.from(tokenId).add(1).toString();
+      });
+      if (!newTokenId) {
+        newTokenId = "1";
+      }
+    }
+    if (copyFromId) {
+      const doc = await firestore
+        .collection("v1")
+        .doc(networkName)
+        .collection("nftContract")
+        .doc(nftContractAddress)
+        .collection("metadata")
+        .doc(copyFromId)
+        .get();
+      if (doc.exists) {
+        await firestore
+          .collection("v1")
+          .doc(networkName)
+          .collection("nftContract")
+          .doc(nftContractAddress)
+          .collection("metadata")
+          .doc(newTokenId)
+          .set(doc.data() as Metadata);
+      }
+      history.push(`/contracts/${nftContractAddress}`);
+    } else {
+      history.push(`/contracts/${nftContractAddress}/${newTokenId}`);
+    }
   };
   return (
-    <>
-      <div className="mb-8">
-        <Form>
-          <FormInput type="number" value={tokenId} label="TokenID" setState={setTokenId} />
-        </Form>
-      </div>
-      <Button onClick={createNFT} type="primary">
-        Create
-      </Button>
-    </>
+    <section>
+      <Modal icon={mainIcon}>
+        <div className="text-left my-8">
+          <Form>
+            <FormRadio label="Numbering" labels={numberingLabels} values={numberingValues} setState={setNumbering} />
+            {numbering == "free" && <FormInput type="number" value={tokenId} label="TokenID" setState={setTokenId} />}
+            <FormInput type="number" value={copyFromId} label="Copy from" setState={setCopyFromId} />
+          </Form>
+        </div>
+        <Button onClick={createNFT} type="primary">
+          Create
+        </Button>
+      </Modal>
+    </section>
   );
 };
