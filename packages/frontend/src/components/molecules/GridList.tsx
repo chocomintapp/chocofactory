@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Metadata } from "../../types";
-import { ImageUploadIcon } from "../atoms/ImageUploadIcon";
 
 import "./GridList.scss";
 
