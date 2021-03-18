@@ -16,12 +16,17 @@ export const GridList: React.FC<GridListProps> = ({ nftContract, metadataList })
   return (
     <section>
       <div className="mb-2 flex justify-start">
-        <div>
+        <div className="mr-2">
           <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
             <Button type="primary" size="small">
               New<span className="ml-2">✨</span>
             </Button>
           </Link>
+        </div>
+        <div>
+          <Button type="primary" size="small">
+            Mint<span className="ml-2">💎</span>
+          </Button>
         </div>
       </div>
       <ul className="grid grid-cols-2 md:grid-cols-5 gap-2">

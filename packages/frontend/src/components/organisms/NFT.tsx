@@ -66,11 +66,6 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
               Save<span className="ml-2">💾</span>
             </Button>
           </div>
-          <div>
-            <Button type="primary" size="small">
-              Mint<span className="ml-2">💎</span>
-            </Button>
-          </div>
         </div>
 
         <Form>

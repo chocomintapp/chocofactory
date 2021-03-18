@@ -45,6 +45,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
     );
     if (predictedDeployResult.toLowerCase() != nftContract.nftContractAddress) return;
     const { hash } = await chocofactoryContract.connect(signer).deploy(chocomoldContract.address, data);
+    console.log(hash);
     setDeployedInternal(true);
   };
 
