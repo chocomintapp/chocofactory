@@ -10,7 +10,7 @@ export interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, children }) => {
   const sizeClass =
-    size == "small" ? "px-4 py-1 text-xs rounded-md shadow" : "text-sm font-medium py-2 px-4 rounded-xl shadow-sm";
+    size == "small" ? "px-4 py-1 text-xs rounded-md shadow" : "text-sm font-bold py-2 px-4 rounded-xl shadow-sm";
 
   return type === "primary" ? (
     <button

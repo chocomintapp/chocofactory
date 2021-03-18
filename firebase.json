@@ -23,6 +23,10 @@
         {
           "source": "**",
           "destination": "/index.html"
+        },
+        {
+          "source": "metadata",
+          "function": "metadata"
         }
       ]
     }

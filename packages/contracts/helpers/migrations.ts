@@ -25,8 +25,7 @@ export const updateJson = (contractName: string, address: string) => {
 export const deployFactory = async () => {
   const contractName = "Chocofactory";
   const Contract = await ethers.getContractFactory(contractName);
-  await Contract.deploy({ gasPrice });
-  const contract = await Contract.deploy({ gasPrice });
+  const contract = await Contract.deploy(contractName, "1", { gasPrice });
   updateJson(contractName, contract.address);
   return contract;
 };

@@ -21,11 +21,13 @@ contract HasSecondarySaleFees is IERC165, ERC721Upgradeable, IHasSecondarySaleFe
         address payable[] memory _royaltyAddress,
         uint256[] memory _royalty
     ) internal {
+        require(_royaltyAddress.length == _royalty.length, "input length must be same");
         royaltyAddressMemory[_tokenId] = _royaltyAddress;
         royaltyMemory[_tokenId] = _royalty;
     }
 
     function _setDefaultRoyality(address payable[] memory _royaltyAddress, uint256[] memory _royalty) internal {
+        require(_royaltyAddress.length == _royalty.length, "input length must be same");
         defaultRoyaltyAddressMemory = _royaltyAddress;
         defaultRoyaltyMemory = _royalty;
     }

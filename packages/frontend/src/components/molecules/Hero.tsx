@@ -7,9 +7,9 @@ export const Hero: React.FC = () => {
     <section>
       <div className="w-full">
         <div className="flex flex-col items-center mx-auto bg-gradient-to-r from-yellow-400 via-yellow-100 to-yellow-400 p-8">
-          <img className="max-w-96 max-h-80 mt-6 mb-3" src="/hero.png" />
-          <div className="mx-auto py-4">
-            <div className="flex items-center justify-center sm:px-1 space-x-4 mb-2">
+          <img className="h-80" src="/hero.png" />
+          <div className="mx-auto py-2">
+            <div className="flex items-center justify-center space-x-4">
               <Link to="/mypage" className="w-32">
                 <Button type="primary">Mypage</Button>
               </Link>

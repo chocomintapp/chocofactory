@@ -14,7 +14,7 @@ export const Mypage: React.FC<MypageProps> = ({ nftContractList }) => {
   return (
     <section>
       <div className="flex justify-between mb-4">
-        <p className="text-gray-700 text-xl font-medium">NFT Contracts</p>
+        <p className="text-gray-700 text-xl font-bold">NFT Contracts</p>
         <div>
           <Link to="/create-nft-contract">
             <Button type="primary" size="small">

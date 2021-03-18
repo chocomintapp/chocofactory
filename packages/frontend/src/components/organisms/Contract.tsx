@@ -56,7 +56,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   return nftContract ? (
     <section>
       <div className="flex justify-between mb-4">
-        <p className="text-gray-700 text-xl font-medium">NFT Contracts</p>
+        <p className="text-gray-700 text-xl font-bold">NFT Contracts</p>
         <div>
           <Button onClick={deployNFTContract} type="primary" size="small" disabled={deployedInternal}>
             {deployedInternal ? (
@@ -75,7 +75,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
         <NFTCard nftContract={nftContract} />
       </div>
       <div className="flex justify-between mb-4">
-        <p className="text-gray-700 text-xl font-medium">NFTs</p>
+        <p className="text-gray-700 text-xl font-bold">NFTs</p>
         <div className="flex">
           <div>
             <Button

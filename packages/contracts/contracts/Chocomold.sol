@@ -33,13 +33,13 @@ contract Chocomold is
     string public customBaseURI;
 
     function initialize(
+        address _owner,
         string memory _name,
-        string memory _symbol,
-        address _owner
+        string memory _symbol
     ) public initializer {
         __Ownable_init_unchained();
-        __ERC721_init_unchained(_name, _symbol);
         transferOwnership(_owner);
+        __ERC721_init_unchained(_name, _symbol);
     }
 
     function supportsInterface(bytes4 _interfaceId)
@@ -68,6 +68,10 @@ contract Chocomold is
         address payable[][] memory _royaltyAddressList,
         uint256[][] memory _royaltyList
     ) public onlyOwner {
+        require(
+            _tokenIdList.length == _royaltyAddressList.length && _tokenIdList.length == _royaltyList.length,
+            "input length must be same"
+        );
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _setRoyality(_tokenIdList[i], _royaltyAddressList[i], _royaltyList[i]);
         }
@@ -90,6 +94,7 @@ contract Chocomold is
     }
 
     function setIpfsHash(uint256[] memory _tokenIdList, bytes32[] memory _ipfsHashList) public onlyOwner {
+        require(_tokenIdList.length == _ipfsHashList.length, "input length must be same");
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _setIpfsHash(_tokenIdList[i], _ipfsHashList[i]);
         }
@@ -121,6 +126,7 @@ contract Chocomold is
     }
 
     function mint(address[] memory _toList, uint256[] memory _tokenIdList) public onlyOwner {
+        require(_toList.length == _tokenIdList.length, "input length must be same");
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i]);
         }

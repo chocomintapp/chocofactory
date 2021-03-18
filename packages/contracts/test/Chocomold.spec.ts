@@ -20,9 +20,8 @@ describe("Chocomold", function () {
   this.beforeEach("initialization.", async function () {
     [signer, creatorSigner] = await ethers.getSigners();
     const { factory, mold } = await main();
-    const data = mold.interface.encodeFunctionData("initialize", [MODAL_NAME, MODAL_SYMBOL, signer.address]);
-    const deployedMold = await factory.predictDeployResult(signer.address, mold.address, data);
-    await factory.deploy(mold.address, data);
+    const deployedMold = await factory.predictDeployResult(mold.address, signer.address, MODAL_NAME, MODAL_SYMBOL);
+    await factory.deploy(mold.address, MODAL_NAME, MODAL_SYMBOL);
     moldContract = mold.attach(deployedMold);
   });
   it("interface check", async function () {
@@ -59,20 +58,21 @@ describe("Chocomold", function () {
       expect(feeBps[i]).to.equal(customRoyalty[i]);
     }
   });
-  it("get custom royality when default set, custom set", async function () {
-    const defaultRoyaltyAddress = [signer.address];
+  it("set default royality fails with diffent length input", async function () {
+    const defaultRoyaltyAddress = [signer.address, creatorSigner.address];
     const defaultRoyalty = [100];
-    const customRoyaltyAddress = [signer.address, creatorSigner.address];
-    const customRoyalty = [100, 100];
     await moldContract["mint(address,uint256)"](signer.address, tokenId);
-    await moldContract.setDefaultRoyality(defaultRoyaltyAddress, defaultRoyalty);
-    await moldContract["setCustomRoyality(uint256,address[],uint256[])"](tokenId, customRoyaltyAddress, customRoyalty);
-    const feeRecipientsResult = await moldContract.getFeeRecipients(tokenId);
-    const feeBps = await moldContract.getFeeBps(tokenId);
-    for (let i = 0; i < customRoyaltyAddress.length; i++) {
-      expect(feeRecipientsResult[i]).to.equal(customRoyaltyAddress[i]);
-      expect(feeBps[i]).to.equal(customRoyalty[i]);
-    }
+    await expect(moldContract.setDefaultRoyality(defaultRoyaltyAddress, defaultRoyalty)).to.revertedWith(
+      "input length must be same"
+    );
+  });
+  it("set custom royality fails with diffent length input", async function () {
+    const customRoyaltyAddress = [signer.address, creatorSigner.address];
+    const customRoyalty = [100];
+    await moldContract["mint(address,uint256)"](signer.address, tokenId);
+    await expect(
+      moldContract["setCustomRoyality(uint256,address[],uint256[])"](tokenId, customRoyaltyAddress, customRoyalty)
+    ).to.revertedWith("input length must be same");
   });
   it("mint", async function () {
     await moldContract["mint(address,uint256)"](signer.address, tokenId);
@@ -109,7 +109,19 @@ describe("Chocomold", function () {
     }
     await moldContract["mint(address[],uint256[])"](toList, tokenIdList);
   });
-
+  it("bulk mint fali with different length input", async function () {
+    const toList: string[] = [];
+    const tokenIdList: number[] = [];
+    for (let i = 0; i < mintLimit; i++) {
+      if (i != 0) {
+        toList.push(signer.address);
+      }
+      tokenIdList.push(i);
+    }
+    await expect(moldContract["mint(address[],uint256[])"](toList, tokenIdList)).to.revertedWith(
+      "input length must be same"
+    );
+  });
   it("bulk mint, bulk set royality", async function () {
     const tokenIdList: number[] = [];
     const toList: string[] = [];
@@ -128,7 +140,28 @@ describe("Chocomold", function () {
       royalityList
     );
   });
-
+  it("bulk mint, bulk set royality fail with different length input", async function () {
+    const tokenIdList: number[] = [];
+    const toList: string[] = [];
+    const royalityAddressList: string[][] = [];
+    const royalityList: number[][] = [];
+    for (let i = 0; i < royalityLimit; i++) {
+      tokenIdList.push(i);
+      toList.push(signer.address);
+      if (i != 0) {
+        royalityAddressList.push([signer.address]);
+      }
+      royalityList.push([100]);
+    }
+    await moldContract["mint(address[],uint256[])"](toList, tokenIdList);
+    await expect(
+      moldContract["setCustomRoyality(uint256[],address[][],uint256[][])"](
+        tokenIdList,
+        royalityAddressList,
+        royalityList
+      )
+    ).to.revertedWith("input length must be same");
+  });
   it("bulk mint, bulk set ipfs", async function () {
     const tokenIdList: number[] = [];
     const toList: string[] = [];
@@ -142,7 +175,23 @@ describe("Chocomold", function () {
     await moldContract["mint(address[],uint256[])"](toList, tokenIdList);
     await moldContract["setIpfsHash(uint256[],bytes32[])"](tokenIdList, ipfsHashList);
   });
-
+  it("bulk mint, bulk set ipfs fail with different length input", async function () {
+    const tokenIdList: number[] = [];
+    const toList: string[] = [];
+    const ipfsHashList: string[] = [];
+    const dummyMetadataIpfsHash = "0x7d5a99f603f231d53a4f39d1521f98d2e8bb279cf29bebfd0687dc98458e7f89";
+    for (let i = 0; i < ipfsLimit; i++) {
+      tokenIdList.push(i);
+      toList.push(signer.address);
+      if (i != 0) {
+        ipfsHashList.push(dummyMetadataIpfsHash);
+      }
+    }
+    await moldContract["mint(address[],uint256[])"](toList, tokenIdList);
+    await expect(moldContract["setIpfsHash(uint256[],bytes32[])"](tokenIdList, ipfsHashList)).to.revertedWith(
+      "input length must be same"
+    );
+  });
   it("check burn is possible and deleted royality and ipfs", async function () {
     const customRoyaltyAddress = [signer.address, creatorSigner.address];
     const customRoyalty = [100, 100];

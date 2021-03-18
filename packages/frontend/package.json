@@ -47,6 +47,7 @@
     "react-scripts": "4.0.2",
     "recoil": "^0.1.3",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "typeface-roboto": "^1.1.13",
     "uuid": "^8.3.2",
     "web3": "^1.3.4",
     "web3modal": "^1.9.3",
