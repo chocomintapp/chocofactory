@@ -12,6 +12,8 @@ import "./extentions/HasSecondarySaleFees.sol";
 import "./libraries/IPFS.sol";
 import "./libraries/LiteralStrings.sol";
 
+import "hardhat/console.sol";
+
 contract Chocomold is
     Initializable,
     OwnableUpgradeable,
@@ -26,7 +28,6 @@ contract Chocomold is
     using LiteralStrings for bytes;
 
     mapping(uint256 => bytes32) public ipfsHashMemory;
-    bytes32 public defaultIpfsHash;
 
     string public constant defaultBaseURI = "https://asia-northeast1-chocofactory-prod.cloudfunctions.net/metadata/";
     string public customBaseURI;
@@ -50,57 +51,8 @@ contract Chocomold is
         return super.supportsInterface(_interfaceId);
     }
 
-    function _baseURI() internal view override returns (string memory) {
-        if (bytes(customBaseURI).length > 0) {
-            return customBaseURI;
-        } else {
-            return defaultBaseURI;
-        }
-    }
-
-    function setDefaultIpfsHash(bytes32 _defaultIpfsHash) public onlyOwner {
-        defaultIpfsHash = _defaultIpfsHash;
-    }
-
-    function setCustomBaseURI(string memory _customBaseURI) public onlyOwner {
-        customBaseURI = _customBaseURI;
-    }
-
-    function _setCustomIpfsHash(uint256 _tokenId, bytes32 _ipfsHash) internal {
-        ipfsHashMemory[_tokenId] = _ipfsHash;
-    }
-
-    function setCustomIpfsHash(uint256 _tokenId, bytes32 _ipfsHash) public onlyOwner {
-        _setCustomIpfsHash(_tokenId, _ipfsHash);
-    }
-
-    function setCustomIpfsHash(uint256[] memory _tokenIdList, bytes32[] memory _ipfsHashList) public onlyOwner {
-        for (uint256 i = 0; i < _tokenIdList.length; i++) {
-            _setCustomIpfsHash(_tokenIdList[i], _ipfsHashList[i]);
-        }
-    }
-
-    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-        require(_exists(_tokenId), "token must exist");
-        if (defaultIpfsHash != "") {
-            return string(defaultIpfsHash.addSha256FunctionCodePrefix().toBase58().addIpfsBaseUrlPrefix());
-        } else if (ipfsHashMemory[_tokenId] != "") {
-            return string(ipfsHashMemory[_tokenId].addSha256FunctionCodePrefix().toBase58().addIpfsBaseUrlPrefix());
-        } else if (bytes(customBaseURI).length > 0) {
-            return super.tokenURI(_tokenId);
-        } else {
-            return
-                string(
-                    abi.encodePacked(
-                        defaultBaseURI,
-                        block.chainid.toString(),
-                        "/",
-                        abi.encodePacked(address(this)).toLiteralString(),
-                        "/",
-                        _tokenId.toString()
-                    )
-                );
-        }
+    function setDefaultRoyality(address payable[] memory _royaltyAddress, uint256[] memory _royalty) public onlyOwner {
+        _setDefaultRoyality(_royaltyAddress, _royalty);
     }
 
     function setCustomRoyality(
@@ -118,6 +70,49 @@ contract Chocomold is
     ) public onlyOwner {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _setRoyality(_tokenIdList[i], _royaltyAddressList[i], _royaltyList[i]);
+        }
+    }
+
+    function _baseURI() internal view override returns (string memory) {
+        return customBaseURI;
+    }
+
+    function setCustomBaseURI(string memory _customBaseURI) public onlyOwner {
+        customBaseURI = _customBaseURI;
+    }
+
+    function _setIpfsHash(uint256 _tokenId, bytes32 _ipfsHash) internal {
+        ipfsHashMemory[_tokenId] = _ipfsHash;
+    }
+
+    function setIpfsHash(uint256 _tokenId, bytes32 _ipfsHash) public onlyOwner {
+        _setIpfsHash(_tokenId, _ipfsHash);
+    }
+
+    function setIpfsHash(uint256[] memory _tokenIdList, bytes32[] memory _ipfsHashList) public onlyOwner {
+        for (uint256 i = 0; i < _tokenIdList.length; i++) {
+            _setIpfsHash(_tokenIdList[i], _ipfsHashList[i]);
+        }
+    }
+
+    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
+        require(_exists(_tokenId), "token must exist");
+        if (ipfsHashMemory[_tokenId] != "") {
+            return string(ipfsHashMemory[_tokenId].addSha256FunctionCodePrefix().toBase58().addIpfsBaseUrlPrefix());
+        } else if (bytes(customBaseURI).length > 0) {
+            return super.tokenURI(_tokenId);
+        } else {
+            return
+                string(
+                    abi.encodePacked(
+                        defaultBaseURI,
+                        block.chainid.toString(),
+                        "/",
+                        abi.encodePacked(address(this)).toLiteralString(),
+                        "/",
+                        _tokenId.toString()
+                    )
+                );
         }
     }
 
@@ -139,16 +134,10 @@ contract Chocomold is
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
-    function _burn(uint256 _tokenId) internal virtual override {
+    function _burn(uint256 _tokenId) internal virtual override(ERC721Upgradeable, HasSecondarySaleFees) {
         super._burn(_tokenId);
         if (ipfsHashMemory[_tokenId] != "") {
             delete ipfsHashMemory[_tokenId];
-        }
-        if (royaltyAddressMemory[_tokenId].length > 0) {
-            delete royaltyAddressMemory[_tokenId];
-        }
-        if (royaltyMemory[_tokenId].length > 0) {
-            delete royaltyMemory[_tokenId];
         }
     }
 }

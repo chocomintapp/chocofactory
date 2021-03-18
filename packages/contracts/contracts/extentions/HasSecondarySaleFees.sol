@@ -6,26 +6,15 @@ pragma solidity ^0.8.0;
 // modified by taijusanagi
 
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "./IHasSecondarySaleFees.sol";
 
-contract HasSecondarySaleFees is IERC165, IHasSecondarySaleFees {
-    address payable[] defaultRoyaltyAddressMemory;
-    uint256[] defaultRoyaltyMemory;
+contract HasSecondarySaleFees is IERC165, ERC721Upgradeable, IHasSecondarySaleFees {
+    address payable[] private defaultRoyaltyAddressMemory;
+    uint256[] private defaultRoyaltyMemory;
 
-    mapping(uint256 => address payable[]) royaltyAddressMemory;
-    mapping(uint256 => uint256[]) royaltyMemory;
-
-    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IHasSecondarySaleFees).interfaceId;
-    }
-
-    function getFeeRecipients(uint256 _tokenId) external view override returns (address payable[] memory) {
-        return royaltyAddressMemory[_tokenId].length > 0 ? royaltyAddressMemory[_tokenId] : defaultRoyaltyAddressMemory;
-    }
-
-    function getFeeBps(uint256 _tokenId) external view override returns (uint256[] memory) {
-        return royaltyMemory[_tokenId].length > 0 ? royaltyMemory[_tokenId] : defaultRoyaltyMemory;
-    }
+    mapping(uint256 => address payable[]) private royaltyAddressMemory;
+    mapping(uint256 => uint256[]) private royaltyMemory;
 
     function _setRoyality(
         uint256 _tokenId,
@@ -39,5 +28,33 @@ contract HasSecondarySaleFees is IERC165, IHasSecondarySaleFees {
     function _setDefaultRoyality(address payable[] memory _royaltyAddress, uint256[] memory _royalty) internal {
         defaultRoyaltyAddressMemory = _royaltyAddress;
         defaultRoyaltyMemory = _royalty;
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(IERC165, ERC721Upgradeable)
+        returns (bool)
+    {
+        return interfaceId == type(IHasSecondarySaleFees).interfaceId;
+    }
+
+    function getFeeRecipients(uint256 _tokenId) external view override returns (address payable[] memory) {
+        return royaltyAddressMemory[_tokenId].length > 0 ? royaltyAddressMemory[_tokenId] : defaultRoyaltyAddressMemory;
+    }
+
+    function getFeeBps(uint256 _tokenId) external view override returns (uint256[] memory) {
+        return royaltyMemory[_tokenId].length > 0 ? royaltyMemory[_tokenId] : defaultRoyaltyMemory;
+    }
+
+    function _burn(uint256 _tokenId) internal virtual override {
+        super._burn(_tokenId);
+        if (royaltyAddressMemory[_tokenId].length > 0) {
+            delete royaltyAddressMemory[_tokenId];
+        }
+        if (royaltyMemory[_tokenId].length > 0) {
+            delete royaltyMemory[_tokenId];
+        }
     }
 }
