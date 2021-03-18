@@ -12,15 +12,26 @@ export interface ContractTemplateProps {
   nftContract?: NFTContract;
   metadataList: Metadata[];
   deployed: boolean;
+  mintedTokenIds: string[];
 }
 
-export const ContractTemplate: React.FC<ContractTemplateProps> = ({ nftContract, metadataList, deployed }) => {
+export const ContractTemplate: React.FC<ContractTemplateProps> = ({
+  nftContract,
+  metadataList,
+  deployed,
+  mintedTokenIds,
+}) => {
   return (
     <Main>
       <Header />
       <Container type="wide">
         <AuthGuard>
-          <Contract nftContract={nftContract} metadataList={metadataList} deployed={deployed} />
+          <Contract
+            nftContract={nftContract}
+            metadataList={metadataList}
+            deployed={deployed}
+            mintedTokenIds={mintedTokenIds}
+          />
         </AuthGuard>
       </Container>
       <Footer />

@@ -5,6 +5,8 @@ import { SpreadSheet, SpreadSheetProps } from "./SpreadSheet";
 const args: SpreadSheetProps = {
   nftContract: nftContractList[0],
   metadataList,
+  mintedTokenIds: [],
+  deployed: false,
   setState: () => {
     console.log("set state");
   },

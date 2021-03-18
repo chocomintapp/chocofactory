@@ -13,9 +13,10 @@ export interface ContractProps {
   nftContract?: NFTContract;
   metadataList: Metadata[];
   deployed: boolean;
+  mintedTokenIds: string[];
 }
 
-export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, deployed }) => {
+export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, deployed, mintedTokenIds }) => {
   const [isBulkEditMode, setIsBulkEditMode] = React.useState(true);
   const [internalMetadataList, setInternalMetadataList] = React.useState<Metadata[]>([]);
   const [deployedInternal, setDeployedInternal] = React.useState(false);
@@ -92,6 +93,8 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
             setState={setInternalMetadataList}
             nftContract={nftContract}
             metadataList={internalMetadataList}
+            mintedTokenIds={mintedTokenIds}
+            deployed={deployedInternal}
           />
         ) : (
           <GridList nftContract={nftContract} metadataList={internalMetadataList} />

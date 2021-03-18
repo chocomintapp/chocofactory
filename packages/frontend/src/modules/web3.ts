@@ -9,6 +9,8 @@ import { NetworkName, ChainId } from "../../../contracts/helpers/types";
 import networkConfig from "../../../contracts/network.json";
 import { Chocomold, Chocofactory } from "../../../contracts/typechain";
 
+export { NULL_ADDRESS } from "../../../contracts/helpers/constants";
+
 export const chainIdLabels = process.env.NODE_ENV == "development" ? ["Local", "Rinkeby"] : ["Rinkeby"];
 export const chainIdValues =
   process.env.NODE_ENV == "development" ? (["31337", "4"] as ChainId[]) : (["4"] as ChainId[]);

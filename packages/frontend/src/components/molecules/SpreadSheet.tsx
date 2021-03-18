@@ -2,32 +2,52 @@ import { AgGridReact } from "ag-grid-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-balham.css";
-
+import { useAuth } from "../../modules/auth";
 import { firestore } from "../../modules/firebase";
+import { getContractsForChainId } from "../../modules/web3";
+
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 
 import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-balham.css";
+
 export interface SpreadSheetProps {
   nftContract: NFTContract;
   metadataList: Metadata[];
+  mintedTokenIds: string[];
+  deployed: boolean;
   setState: (input: Metadata[]) => void;
 }
 
-export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataList, setState }) => {
+export const SpreadSheet: React.FC<SpreadSheetProps> = ({
+  nftContract,
+  metadataList,
+  mintedTokenIds,
+  deployed,
+  setState,
+}) => {
   const [gridApi, setGridApi] = React.useState<any>();
   const [, setGridColumnApi] = React.useState<any>();
   const [internalList, setInternalList] = React.useState<Metadata[]>([]);
 
   const { openMessageModal, closeMessageModal, messageModalProps } = useMessageModal();
+  const { connectWallet } = useAuth();
 
   React.useEffect(() => {
     if (!metadataList) return;
-    setInternalList(metadataList);
-  }, [metadataList]);
+    const result = metadataList.map((metadata: any) => {
+      if (mintedTokenIds.includes(metadata.tokenId.toString())) {
+        metadata.minted = true;
+      } else {
+        metadata.minted = false;
+      }
+      return metadata;
+    });
+    setInternalList(result);
+  }, [metadataList, mintedTokenIds]);
 
   const saveToFirestore = async () => {
     const rowData: Metadata[] = [];
@@ -52,6 +72,27 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
 
   const exportCSV = () => {
     gridApi.exportDataAsCsv();
+  };
+
+  const mintNFTs = async () => {
+    if (!deployed) return;
+    const { signerAddress, signer } = await connectWallet();
+    const signerNetwork = await signer.provider.getNetwork();
+    if (nftContract.chainId != signerNetwork.chainId.toString()) return;
+    const selectedNodes = gridApi.getSelectedNodes();
+    const selectedRowData: Metadata[] = selectedNodes.map((node: any) => node.data);
+    const selectedTokenIds = selectedRowData.map((selectedRow: any) => selectedRow.tokenId);
+    selectedTokenIds.forEach((selectedTokenId) => {
+      if (mintedTokenIds.includes(selectedTokenId)) {
+        return;
+      }
+    });
+    const { chocomoldContract } = getContractsForChainId(nftContract.chainId);
+    const { hash } = await chocomoldContract
+      .attach(nftContract.nftContractAddress)
+      .connect(signer)
+      ["mint(address,uint256[])"](signerAddress, selectedTokenIds);
+    console.log(hash);
   };
 
   const onGridReady = (params: any) => {
@@ -115,7 +156,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
             </Button>
           </div>
           <div className="mr-2">
-            <Button onClick={saveToFirestore} type="primary" size="small">
+            <Button onClick={mintNFTs} type="primary" size="small" disabled={!deployed}>
               Mint<span className="ml-2">💎</span>
             </Button>
           </div>

@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { ContractTemplate } from "../../../components/templates/Contract";
 import { useAuth } from "../../../modules/auth";
 import { firestore } from "../../../modules/firebase";
-import { getContractsForChainId } from "../../../modules/web3";
+import { getContractsForChainId, NULL_ADDRESS } from "../../../modules/web3";
 import { NFTContract, Metadata } from "../../../types";
 
 export const Contract: React.FC = () => {
   const [nftContract, setNFTContract] = React.useState<NFTContract>();
   const [metadataList, setMetadataList] = React.useState<Metadata[]>([]);
   const [deployed, setDeployed] = React.useState<boolean>(false);
+  const [mintedTokenIds, setMintedTokenIds] = React.useState<string[]>([]);
 
   const { nftContractAddress, chainId } = useParams<{ chainId: string; nftContractAddress: string }>();
 
@@ -45,14 +46,29 @@ export const Contract: React.FC = () => {
           setMetadataList(metadataList);
         });
     }
-    const { chocofactoryContract } = getContractsForChainId(chainId);
+    const { chocofactoryContract, chocomoldContract } = getContractsForChainId(chainId);
     const DeployEvent = chocofactoryContract.filters.Deployed(null, null, nftContractAddress, null);
     chocofactoryContract.queryFilter(DeployEvent, 0, "latest").then((events) => {
       setDeployed(events.length > 0);
     });
+    const MintEvent = chocomoldContract.filters.Transfer(NULL_ADDRESS, null, null);
+    chocomoldContract
+      .attach(nftContractAddress)
+      .queryFilter(MintEvent, 0, "latest")
+      .then((events) => {
+        const tokenIds = events.map((event) => event.args!.tokenId.toString());
+        setMintedTokenIds(tokenIds);
+      });
   }, [signerAddressState]);
 
-  return <ContractTemplate nftContract={nftContract} metadataList={metadataList} deployed={deployed} />;
+  return (
+    <ContractTemplate
+      nftContract={nftContract}
+      metadataList={metadataList}
+      deployed={deployed}
+      mintedTokenIds={mintedTokenIds}
+    />
+  );
 };
 
 export default Contract;

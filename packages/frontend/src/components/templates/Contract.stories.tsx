@@ -8,6 +8,7 @@ const args: ContractTemplateProps = {
   nftContract: nftContractList[0],
   metadataList,
   deployed: false,
+  mintedTokenIds: [],
 };
 
 export default {
