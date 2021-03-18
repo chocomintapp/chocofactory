@@ -2,7 +2,7 @@ import React from "react";
 
 import { MypageTemplate } from "../components/templates/Mypage";
 import { useAuth } from "../modules/auth";
-import { firestore } from "../modules/firebase";
+import { firestore, DB_VIRSION } from "../modules/firebase";
 import { chainIdValues } from "../modules/web3";
 import { NFTContract } from "../types";
 
@@ -15,7 +15,7 @@ export const Mypage: React.FC = () => {
     if (signerAddressState) {
       const promises = chainIdValues.map((chainId) => {
         return firestore
-          .collection("v1")
+          .collection(DB_VIRSION)
           .doc(chainId)
           .collection("nftContract")
           .where("ownerAddress", "==", signerAddressState)

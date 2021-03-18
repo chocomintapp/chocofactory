@@ -3,8 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../../modules/auth";
-import { firestore } from "../../modules/firebase";
-import { getContractsForChainId } from "../../modules/web3";
+import { firestore, DB_VIRSION } from "../../modules/firebase";
+import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
 
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
@@ -56,7 +56,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     for (let i = 0; i < rowData.length; i++) {
       batch.set(
         firestore
-          .collection("v1")
+          .collection(DB_VIRSION)
           .doc(nftContract.chainId)
           .collection("nftContract")
           .doc(nftContract.nftContractAddress)
@@ -67,7 +67,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     }
     await batch.commit();
     setState(rowData);
-    openMessageModal("🎉", "NFTs are saved!", "Close", closeMessageModal, closeMessageModal);
+    openMessageModal("🎉", "NFTs are saved", "Close", closeMessageModal, closeMessageModal);
   };
 
   const exportCSV = () => {
@@ -78,21 +78,44 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     if (!deployed) return;
     const { signerAddress, signer } = await connectWallet();
     const signerNetwork = await signer.provider.getNetwork();
-    if (nftContract.chainId != signerNetwork.chainId.toString()) return;
+    if (nftContract.chainId != signerNetwork.chainId.toString()) {
+      const networkName = getNetworkNameFromChainId(nftContract.chainId);
+      openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
+      return;
+    }
     const selectedNodes = gridApi.getSelectedNodes();
     const selectedRowData: Metadata[] = selectedNodes.map((node: any) => node.data);
     const selectedTokenIds = selectedRowData.map((selectedRow: any) => selectedRow.tokenId);
+    if (selectedTokenIds.length == 0) {
+      openMessageModal("🤔", `Please select NFT`, "Close", closeMessageModal, closeMessageModal);
+      return;
+    }
+    const toList: string[] = [];
     selectedTokenIds.forEach((selectedTokenId) => {
-      if (mintedTokenIds.includes(selectedTokenId)) {
+      if (mintedTokenIds.includes(selectedTokenId.toString())) {
+        openMessageModal(
+          "🤔",
+          `NFT #${selectedTokenId} is already minted`,
+          "Close",
+          closeMessageModal,
+          closeMessageModal
+        );
         return;
       }
+      toList.push(nftContract.ownerAddress);
     });
-    const { chocomoldContract } = getContractsForChainId(nftContract.chainId);
+    const { chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
     const { hash } = await chocomoldContract
       .attach(nftContract.nftContractAddress)
       .connect(signer)
-      ["mint(address[],uint256[])"]([signerAddress], selectedTokenIds);
-    openMessageModal("🎉", `NFTs are minted! \n\n${hash}`, "Close", closeMessageModal, closeMessageModal);
+      ["mint(address[],uint256[])"](toList, selectedTokenIds);
+    openMessageModal(
+      "🎉",
+      "NFT is being deployed!",
+      "Check",
+      () => window.open(`${explore}${hash}`),
+      closeMessageModal
+    );
   };
 
   const onGridReady = (params: any) => {

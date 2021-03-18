@@ -1,7 +1,6 @@
 import React from "react";
-
 import { useAuth } from "../../modules/auth";
-import { getContractsForChainId } from "../../modules/web3";
+import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
@@ -34,8 +33,12 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
     if (!nftContract) return;
     const { signerAddress, signer } = await connectWallet();
     const signerNetwork = await signer.provider.getNetwork();
-    if (nftContract.chainId != signerNetwork.chainId.toString()) return;
-    const { chocofactoryContract, chocomoldContract } = getContractsForChainId(nftContract.chainId);
+    if (nftContract.chainId != signerNetwork.chainId.toString()) {
+      const networkName = getNetworkNameFromChainId(nftContract.chainId);
+      openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
+      return;
+    }
+    const { chocofactoryContract, chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
     const predictedDeployResult = await chocofactoryContract.predictDeployResult(
       chocomoldContract.address,
       signerAddress,
@@ -43,7 +46,6 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       nftContract.symbol
     );
     if (predictedDeployResult.toLowerCase() != nftContract.nftContractAddress) return;
-    //TODO: USE TYPED DATA SIGNATURE
     const { hash } = await chocofactoryContract
       .connect(signer)
       .deployWithTypedSig(
@@ -54,7 +56,13 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
         nftContract.signature
       );
     setDeployedInternal(true);
-    openMessageModal("🎉", `NFTs are deployed! \n\n${hash}`, "Close", closeMessageModal, closeMessageModal);
+    openMessageModal(
+      "🎉",
+      "NFT contract is being deployed!",
+      "Check",
+      () => window.open(`${explore}${hash}`),
+      closeMessageModal
+    );
   };
 
   return nftContract ? (

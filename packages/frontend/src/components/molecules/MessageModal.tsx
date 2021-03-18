@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../atoms/Button";
 import { Modal } from "../atoms/Modal";
 
@@ -23,9 +24,15 @@ export const MessageModal: React.FC<MessageModalProps> = ({
       {onClickConfirm && (
         <div className="flex justify-center">
           <div className="w-6/12">
-            <Button onClick={onClickConfirm} type="tertiary">
-              {buttonText}
-            </Button>
+            {typeof onClickConfirm == "string" ? (
+              <Link to={onClickConfirm}>
+                <Button type="tertiary">{buttonText}</Button>
+              </Link>
+            ) : (
+              <Button onClick={onClickConfirm} type="tertiary">
+                {buttonText}
+              </Button>
+            )}
           </div>
         </div>
       )}

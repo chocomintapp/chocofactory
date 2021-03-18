@@ -27,4 +27,6 @@ if (process.env.NODE_ENV === "development") {
   auth.useEmulator(`http://localhost:${firebaseJson.emulators.auth.port}`);
 }
 
+export const DB_VIRSION = process.env.REACT_APP_DB_VIRSION ? process.env.REACT_APP_DB_VIRSION : "v0";
+
 export { firestore, functions, auth };

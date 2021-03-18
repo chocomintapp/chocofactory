@@ -4,7 +4,9 @@ import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 
 import { NFTContract } from "../../../frontend/src/types";
+import { DB_VIRSION } from "../modules/config";
 import { getContractsForChainId } from "../modules/web3";
+
 const firestore = admin.firestore();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -39,7 +41,7 @@ module.exports = functions.region("asia-northeast1").https.onCall(async (data, c
     signature,
   };
   await firestore
-    .collection("v1")
+    .collection(DB_VIRSION)
     .doc(chainId)
     .collection("nftContract")
     .doc(nftContractAddress)

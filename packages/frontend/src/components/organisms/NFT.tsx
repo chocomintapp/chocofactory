@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { firestore } from "../../modules/firebase";
+import { firestore, DB_VIRSION } from "../../modules/firebase";
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
-import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 export interface NFTProps {
   nftContract?: NFTContract;
@@ -21,7 +20,6 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const [image, setImage] = React.useState("");
   const [animationUrl, setAnimationUrl] = React.useState("");
 
-  const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const history = useHistory();
 
   React.useEffect(() => {
@@ -31,7 +29,6 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
     setImage(metadata.image);
     setAnimationUrl(metadata.animationUrl);
   }, [metadata]);
-
   const createNFT = async () => {
     if (!nftContract || !metadata) return;
     const newMetadata: Metadata = {
@@ -44,18 +41,14 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       animationUrl,
     };
     await firestore
-      .collection("v1")
+      .collection(DB_VIRSION)
       .doc(nftContract.chainId)
       .collection("nftContract")
       .doc(nftContract.nftContractAddress)
       .collection("metadata")
       .doc(metadata.tokenId.toString())
       .set(newMetadata);
-
-    openMessageModal("🎉", `NFTs are saved! \n\n${nftContract.nftContractAddress}`, "Close", () => {
-      closeMessageModal();
-      history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
-    });
+    history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
   };
 
   return nftContract && metadata ? (
@@ -89,7 +82,6 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
           />
         </Form>
       </div>
-      {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   ) : (
     <></>

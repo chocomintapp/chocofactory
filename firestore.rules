@@ -22,16 +22,16 @@ service cloud.firestore {
       return get(path).data;
     }
 
-    function nftContract(chainId, address) {
-      return getData(documentPath(['v1', chainId, 'nftContract', address]));
+    function nftContract(virsion, chainId, address) {
+      return getData(documentPath([virsion, chainId, 'nftContract', address]));
     }
 
-    match /v1/{network} {
+    match /{virsion}/{network} {
       match /nftContract/{address} {
         allow read: if isUserAuthenticated(existingData().ownerAddress);
     
         match /metadata/{tokenId} {
-          allow read, create, update, delete: if isUserAuthenticated(nftContract(network, address).ownerAddress);
+          allow read, create, update, delete: if isUserAuthenticated(nftContract(virsion, network, address).ownerAddress);
         }
       }
     }

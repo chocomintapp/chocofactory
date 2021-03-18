@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ChainId } from "../../../../contracts/helpers/types";
 import { useAuth } from "../../modules/auth";
 import { functions } from "../../modules/firebase";
@@ -84,12 +83,8 @@ export const CreateNFTContractForm: React.FC = () => {
       ownerAddress,
     });
     const { nftContractAddress } = result.data;
-    openMessageModal(
-      "🎉",
-      `NFT contract is created!`,
-      "Detail",
-      () => moveToContractPage(nftContractAddress),
-      () => moveToContractPage(nftContractAddress)
+    openMessageModal("🎉", `NFT contract is created!`, "Detail", () =>
+      history.push(`/${chainId}/${nftContractAddress}`)
     );
   };
 

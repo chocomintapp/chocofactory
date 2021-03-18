@@ -61,9 +61,9 @@ export const getNetworkNameFromChainId = (chainId: string): NetworkName => {
 
 export const getContractsForChainId = (chainId: string) => {
   const networkName = getNetworkNameFromChainId(chainId);
-  const { chocofactory, chocomold, rpc } = networkConfig[networkName];
+  const { chocofactory, chocomold, rpc, explore } = networkConfig[networkName];
   const provider = new ethers.providers.JsonRpcProvider(rpc);
   const chocomoldContract = new ethers.Contract(chocomold, chocomoldAbi, provider) as Chocomold;
   const chocofactoryContract = new ethers.Contract(chocofactory, chocofactoryAbi, provider) as Chocofactory;
-  return { chocofactoryContract, chocomoldContract };
+  return { chocofactoryContract, chocomoldContract, explore };
 };
