@@ -1,5 +1,6 @@
 import { AgGridReact } from "ag-grid-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
@@ -27,24 +28,6 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
     if (!metadataList) return;
     setInternalList(metadataList);
   }, [metadataList]);
-
-  const addRow = () => {
-    const tokenId = gridApi.getDisplayedRowCount() + 1;
-    const metadata: Metadata = {
-      chainId: nftContract.chainId,
-      nftContractAddress: nftContract.nftContractAddress,
-      tokenId,
-      name: "",
-      description: "",
-      image: "",
-      animationUrl: "",
-    };
-
-    gridApi.updateRowData({
-      add: [metadata],
-      addIndex: tokenId,
-    });
-  };
 
   const saveToFirestore = async () => {
     const rowData: Metadata[] = [];
@@ -120,9 +103,11 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({ nftContract, metadataL
       <div className="mb-2 flex justify-between">
         <div className="flex">
           <div className="mr-2">
-            <Button onClick={addRow} type="primary" size="small">
-              New<span className="ml-2">✨</span>
-            </Button>
+            <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
+              <Button type="primary" size="small">
+                New<span className="ml-2">✨</span>
+              </Button>
+            </Link>
           </div>
           <div className="mr-2">
             <Button onClick={saveToFirestore} type="primary" size="small">

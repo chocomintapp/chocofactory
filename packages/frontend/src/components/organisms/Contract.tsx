@@ -16,7 +16,7 @@ export interface ContractProps {
 }
 
 export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, deployed }) => {
-  const [isBulkEditMode, setIsBulkEditMode] = React.useState(false);
+  const [isBulkEditMode, setIsBulkEditMode] = React.useState(true);
   const [internalMetadataList, setInternalMetadataList] = React.useState<Metadata[]>([]);
   const [deployedInternal, setDeployedInternal] = React.useState(false);
 
