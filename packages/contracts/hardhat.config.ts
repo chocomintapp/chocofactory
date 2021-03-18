@@ -34,6 +34,14 @@ module.exports = {
       url: network.rinkeby.rpc,
       accounts: [privateKey],
     },
+    matic_test: {
+      url: network.matic_test.rpc,
+      accounts: [privateKey],
+    },
+    bsc_test: {
+      url: network.bsc_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

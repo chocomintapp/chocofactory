@@ -10,8 +10,22 @@
     "chainId": "4",
     "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
     "explore": "https://rinkeby.etherscan.io/tx/",
-    "chocofactory": "0xE9CbD5B459DDda5de8d9E0b59Ddefbe043607Dc5",
-    "chocomold": "0x4d467eaBFD46D2c09357A14B1eC6955a626C67cE"
+    "chocofactory": "0x5de70a628d5e8F37e28087b90a9788eDF0Ec0D49",
+    "chocomold": "0x701d7c59B7f197f8D45Eb09dCB01eEAB7Ae8990C"
+  },
+  "matic_test": {
+    "chainId": "80001",
+    "rpc": "https://rpc-mumbai.matic.today",
+    "explore": "https://explorer-mumbai.maticvigil.com/tx/",
+    "chocofactory": "0x6197D6D561DE3DB4bacEaEAb2C63037060B8b2E0",
+    "chocomold": "0x1539c84c074701a5A559d802c8EBa2AC496D4961"
+  },
+  "bsc_test": {
+    "chainId": "97",
+    "rpc": "https://data-seed-prebsc-1-s1.binance.org:8545/",
+    "explore": "https://testnet.bscscan.com/tx/",
+    "chocofactory": "0x6197D6D561DE3DB4bacEaEAb2C63037060B8b2E0",
+    "chocomold": "0x1539c84c074701a5A559d802c8EBa2AC496D4961"
   },
   "localhost": {
     "chainId": "31337",

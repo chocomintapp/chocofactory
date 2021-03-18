@@ -1,5 +1,7 @@
 {
   "1": "mainnet",
   "4": "rinkeby",
+  "97": "bsc_test",
+  "80001": "matic_test",
   "31337": "localhost"
 }

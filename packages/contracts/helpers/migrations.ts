@@ -6,7 +6,7 @@ import { NetworkName } from "./types";
 export const filePath = "../network.json";
 export const networkName = hre.network.name == "hardhat" ? "localhost" : <NetworkName>hre.network.name;
 
-export const gasPrice = process.env.GASPRICE ? parseInt(process.env.GASPRICE) : 10000000000; //10 gwei
+export const gasPrice = process.env.GASPRICE ? parseInt(process.env.GASPRICE) : 100000000000; //100 gwei
 
 export const readFileAsJson = () => {
   const configsBuffer = fs.readFileSync(path.join(__dirname, filePath));
@@ -26,6 +26,7 @@ export const deployFactory = async () => {
   const contractName = "Chocofactory";
   const Contract = await ethers.getContractFactory(contractName);
   const contract = await Contract.deploy(contractName, "1", { gasPrice });
+  networkName != "localhost" && console.log(contractName, "deployed at", contract.address);
   updateJson(contractName, contract.address);
   return contract;
 };
@@ -36,6 +37,7 @@ export const deployMold = async () => {
   const contract = await Contract.deploy({
     gasPrice,
   });
+  networkName != "localhost" && console.log(contractName, "deployed at", contract.address);
   updateJson(contractName, contract.address);
   return contract;
 };

@@ -12,7 +12,9 @@
     "deploy:0": "yarn hardhat run scripts/0_deployTemplate.ts",
     "deploy:1": "yarn hardhat run scripts/1_deployFactory.ts",
     "deploy-contract-to-localchain": "hardhat run scripts/99_batchMigration.ts --network localhost",
-    "deploy-contract-to-rinkeby": "hardhat run scripts/99_batchMigration.ts --network rinkeby"
+    "deploy-contract-to-rinkeby": "hardhat run scripts/99_batchMigration.ts --network rinkeby",
+    "deploy-contract-to-matic_test": "hardhat run scripts/99_batchMigration.ts --network matic_test",
+    "deploy-contract-to-bsc_test": "hardhat run scripts/99_batchMigration.ts --network bsc_test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

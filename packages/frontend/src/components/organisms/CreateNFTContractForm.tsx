@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { ChainId } from "../../../../contracts/helpers/types";
 import { useAuth } from "../../modules/auth";
 import { functions } from "../../modules/firebase";
-import { getContractsForChainId, chainIdLabels, chainIdValues } from "../../modules/web3";
+import { getContractsForChainId, chainIdLabels, chainIdValues, getNetworkNameFromChainId } from "../../modules/web3";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormInput } from "../molecules/FormInput";
@@ -14,14 +14,44 @@ import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 export const CreateNFTContractForm: React.FC = () => {
   const [chainId, setChainId] = React.useState<ChainId>(chainIdValues[0]);
   const [name, setName] = React.useState("");
+  const [nameError, setNameError] = React.useState("");
   const [symbol, setSymbol] = React.useState("");
+  const [symbolError, setSymbolError] = React.useState("");
 
   const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
   const history = useHistory();
 
+  const moveToContractPage = (nftContractAddress: string) => {
+    history.push(`/${chainId}/${nftContractAddress}`);
+  };
+
+  const validateForm = () => {
+    let result = true;
+    if (!name) {
+      setNameError("please input name");
+      result = false;
+    } else {
+      setNameError("");
+    }
+    if (!symbol) {
+      setSymbolError("please input symbol");
+      result = false;
+    } else {
+      setSymbolError("");
+    }
+    return result;
+  };
+
   const createNFTContract = async () => {
+    if (!validateForm()) return;
     const { signer, signerAddress } = await connectWallet();
+    const signerNetwork = await signer.provider.getNetwork();
+    if (chainId != signerNetwork.chainId.toString()) {
+      const networkName = getNetworkNameFromChainId(chainId);
+      openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
+      return;
+    }
     const ownerAddress = signerAddress.toLowerCase();
     const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
     const domain = {
@@ -54,10 +84,13 @@ export const CreateNFTContractForm: React.FC = () => {
       ownerAddress,
     });
     const { nftContractAddress } = result.data;
-    openMessageModal("🎉", `NFTs are created! \n\n${nftContractAddress}`, "View Details", () => {
-      closeMessageModal();
-      history.push(`/${chainId}/${nftContractAddress}`);
-    });
+    openMessageModal(
+      "🎉",
+      `NFT contract is created!`,
+      "Detail",
+      () => moveToContractPage(nftContractAddress),
+      () => moveToContractPage(nftContractAddress)
+    );
   };
 
   return (
@@ -79,8 +112,8 @@ export const CreateNFTContractForm: React.FC = () => {
       <div className="mb-8">
         <Form>
           <FormRadio label="Network" labels={chainIdLabels} values={chainIdValues} setState={setChainId} />
-          <FormInput type="text" value={name} label="Name" setState={setName} />
-          <FormInput type="text" value={symbol} label="Symbol" setState={setSymbol} />
+          <FormInput type="text" error={nameError} value={name} label="Name" setState={setName} />
+          <FormInput type="text" error={symbolError} value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
       </div>
       {messageModalProps && <MessageModal {...messageModalProps} />}
