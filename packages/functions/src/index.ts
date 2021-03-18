@@ -3,9 +3,9 @@ import * as admin from "firebase-admin";
 admin.initializeApp();
 
 const functions = {
-  metadata: "./metadata",
-  connectWallet: "./connectWallet",
-  createNFTContract: "./createNFTContract",
+  metadata: "./endpoints/metadata",
+  connectWallet: "./endpoints/connectWallet",
+  createNFTContract: "./endpoints/createNFTContract",
 };
 
 for (const functionName in functions) {

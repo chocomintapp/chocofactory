@@ -6,7 +6,7 @@ export interface NFTContract {
   name: string;
   symbol: string;
   ownerAddress: string;
-  signature?: string;
+  signature: string;
 }
 
 export interface Metadata {

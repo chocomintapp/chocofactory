@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -22,16 +21,29 @@ export const CreateNFTContractForm: React.FC = () => {
   const history = useHistory();
 
   const createNFTContract = async () => {
-    const { web3, signerAddress } = await connectWallet();
-
+    const { signer, signerAddress } = await connectWallet();
+    const ownerAddress = signerAddress.toLowerCase();
     const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
-
-    //TODO: Change to typed data sign
-    const digest = ethers.utils.solidityKeccak256(
-      ["uint256", "address", "address", "string", "string"],
-      [chainId, chocofactoryContract.address, chocomoldContract.address, name, symbol]
-    );
-    const signature = await web3.eth.personal.sign(digest, signerAddress, "");
+    const domain = {
+      name: "Chocofactory",
+      version: "1",
+      chainId,
+      verifyingContract: chocofactoryContract.address,
+    };
+    const types = {
+      Choco: [
+        { name: "implementation", type: "address" },
+        { name: "name", type: "string" },
+        { name: "symbol", type: "string" },
+      ],
+    };
+    const value = {
+      test: "chocomoldContract",
+      implementation: chocomoldContract.address,
+      name: name,
+      symbol: symbol,
+    };
+    const signature = await signer._signTypedData(domain, types, value);
     const result = await functions.httpsCallable("createNFTContract")({
       chainId,
       factoryAddress: chocofactoryContract.address,
@@ -39,7 +51,7 @@ export const CreateNFTContractForm: React.FC = () => {
       signature,
       name,
       symbol,
-      signerAddress,
+      ownerAddress,
     });
     const { nftContractAddress } = result.data;
     openMessageModal("🎉", `NFTs are created! \n\n${nftContractAddress}`, "View Details", () => {

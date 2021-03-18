@@ -58,6 +58,20 @@ contract Chocofactory is EIP712 {
         _deploy(implementation, msg.sender, name, symbol);
     }
 
+    function verifySig(
+        address implementation,
+        address owner,
+        string memory name,
+        string memory symbol,
+        bytes memory signature
+    ) public view returns (bool) {
+        bytes32 digest =
+            keccak256(abi.encodePacked(block.chainid, address(this), implementation, name, symbol))
+                .toEthSignedMessageHash();
+        address recovered = digest.recover(signature);
+        return owner == recovered;
+    }
+
     function deployWithSig(
         address implementation,
         address owner,
@@ -65,21 +79,17 @@ contract Chocofactory is EIP712 {
         string memory symbol,
         bytes memory signature
     ) public payable {
-        bytes32 digest =
-            keccak256(abi.encodePacked(block.chainid, address(this), implementation, name, symbol))
-                .toEthSignedMessageHash();
-        address recovered = digest.recover(signature);
-        require(owner == recovered, "signature must be valid");
+        require(verifySig(implementation, owner, name, symbol, signature), "signature must be valid");
         _deploy(implementation, owner, name, symbol);
     }
 
-    function deployWithTypedSig(
+    function verifyTypedSig(
         address implementation,
         address owner,
         string memory name,
         string memory symbol,
         bytes memory signature
-    ) public payable {
+    ) public view returns (bool) {
         bytes32 digest =
             _hashTypedDataV4(
                 keccak256(
@@ -92,7 +102,17 @@ contract Chocofactory is EIP712 {
                 )
             );
         address recovered = digest.recover(signature);
-        require(owner == recovered, "signature must be valid");
+        return owner == recovered;
+    }
+
+    function deployWithTypedSig(
+        address implementation,
+        address owner,
+        string memory name,
+        string memory symbol,
+        bytes memory signature
+    ) public payable {
+        require(verifyTypedSig(implementation, owner, name, symbol, signature), "signature must be valid");
         _deploy(implementation, owner, name, symbol);
     }
 

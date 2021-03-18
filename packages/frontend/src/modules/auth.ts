@@ -1,6 +1,5 @@
-import axios from "axios";
 import { atom, useRecoilState } from "recoil";
-import { signInMessage } from "../../../common/config.json";
+import { signatureMessage } from "../../../common/config";
 import { auth, functions } from "./firebase";
 import { initializeWeb3Modal, getWeb3, getEthersSigner } from "./web3";
 
@@ -18,7 +17,7 @@ export const useAuth = () => {
     const web3 = await getWeb3(provider);
     const signer = await getEthersSigner(provider);
     if (signerAddressState != signerAddress) {
-      const message = signInMessage;
+      const message = signatureMessage;
       const signature = await web3.eth.personal.sign(`${message}${signerAddress}`, signerAddress, "");
 
       const response = await functions.httpsCallable("connectWallet")({

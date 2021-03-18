@@ -12,7 +12,8 @@
       "nftContractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "factoryAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "moldAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
-      "ownerAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06"
+      "ownerAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
+      "signature": "0xb3bd48482d2c13a1d1f3bba070fb9de9375ffc61347504fb4e3aed903fbc073e65588de1207ed716e0e439bfa527d44ea13a28ba08f79ac025a0e42b683967ec00"
     },
     {
       "chainId": "1",
@@ -21,7 +22,8 @@
       "nftContractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "factoryAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "moldAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
-      "ownerAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06"
+      "ownerAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
+      "signature": "0xb3bd48482d2c13a1d1f3bba070fb9de9375ffc61347504fb4e3aed903fbc073e65588de1207ed716e0e439bfa527d44ea13a28ba08f79ac025a0e42b683967ec00"
     },
     {
       "chainId": "1",
@@ -30,7 +32,8 @@
       "nftContractAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "factoryAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
       "moldAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
-      "ownerAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06"
+      "ownerAddress": "0x84E9445f43995b0C6a4D4C1d40bb123571c2Eb06",
+      "signature": "0xb3bd48482d2c13a1d1f3bba070fb9de9375ffc61347504fb4e3aed903fbc073e65588de1207ed716e0e439bfa527d44ea13a28ba08f79ac025a0e42b683967ec00"
     }
   ],
   "metadataList": [

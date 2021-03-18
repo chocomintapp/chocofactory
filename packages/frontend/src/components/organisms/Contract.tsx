@@ -31,9 +31,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   }, [metadataList, deployed]);
 
   const deployNFTContract = async () => {
-    console.log("deploy");
     if (!nftContract) return;
-    console.log("deploy");
     const { signerAddress, signer } = await connectWallet();
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) return;
@@ -44,13 +42,17 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       nftContract.name,
       nftContract.symbol
     );
-    console.log("deploy");
     if (predictedDeployResult.toLowerCase() != nftContract.nftContractAddress) return;
-    console.log("deploy");
     //TODO: USE TYPED DATA SIGNATURE
     const { hash } = await chocofactoryContract
       .connect(signer)
-      .deploy(chocomoldContract.address, nftContract.name, nftContract.symbol);
+      .deployWithTypedSig(
+        chocomoldContract.address,
+        nftContract.ownerAddress,
+        nftContract.name,
+        nftContract.symbol,
+        nftContract.signature
+      );
     setDeployedInternal(true);
     openMessageModal("🎉", `NFTs are deployed! \n\n${hash}`, "Close", closeMessageModal, closeMessageModal);
   };
