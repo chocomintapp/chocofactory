@@ -15,7 +15,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 
 const firestore = app.firestore();
-const functions = app.functions();
+const functions = app.functions(firebaseJson.region);
 const auth = app.auth();
 
 if (process.env.NODE_ENV === "development") {

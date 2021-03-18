@@ -115,6 +115,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# ignore build
+build
+
 # hardhat
 packages/contracts/artifacts
 packages/contracts/cache
@@ -124,3 +127,6 @@ packages/contracts/coverage.json
 
 # firebase
 .firebase
+
+# misc
+.DS_Store

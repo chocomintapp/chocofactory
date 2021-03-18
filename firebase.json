@@ -51,5 +51,6 @@
   "functions": {
     "source": "packages/functions",
     "runtime": "nodejs12"
-  }
+  },
+  "region": "asia-northeast1"
 }

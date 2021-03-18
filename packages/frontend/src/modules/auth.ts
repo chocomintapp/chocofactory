@@ -1,7 +1,7 @@
 import axios from "axios";
 import { atom, useRecoilState } from "recoil";
 import { signInMessage } from "../../../common/config.json";
-import { auth } from "./firebase";
+import { auth, functions } from "./firebase";
 import { initializeWeb3Modal, getWeb3, getEthersSigner } from "./web3";
 
 export const signerAddressAtom = atom({
@@ -20,10 +20,15 @@ export const useAuth = () => {
     if (signerAddressState != signerAddress) {
       const message = signInMessage;
       const signature = await web3.eth.personal.sign(`${message}${signerAddress}`, signerAddress, "");
-      const response = await axios.post("http://localhost:5001/chocofactory-prod/asia-northeast1/connectWallet", {
+
+      const response = await functions.httpsCallable("connectWallet")({
         signature,
         signerAddress,
       });
+      // const response = await axios.post("http://localhost:5001/chocofactory-prod/asia-northeast1/connectWallet", {
+      //   signature,
+      //   signerAddress,
+      // });
       const customToken = response.data;
       auth.signInWithCustomToken(customToken);
       setSignerAddressState(signerAddress);

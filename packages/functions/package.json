@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "ethers": "^5.0.32",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0"
   }

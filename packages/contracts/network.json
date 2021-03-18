@@ -10,8 +10,8 @@
     "chainId": "4",
     "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
     "explore": "https://rinkeby.etherscan.io/tx/",
-    "chocofactory": "",
-    "chocomold": ""
+    "chocofactory": "0xE9CbD5B459DDda5de8d9E0b59Ddefbe043607Dc5",
+    "chocomold": "0x4d467eaBFD46D2c09357A14B1eC6955a626C67cE"
   },
   "localhost": {
     "chainId": "31337",

@@ -8,8 +8,8 @@ import { NetworkName } from "../../../contracts/helpers/types";
 import network from "../../../contracts/network.json";
 import { Chocomold, Chocofactory } from "../../../contracts/typechain";
 
-export const chainIdLabels = ["Local", "Rinkeby"];
-export const chainIdValues = ["31337", "4"];
+export const chainIdLabels = process.env.NODENVE == "development" ? ["Local", "Rinkeby"] : ["Rinkeby"];
+export const chainIdValues = process.env.NODENVE == "development" ? ["31337", "4"] : ["4"];
 
 export const networkName = process.env.REACT_APP_NETWORK_NAME
   ? (process.env.REACT_APP_NETWORK_NAME as NetworkName)

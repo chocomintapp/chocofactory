@@ -24,7 +24,7 @@ contract Chocomold is AccessControlEnumerable, Initializable, ERC721, ERC721Burn
 
     // this is intentionally set as constant value with hard coding
     // because if you set this as initialize parameter, user needs to pay more gas cost
-    string public constant defaultBaseURI = "http://localhost:5001/chocofactory-prod/asia-northeast1/metadata/";
+    string public constant defaultBaseURI = "https://asia-northeast1-chocofactory-prod.cloudfunctions.net/metadata/";
     string public customBaseURI;
 
     // this is template contract
