@@ -12,10 +12,9 @@ module.exports = functions.region("asia-northeast1").https.onCall(async (data, c
   const { chainId, factoryAddress, moldAddress, name, symbol, signature, signerAddress } = data;
   const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
   const ownerAddress = signerAddress.toLocaleLowerCase();
-  const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, ownerAddress]);
   const digest = ethers.utils.solidityKeccak256(
-    ["uint256", "address", "address", "bytes"],
-    [chainId, factoryAddress, moldAddress, functionData]
+    ["uint256", "address", "address", "string", "string"],
+    [chainId, factoryAddress, moldAddress, name, symbol]
   );
   const digestBinary = ethers.utils.arrayify(digest);
   const messageDigest = ethers.utils.hashMessage(digestBinary);
@@ -24,9 +23,10 @@ module.exports = functions.region("asia-northeast1").https.onCall(async (data, c
     throw new functions.https.HttpsError("invalid-argument", "The function must be called with " + "valid signature.");
   }
   const deployedMold = await chocofactoryContract.predictDeployResult(
-    ownerAddress,
     chocomoldContract.address,
-    functionData
+    ownerAddress,
+    name,
+    symbol
   );
   const nftContractAddress = deployedMold.toLocaleLowerCase();
   const nftContract: NFTContract = {

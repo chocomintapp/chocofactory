@@ -26,10 +26,10 @@ export const CreateNFTContractForm: React.FC = () => {
 
     const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
 
-    const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, signerAddress]);
+    //TODO: Change to typed data sign
     const digest = ethers.utils.solidityKeccak256(
-      ["uint256", "address", "address", "bytes"],
-      [chainId, chocofactoryContract.address, chocomoldContract.address, functionData]
+      ["uint256", "address", "address", "string", "string"],
+      [chainId, chocofactoryContract.address, chocomoldContract.address, name, symbol]
     );
     const signature = await web3.eth.personal.sign(digest, signerAddress, "");
     const result = await functions.httpsCallable("createNFTContract")({

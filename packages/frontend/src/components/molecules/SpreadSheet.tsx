@@ -91,8 +91,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     const { hash } = await chocomoldContract
       .attach(nftContract.nftContractAddress)
       .connect(signer)
-      ["mint(address,uint256[])"](signerAddress, selectedTokenIds);
-    console.log(hash);
+      ["mint(address[],uint256[])"]([signerAddress], selectedTokenIds);
     openMessageModal("🎉", `NFTs are minted! \n\n${hash}`, "Close", closeMessageModal, closeMessageModal);
   };
 

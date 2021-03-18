@@ -47,7 +47,7 @@ export const Contract: React.FC = () => {
         });
     }
     const { chocofactoryContract, chocomoldContract } = getContractsForChainId(chainId);
-    const DeployEvent = chocofactoryContract.filters.Deployed(null, null, nftContractAddress, null);
+    const DeployEvent = chocofactoryContract.filters.Deployed(null, null, nftContractAddress, null, null);
     chocofactoryContract.queryFilter(DeployEvent, 0, "latest").then((events) => {
       setDeployed(events.length > 0);
     });
