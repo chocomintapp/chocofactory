@@ -10,12 +10,14 @@ import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
+import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 export const CreateNFTContractForm: React.FC = () => {
   const [chainId, setChainId] = React.useState<ChainId>(chainIdValues[0]);
   const [name, setName] = React.useState("");
   const [symbol, setSymbol] = React.useState("");
 
+  const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
   const history = useHistory();
 
@@ -40,7 +42,10 @@ export const CreateNFTContractForm: React.FC = () => {
       signerAddress,
     });
     const { nftContractAddress } = result.data;
-    history.push(`/${chainId}/${nftContractAddress}`);
+    openMessageModal("🎉", `NFTs are created! \n\n${nftContractAddress}`, "View Details", () => {
+      closeMessageModal();
+      history.push(`/${chainId}/${nftContractAddress}`);
+    });
   };
 
   return (
@@ -66,6 +71,7 @@ export const CreateNFTContractForm: React.FC = () => {
           <FormInput type="text" value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
       </div>
+      {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   );
 };
