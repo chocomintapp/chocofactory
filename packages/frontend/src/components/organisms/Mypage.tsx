@@ -26,7 +26,7 @@ export const Mypage: React.FC<MypageProps> = ({ nftContractList }) => {
       <div>
         {nftContractList.map((nftContract, i) => {
           return (
-            <div key={i} className="mt-4 hover:bg-blue-100 rounded-xl">
+            <div key={i} className="mt-4">
               <Link key={i} to={`${nftContract.chainId}/${nftContract.nftContractAddress}`}>
                 <NFTCard nftContract={nftContract} />
               </Link>

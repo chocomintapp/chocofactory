@@ -121,3 +121,6 @@ packages/contracts/cache
 packages/contracts/node_modules
 packages/contracts/typechain
 packages/contracts/coverage.json
+
+# firebase
+.firebase

@@ -7,6 +7,7 @@
     "packages/**"
   ],
   "scripts": {
+    "prepare": "husky install",
     "killport": "kill-port --port 3000,5000,5001,5002,6006,8080,8545,9099",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{.ts,.js,tsx,jsx,json,md,sol}\"",
     "lint": "eslint . --ignore-path .gitignore",
@@ -19,7 +20,11 @@
     "dev:storybook": "yarn workspace frontend storybook",
     "dev:functions": "yarn workspace functions dev:watch",
     "dev:firebase": "firebase emulators:start --only firestore,functions,auth",
-    "prepare": "husky install"
+    "build": "run-p build:*",
+    "build:frontend": "yarn workspace frontend build",
+    "build:functions": "yarn workspace functions build",
+    "predeploy-staging": "yarn build",
+    "deploy-staging": "firebase deploy --only hosting:staging,functions,firestore"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.17.0",

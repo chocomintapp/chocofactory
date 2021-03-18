@@ -32,7 +32,7 @@ export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, c
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-100  focus:outline-none w-full text-gray-600 bg-white border ${sizeClass}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-gray-600 bg-white border ${sizeClass}`}
     >
       {children}
     </button>

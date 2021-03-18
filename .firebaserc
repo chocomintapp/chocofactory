@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "chocofactory-prod"
+  },
+  "targets": {
+    "chocofactory-prod": {
+      "hosting": {
+        "production": [
+          "chocofactory-prod"
+        ],
+        "staging": [
+          "chocofactory-staging"
+        ]
+      }
+    }
   }
 }
