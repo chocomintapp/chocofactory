@@ -4,21 +4,14 @@ import Web3 from "web3";
 import Web3Modal from "web3modal";
 import { abi as chocofactoryAbi } from "../../../contracts/artifacts/contracts/Chocofactory.sol/Chocofactory.json";
 import { abi as chocomoldAbi } from "../../../contracts/artifacts/contracts/Chocomold.sol/Chocomold.json";
-import { NetworkName } from "../../../contracts/helpers/types";
-import network from "../../../contracts/network.json";
+import chainIdConfig from "../../../contracts/chainId.json";
+import { NetworkName, ChainId } from "../../../contracts/helpers/types";
+import networkConfig from "../../../contracts/network.json";
 import { Chocomold, Chocofactory } from "../../../contracts/typechain";
 
-export const chainIdLabels = process.env.NODENVE == "development" ? ["Local", "Rinkeby"] : ["Rinkeby"];
-export const chainIdValues = process.env.NODENVE == "development" ? ["31337", "4"] : ["4"];
-
-export const networkName = process.env.REACT_APP_NETWORK_NAME
-  ? (process.env.REACT_APP_NETWORK_NAME as NetworkName)
-  : "localhost";
-
-export const { rpc, chainId, explore, chocofactory, chocomold } = network[networkName];
-export const provider = new ethers.providers.JsonRpcProvider(rpc);
-export const chocomoldContract = new ethers.Contract(chocomold, chocomoldAbi, provider) as Chocomold;
-export const chocofactoryContract = new ethers.Contract(chocofactory, chocofactoryAbi, provider) as Chocofactory;
+export const chainIdLabels = process.env.NODE_ENV == "development" ? ["Local", "Rinkeby"] : ["Rinkeby"];
+export const chainIdValues =
+  process.env.NODE_ENV == "development" ? (["31337", "4"] as ChainId[]) : (["4"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
@@ -54,18 +47,15 @@ export const getWeb3 = async (provider: any) => {
   return new Web3(provider);
 };
 
-export const getChainIdFromNetworkName = (networkName: NetworkName) => {
-  return network[networkName].chainId;
+export const getNetworkNameFromChainId = (chainId: string): NetworkName => {
+  return chainIdConfig[chainId as ChainId] as NetworkName;
 };
 
-export const getNetworkNameFromChainId = (chainId: string) => {
-  const result = Object.keys(network).filter((netWorkName) => {
-    return network[netWorkName as NetworkName].chainId == chainId;
-  });
-  console;
-  if (result.length > 0) {
-    return result[0];
-  } else {
-    return "invalid";
-  }
+export const getContractsForChainId = (chainId: string) => {
+  const networkName = getNetworkNameFromChainId(chainId);
+  const { chocofactory, chocomold, rpc } = networkConfig[networkName];
+  const provider = new ethers.providers.JsonRpcProvider(rpc);
+  const chocomoldContract = new ethers.Contract(chocomold, chocomoldAbi, provider) as Chocomold;
+  const chocofactoryContract = new ethers.Contract(chocofactory, chocofactoryAbi, provider) as Chocofactory;
+  return { chocofactoryContract, chocomoldContract };
 };

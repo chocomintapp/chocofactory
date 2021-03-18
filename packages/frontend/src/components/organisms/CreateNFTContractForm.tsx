@@ -2,16 +2,17 @@ import { ethers } from "ethers";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { ChainId } from "../../../../contracts/helpers/types";
 import { useAuth } from "../../modules/auth";
 import { functions } from "../../modules/firebase";
-import { chocofactoryContract, chocomoldContract, chainIdLabels, chainIdValues } from "../../modules/web3";
+import { getContractsForChainId, chainIdLabels, chainIdValues } from "../../modules/web3";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
 
 export const CreateNFTContractForm: React.FC = () => {
-  const [chainId, setChainId] = React.useState(chainIdValues[0]);
+  const [chainId, setChainId] = React.useState<ChainId>(chainIdValues[0]);
   const [name, setName] = React.useState("");
   const [symbol, setSymbol] = React.useState("");
 
@@ -20,6 +21,9 @@ export const CreateNFTContractForm: React.FC = () => {
 
   const createNFTContract = async () => {
     const { web3, signerAddress } = await connectWallet();
+
+    const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
+
     const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, signerAddress]);
     const digest = ethers.utils.solidityKeccak256(
       ["uint256", "address", "address", "bytes"],
