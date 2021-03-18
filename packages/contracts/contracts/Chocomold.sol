@@ -1,27 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 import "./extentions/HasSecondarySaleFees.sol";
+import "./dependencies/Ownable.sol";
 import "./utils/IPFS.sol";
 import "./utils/String.sol";
 
 import "hardhat/console.sol";
 
-contract Chocomold is
-    AccessControlEnumerable,
-    Initializable,
-    ERC721,
-    ERC721Burnable,
-    HasSecondarySaleFees,
-    IPFS,
-    String
-{
+contract Chocomold is Initializable, Ownable, ERC721, ERC721Burnable, HasSecondarySaleFees, IPFS, String {
     using Strings for uint256;
 
     bytes32 constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
@@ -49,25 +40,10 @@ contract Chocomold is
     ) public initializer {
         name_ = _name;
         symbol_ = _symbol;
-        _setupRole(DEFAULT_ADMIN_ROLE, _owner);
-        _setupRole(MAINTAINER_ROLE, _owner);
+        Ownable._initialize(_owner);
     }
 
-    function validateIsMaintainer(address _maintainer) internal view {
-        require(hasRole(MAINTAINER_ROLE, _maintainer), "must have maintainer role");
-    }
-
-    modifier onlyMaintainer() {
-        validateIsMaintainer(msg.sender);
-        _;
-    }
-
-    function supportsInterface(bytes4 _interfaceId)
-        public
-        view
-        override(AccessControlEnumerable, ERC721, HasSecondarySaleFees)
-        returns (bool)
-    {
+    function supportsInterface(bytes4 _interfaceId) public view override(ERC721, HasSecondarySaleFees) returns (bool) {
         return super.supportsInterface(_interfaceId);
     }
 
@@ -87,7 +63,7 @@ contract Chocomold is
         }
     }
 
-    function setCustomBaseURI(string memory _customBaseURI) public onlyMaintainer {
+    function setCustomBaseURI(string memory _customBaseURI) public onlyOwner {
         customBaseURI = _customBaseURI;
     }
 
@@ -120,7 +96,7 @@ contract Chocomold is
         ipfsHashes[_tokenId] = _ipfsHash;
     }
 
-    function setIpfsHash(uint256[] memory _tokenIdList, bytes32[] memory _ipfsHashList) public onlyMaintainer {
+    function setIpfsHash(uint256[] memory _tokenIdList, bytes32[] memory _ipfsHashList) public onlyOwner {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _setIpfsHash(_tokenIdList[i], _ipfsHashList[i]);
         }
@@ -139,7 +115,7 @@ contract Chocomold is
         uint256[] memory _tokenIdList,
         address payable[][] memory _royaltyAddressList,
         uint256[][] memory _royaltyList
-    ) public onlyMaintainer {
+    ) public onlyOwner {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _setRoyality(_tokenIdList[i], _royaltyAddressList[i], _royaltyList[i]);
         }
@@ -176,11 +152,11 @@ contract Chocomold is
         _setRoyality(_tokenId, _royaltyAddressMemory, _royaltyMemory);
     }
 
-    function mint(address _to, uint256 _tokenId) public onlyMaintainer {
+    function mint(address _to, uint256 _tokenId) public onlyOwner {
         _mint(_to, _tokenId);
     }
 
-    function mint(address[] memory _toList, uint256[] memory _tokenIdList) public onlyMaintainer {
+    function mint(address[] memory _toList, uint256[] memory _tokenIdList) public onlyOwner {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i]);
         }
@@ -190,7 +166,7 @@ contract Chocomold is
         address _to,
         uint256 _tokenId,
         bytes32 _ipfsHash
-    ) public onlyMaintainer {
+    ) public onlyOwner {
         _mint(_to, _tokenId, _ipfsHash);
     }
 
@@ -198,7 +174,7 @@ contract Chocomold is
         address[] memory _toList,
         uint256[] memory _tokenIdList,
         bytes32[] memory _ipfsHashList
-    ) public onlyMaintainer {
+    ) public onlyOwner {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i], _ipfsHashList[i]);
         }
@@ -209,7 +185,7 @@ contract Chocomold is
         uint256 _tokenId,
         address payable[] memory _royaltyAddressMemory,
         uint256[] memory _royaltyMemory
-    ) public onlyMaintainer {
+    ) public onlyOwner {
         _mint(_to, _tokenId, _royaltyAddressMemory, _royaltyMemory);
     }
 
@@ -218,7 +194,7 @@ contract Chocomold is
         uint256[] memory _tokenIdList,
         address payable[][] memory _royaltyAddressMemory,
         uint256[][] memory _royaltyMemory
-    ) public onlyMaintainer {
+    ) public onlyOwner {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i], _royaltyAddressMemory[i], _royaltyMemory[i]);
         }
@@ -230,7 +206,7 @@ contract Chocomold is
         bytes32 _ipfsHash,
         address payable[] memory _royaltyAddressMemory,
         uint256[] memory _royaltyMemory
-    ) public onlyMaintainer {
+    ) public onlyOwner {
         _mint(_to, _tokenId, _ipfsHash, _royaltyAddressMemory, _royaltyMemory);
     }
 
@@ -240,7 +216,7 @@ contract Chocomold is
         bytes32[] memory _ipfsHashList,
         address payable[][] memory _royaltyAddressMemory,
         uint256[][] memory _royaltyMemory
-    ) public onlyMaintainer {
+    ) public onlyOwner {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i], _ipfsHashList[i], _royaltyAddressMemory[i], _royaltyMemory[i]);
         }
