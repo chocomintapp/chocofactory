@@ -14,17 +14,23 @@ const corsHandler = cors({ origin: true });
 
 export const metadata = functions.region("asia-northeast1").https.onRequest(async (req, res) => {
   corsHandler(req, res, async () => {
-    const [, nftContractAddress, tokenId] = req.originalUrl.split("/");
-    return res.send({ nftContractAddress, tokenId });
+    const [, chainId, nftContractAddress, tokenId] = req.originalUrl.split("/");
+    const doc = await firestore
+      .collection("v1")
+      .doc(chainId)
+      .collection("nftContract")
+      .doc(nftContractAddress)
+      .collection("metadata")
+      .doc(tokenId)
+      .get();
+    return res.send(doc.data());
   });
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const createNFTContract = functions.region("asia-northeast1").https.onCall(async (data, context) => {
   const { chainId, factoryAddress, moldAddress, name, symbol, signature, signerAddress } = data;
-  console.log(chainId);
   const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
-  console.log("1");
   const ownerAddress = signerAddress.toLocaleLowerCase();
   const functionData = chocomoldContract.interface.encodeFunctionData("initialize", [name, symbol, ownerAddress]);
   const digest = ethers.utils.solidityKeccak256(
@@ -37,7 +43,6 @@ export const createNFTContract = functions.region("asia-northeast1").https.onCal
   if (ownerAddress != recoveredAddress) {
     throw new functions.https.HttpsError("invalid-argument", "The function must be called with " + "valid signature.");
   }
-  console.log("2");
   const deployedMold = await chocofactoryContract.predictDeployResult(
     ownerAddress,
     chocomoldContract.address,
@@ -54,7 +59,6 @@ export const createNFTContract = functions.region("asia-northeast1").https.onCal
     ownerAddress,
     signature,
   };
-  console.log("3");
   await firestore
     .collection("v1")
     .doc(chainId)
@@ -62,7 +66,6 @@ export const createNFTContract = functions.region("asia-northeast1").https.onCal
     .doc(nftContractAddress)
     .set(nftContract)
     .catch((err) => console.log(err));
-  console.log("4");
   return { chainId, moldAddress, factoryAddress, nftContractAddress, name, symbol, ownerAddress, signature };
 });
 
