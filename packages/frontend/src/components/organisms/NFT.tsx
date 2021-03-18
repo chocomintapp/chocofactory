@@ -8,6 +8,7 @@ import { Form } from "../atoms/Form";
 import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
+import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 export interface NFTProps {
   nftContract?: NFTContract;
@@ -19,6 +20,8 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState("");
   const [animationUrl, setAnimationUrl] = React.useState("");
+
+  const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const history = useHistory();
 
   React.useEffect(() => {
@@ -48,8 +51,13 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       .collection("metadata")
       .doc(metadata.tokenId.toString())
       .set(newMetadata);
-    history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
+
+    openMessageModal("🎉", `NFTs are saved! \n\n${nftContract.nftContractAddress}`, "Close", () => {
+      closeMessageModal();
+      history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
+    });
   };
+
   return nftContract && metadata ? (
     <>
       <div className="mb-8">
@@ -81,6 +89,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
           />
         </Form>
       </div>
+      {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   ) : (
     <></>

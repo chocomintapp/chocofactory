@@ -6,6 +6,7 @@ import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
 import { GridList } from "../molecules/GridList";
+import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 import { NFTCard } from "../molecules/NFTCard";
 import { SpreadSheet } from "../molecules/SpreadSheet";
 
@@ -21,6 +22,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   const [internalMetadataList, setInternalMetadataList] = React.useState<Metadata[]>([]);
   const [deployedInternal, setDeployedInternal] = React.useState(false);
 
+  const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
 
   React.useEffect(() => {
@@ -48,6 +50,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
     const { hash } = await chocofactoryContract.connect(signer).deploy(chocomoldContract.address, data);
     console.log(hash);
     setDeployedInternal(true);
+    openMessageModal("🎉", `NFTs are deployed! \n\n${hash}`, "Close", closeMessageModal, closeMessageModal);
   };
 
   return nftContract ? (
@@ -100,6 +103,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
           <GridList nftContract={nftContract} metadataList={internalMetadataList} />
         )}
       </div>
+      {messageModalProps && <MessageModal {...messageModalProps} />}
     </section>
   ) : (
     <></>

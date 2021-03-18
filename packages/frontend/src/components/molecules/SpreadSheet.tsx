@@ -93,6 +93,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
       .connect(signer)
       ["mint(address,uint256[])"](signerAddress, selectedTokenIds);
     console.log(hash);
+    openMessageModal("🎉", `NFTs are minted! \n\n${hash}`, "Close", closeMessageModal, closeMessageModal);
   };
 
   const onGridReady = (params: any) => {
