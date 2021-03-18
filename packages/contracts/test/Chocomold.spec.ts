@@ -9,7 +9,7 @@ const { expect } = chai;
 
 const tokenId = 1;
 const max = 300;
-const defaultBaseUrl = "http://localhost:5001/chocofactory-prod/asia-northeast1/metadata/";
+const defaultBaseUrl = "https://asia-northeast1-chocofactory-prod.cloudfunctions.net/metadata/";
 const chainId = 31337;
 
 describe("Chocomold", function () {
