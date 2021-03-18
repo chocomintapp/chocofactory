@@ -10,8 +10,8 @@
     "chainId": "4",
     "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
     "explore": "https://rinkeby.etherscan.io/tx/",
-    "chocofactory": "0x5de70a628d5e8F37e28087b90a9788eDF0Ec0D49",
-    "chocomold": "0x701d7c59B7f197f8D45Eb09dCB01eEAB7Ae8990C"
+    "chocofactory": "0xBDFda3bdC78038b41D32ac73907E874c59E08EbB",
+    "chocomold": "0x01543177D0179e3B96B9e093F018c4606A050732"
   },
   "matic_test": {
     "chainId": "80001",

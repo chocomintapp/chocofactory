@@ -39,7 +39,7 @@ contract HasSecondarySaleFees is IERC165, ERC721Upgradeable, IHasSecondarySaleFe
         override(IERC165, ERC721Upgradeable)
         returns (bool)
     {
-        return interfaceId == type(IHasSecondarySaleFees).interfaceId;
+        return interfaceId == type(IHasSecondarySaleFees).interfaceId || super.supportsInterface(interfaceId);
     }
 
     function getFeeRecipients(uint256 _tokenId) external view override returns (address payable[] memory) {

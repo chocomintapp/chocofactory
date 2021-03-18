@@ -76,7 +76,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
 
   const mintNFTs = async () => {
     if (!deployed) return;
-    const { signerAddress, signer } = await connectWallet();
+    const { signer } = await connectWallet();
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(nftContract.chainId);
@@ -109,13 +109,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
       .attach(nftContract.nftContractAddress)
       .connect(signer)
       ["mint(address[],uint256[])"](toList, selectedTokenIds);
-    openMessageModal(
-      "🎉",
-      "NFT is being deployed!",
-      "Check",
-      () => window.open(`${explore}${hash}`),
-      closeMessageModal
-    );
+    openMessageModal("🎉", "NFT is being minted!", "Check", () => window.open(`${explore}${hash}`), closeMessageModal);
   };
 
   const onGridReady = (params: any) => {

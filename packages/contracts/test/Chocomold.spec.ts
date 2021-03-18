@@ -1,7 +1,13 @@
 import * as chai from "chai";
 import { solidity } from "ethereum-waffle";
 import { ethers } from "hardhat";
-import { MODAL_NAME, MODAL_SYMBOL, HAS_SECONRARY_SALE_FEES } from "../helpers/constants";
+import {
+  MODAL_NAME,
+  MODAL_SYMBOL,
+  ERC721_INTERFACE_ID,
+  ERC721_METADATA_INTERFACE_ID,
+  HAS_SECONRARY_SALE_FEES,
+} from "../helpers/constants";
 import { main } from "../scripts/98_internalBatchMigration";
 
 chai.use(solidity);
@@ -25,6 +31,8 @@ describe("Chocomold", function () {
     moldContract = mold.attach(deployedMold);
   });
   it("interface check", async function () {
+    expect(await moldContract.supportsInterface(ERC721_INTERFACE_ID)).to.equal(true);
+    expect(await moldContract.supportsInterface(ERC721_METADATA_INTERFACE_ID)).to.equal(true);
     expect(await moldContract.supportsInterface(HAS_SECONRARY_SALE_FEES)).to.equal(true);
   });
   it("get no royality when no default, no custom", async function () {
