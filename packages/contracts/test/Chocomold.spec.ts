@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import { solidity } from "ethereum-waffle";
 import { ethers } from "hardhat";
-import { MODAL_NAME, MODAL_SYMBOL } from "../helpers/constants";
+import { MODAL_NAME, MODAL_SYMBOL, HAS_SECONRARY_SALE_FEES } from "../helpers/constants";
 import { main } from "../scripts/98_internalBatchMigration";
 
 chai.use(solidity);
@@ -29,18 +29,18 @@ describe("Chocomold", function () {
   });
 
   it("mint", async function () {
-    await moldContract["mint(address,uint256)"](signer.address, tokenId);
+    await moldContract["mint(address[],uint256[])"]([signer.address], [tokenId]);
   });
 
   it("check token URI with default", async function () {
-    await moldContract["mint(address,uint256)"](signer.address, tokenId);
+    await moldContract["mint(address[],uint256[])"]([signer.address], [tokenId]);
     expect(await moldContract.tokenURI(tokenId)).to.equal(
       `${defaultBaseUrl}${chainId}/${moldContract.address.toLowerCase()}/${tokenId}`
     );
   });
 
   it("check token URI after custome URI is set", async function () {
-    await moldContract["mint(address,uint256)"](signer.address, tokenId);
+    await moldContract["mint(address[],uint256[])"]([signer.address], [tokenId]);
     const newBaseURL = "https://localhost:3000/";
     await moldContract.setCustomBaseURI(newBaseURL);
     expect(await moldContract.tokenURI(tokenId)).to.equal(`${newBaseURL}${tokenId}`);
@@ -49,20 +49,11 @@ describe("Chocomold", function () {
   it("check token URI after token URI is set", async function () {
     const dummyMetadataIpfsCid = "QmWmyoMoctfbAaiEs2G46gpeUmhqFRDW6KWo64y5r581Vz";
     const dummyMetadataIpfsHash = "0x7d5a99f603f231d53a4f39d1521f98d2e8bb279cf29bebfd0687dc98458e7f89";
-    await moldContract["mint(address,uint256)"](signer.address, tokenId);
-    await moldContract["setIpfsHash(uint256,bytes32)"](tokenId, dummyMetadataIpfsHash);
+    await moldContract["mint(address[],uint256[],bytes32[])"]([signer.address], [tokenId], [dummyMetadataIpfsHash]);
     expect(await moldContract.tokenURI(tokenId)).to.equal(`ipfs://${dummyMetadataIpfsCid}`);
     const newBaseURL = "https://localhost:3000/";
     await moldContract.setCustomBaseURI(newBaseURL);
     expect(await moldContract.tokenURI(tokenId)).to.equal(`ipfs://${dummyMetadataIpfsCid}`);
-  });
-
-  it("bulk mint to 1 recipient", async function () {
-    const tokenIdList: number[] = [];
-    for (let i = 0; i < max; i++) {
-      tokenIdList.push(i);
-    }
-    await moldContract["mint(address,uint256[])"](signer.address, tokenIdList);
   });
 
   it("bulk mint to multiple recipient", async function () {
@@ -73,5 +64,9 @@ describe("Chocomold", function () {
       toList.push(signer.address);
     }
     await moldContract["mint(address[],uint256[])"](toList, tokenIdList);
+  });
+
+  it("interface check", async function () {
+    expect(await moldContract.supportsInterface(HAS_SECONRARY_SALE_FEES)).to.equal(true);
   });
 });
