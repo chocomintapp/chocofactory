@@ -116,7 +116,7 @@ dist
 .pnp.*
 
 # ignore build
-build
+packages/frontend/build
 
 # hardhat
 packages/contracts/artifacts
