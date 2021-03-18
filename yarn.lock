@@ -2722,6 +2722,11 @@
     "@opentelemetry/resources" "^0.12.0"
     "@opentelemetry/semantic-conventions" "^0.12.0"
 
+"@openzeppelin/contracts-upgradeable@4.0.0-rc.0":
+  version "4.0.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts-upgradeable/-/contracts-upgradeable-4.0.0-rc.0.tgz#95430e6d496872b25466dcb018bf3a42dba0961b"
+  integrity sha512-uaA+CrSj/lis46SewE23K/k2PUl7cQrjpsg6WjusPPyo4o5PlwQcQCVE3898P+DcMbkIrzPN1MwBl0O6iqFrMA==
+
 "@openzeppelin/contracts@4.0.0-rc.0":
   version "4.0.0-rc.0"
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.0.0-rc.0.tgz#daa9bb22dadf1d1434a96b7fa820c67357a1ac6f"

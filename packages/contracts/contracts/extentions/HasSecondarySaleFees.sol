@@ -9,6 +9,9 @@ import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "./IHasSecondarySaleFees.sol";
 
 contract HasSecondarySaleFees is IERC165, IHasSecondarySaleFees {
+    address payable[] defaultRoyaltyAddressMemory;
+    uint256[] defaultRoyaltyMemory;
+
     mapping(uint256 => address payable[]) royaltyAddressMemory;
     mapping(uint256 => uint256[]) royaltyMemory;
 
@@ -16,11 +19,25 @@ contract HasSecondarySaleFees is IERC165, IHasSecondarySaleFees {
         return interfaceId == type(IHasSecondarySaleFees).interfaceId;
     }
 
-    function getFeeRecipients(uint256 id) external view override returns (address payable[] memory) {
-        return royaltyAddressMemory[id];
+    function getFeeRecipients(uint256 _tokenId) external view override returns (address payable[] memory) {
+        return royaltyAddressMemory[_tokenId].length > 0 ? royaltyAddressMemory[_tokenId] : defaultRoyaltyAddressMemory;
     }
 
-    function getFeeBps(uint256 id) external view override returns (uint256[] memory) {
-        return royaltyMemory[id];
+    function getFeeBps(uint256 _tokenId) external view override returns (uint256[] memory) {
+        return royaltyMemory[_tokenId].length > 0 ? royaltyMemory[_tokenId] : defaultRoyaltyMemory;
+    }
+
+    function _setRoyality(
+        uint256 _tokenId,
+        address payable[] memory _royaltyAddress,
+        uint256[] memory _royalty
+    ) internal {
+        royaltyAddressMemory[_tokenId] = _royaltyAddress;
+        royaltyMemory[_tokenId] = _royalty;
+    }
+
+    function _setDefaultRoyality(address payable[] memory _royaltyAddress, uint256[] memory _royalty) internal {
+        defaultRoyaltyAddressMemory = _royaltyAddress;
+        defaultRoyaltyMemory = _royalty;
     }
 }

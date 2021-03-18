@@ -1,12 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract IPFS {
-    function _addSha256FunctionCodePrefix(bytes32 _input) internal pure returns (bytes memory) {
+library IPFS {
+    function addSha256FunctionCodePrefix(bytes32 _input) internal pure returns (bytes memory) {
         return abi.encodePacked(hex"1220", _input);
     }
 
-    function _bytesToBase58(bytes memory _input) internal pure returns (bytes memory) {
+    function addIpfsBaseUrlPrefix(bytes memory _input) internal pure returns (bytes memory) {
+        return abi.encodePacked("ipfs://", _input);
+    }
+
+    function toBase58(bytes memory _input) internal pure returns (bytes memory) {
         bytes memory alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
         uint8[] memory digits = new uint8[](46);
         bytes memory output = new bytes(46);
@@ -29,9 +33,5 @@ contract IPFS {
             output[k] = alphabet[digits[digitlength - 1 - k]];
         }
         return output;
-    }
-
-    function _addIpfsBaseUrlPrefix(bytes memory _input) internal pure returns (bytes memory) {
-        return abi.encodePacked("ipfs://", _input);
     }
 }

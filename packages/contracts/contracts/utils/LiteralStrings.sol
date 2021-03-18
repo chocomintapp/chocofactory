@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract String {
-    // this is for converting address to string
-    function bytesToString(bytes memory input) internal pure returns (string memory) {
+library LiteralStrings {
+    function toLiteralString(bytes memory input) internal pure returns (string memory) {
         bytes memory alphabet = "0123456789abcdef";
         bytes memory output = new bytes(2 + input.length * 2);
         output[0] = "0";

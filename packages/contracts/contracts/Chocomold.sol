@@ -1,58 +1,52 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
+// import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721BurnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
 
 import "./extentions/HasSecondarySaleFees.sol";
-import "./dependencies/Ownable.sol";
 import "./utils/IPFS.sol";
-import "./utils/String.sol";
+import "./utils/LiteralStrings.sol";
 
-import "hardhat/console.sol";
-
-contract Chocomold is Initializable, Ownable, ERC721, ERC721Burnable, HasSecondarySaleFees, IPFS, String {
-    using Strings for uint256;
-
-    bytes32 constant MAINTAINER_ROLE = keccak256("MAINTAINER_ROLE");
+contract Chocomold is
+    Initializable,
+    OwnableUpgradeable,
+    ERC721Upgradeable,
+    ERC721BurnableUpgradeable,
+    // ERC721PausableUpgradeable,
+    HasSecondarySaleFees
+{
+    using StringsUpgradeable for uint256;
+    using IPFS for bytes32;
+    using IPFS for bytes;
+    using LiteralStrings for bytes;
 
     mapping(uint256 => bytes32) public ipfsHashes;
 
-    string private name_;
-    string private symbol_;
-
-    // this is intentionally set as constant value with hard coding
-    // because if you set this as initialize parameter, user needs to pay more gas cost
     string public constant defaultBaseURI = "https://asia-northeast1-chocofactory-prod.cloudfunctions.net/metadata/";
     string public customBaseURI;
-
-    // this is template contract
-    // so original contract is created with fixed null value
-    constructor() ERC721("", "") {
-        initialize("", "", address(0x0));
-    }
 
     function initialize(
         string memory _name,
         string memory _symbol,
         address _owner
     ) public initializer {
-        name_ = _name;
-        symbol_ = _symbol;
-        Ownable._initialize(_owner);
+        __Ownable_init_unchained();
+        __ERC721_init_unchained(_name, _symbol);
+        transferOwnership(_owner);
     }
 
-    function supportsInterface(bytes4 _interfaceId) public view override(ERC721, HasSecondarySaleFees) returns (bool) {
+    function supportsInterface(bytes4 _interfaceId)
+        public
+        view
+        override(ERC721Upgradeable, HasSecondarySaleFees)
+        returns (bool)
+    {
         return super.supportsInterface(_interfaceId);
-    }
-
-    function name() public view override returns (string memory) {
-        return name_;
-    }
-
-    function symbol() public view override returns (string memory) {
-        return symbol_;
     }
 
     function _baseURI() internal view override returns (string memory) {
@@ -70,11 +64,12 @@ contract Chocomold is Initializable, Ownable, ERC721, ERC721Burnable, HasSeconda
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
         require(_exists(_tokenId), "token must exist");
         bytes32 ipfsHash = ipfsHashes[_tokenId];
+
         if (ipfsHash != "") {
-            return string(_addIpfsBaseUrlPrefix(_bytesToBase58(_addSha256FunctionCodePrefix(ipfsHashes[_tokenId]))));
+            return string(ipfsHashes[_tokenId].addSha256FunctionCodePrefix().toBase58().addIpfsBaseUrlPrefix());
         } else {
             if (bytes(customBaseURI).length == 0) {
-                string memory utf8Address = bytesToString(abi.encodePacked(address(this)));
+                string memory utf8Address = abi.encodePacked(address(this)).toLiteralString();
                 return
                     string(
                         abi.encodePacked(
@@ -100,15 +95,6 @@ contract Chocomold is Initializable, Ownable, ERC721, ERC721Burnable, HasSeconda
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _setIpfsHash(_tokenIdList[i], _ipfsHashList[i]);
         }
-    }
-
-    function _setRoyality(
-        uint256 _tokenId,
-        address payable[] memory _royaltyAddress,
-        uint256[] memory _royalty
-    ) internal {
-        royaltyAddressMemory[_tokenId] = _royaltyAddress;
-        royaltyMemory[_tokenId] = _royalty;
     }
 
     function setRoyality(
@@ -221,6 +207,14 @@ contract Chocomold is Initializable, Ownable, ERC721, ERC721Burnable, HasSeconda
             _mint(_toList[i], _tokenIdList[i], _ipfsHashList[i], _royaltyAddressMemory[i], _royaltyMemory[i]);
         }
     }
+
+    // function _beforeTokenTransfer(
+    //     address from,
+    //     address to,
+    //     uint256 tokenId
+    // ) internal virtual override(ERC721Upgradeable, ERC721PausableUpgradeable) {
+    //     super._beforeTokenTransfer(from, to, tokenId);
+    // }
 
     function _burn(uint256 _tokenId) internal virtual override {
         super._burn(_tokenId);

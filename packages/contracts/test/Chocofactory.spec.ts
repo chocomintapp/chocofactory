@@ -20,7 +20,7 @@ describe("Chocofactory", function () {
   });
 
   it("factory deploy", async function () {
-    const data = moldContract.interface.encodeFunctionData("initialize", [MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS]);
+    const data = moldContract.interface.encodeFunctionData("initialize", [MODAL_NAME, MODAL_SYMBOL, signer.address]);
     const deployedMold = await factoryContract.predictDeployResult(signer.address, moldContract.address, data);
     await factoryContract.deploy(moldContract.address, data);
     const deployedMoldContract = moldContract.attach(deployedMold);
@@ -29,7 +29,7 @@ describe("Chocofactory", function () {
   });
 
   it("factory deployWithSig", async function () {
-    const data = moldContract.interface.encodeFunctionData("initialize", [MODAL_NAME, MODAL_SYMBOL, NULL_ADDRESS]);
+    const data = moldContract.interface.encodeFunctionData("initialize", [MODAL_NAME, MODAL_SYMBOL, signer.address]);
     const deployedMold = await factoryContract.predictDeployResult(signer.address, moldContract.address, data);
     const messageHash = ethers.utils.solidityKeccak256(
       ["uint256", "address", "address", "bytes"],
