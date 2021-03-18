@@ -28,9 +28,13 @@ describe("Chocomold", function () {
     expect(await moldContract.symbol()).to.equal(MODAL_SYMBOL);
   });
 
-  it("mint", async function () {
+  it("mint1", async function () {
     await moldContract["mint(address[],uint256[])"]([signer.address], [tokenId]);
   });
+
+  // it("mint2", async function () {
+  //   await moldContract["mint(address,uint256)"](signer.address, tokenId);
+  // });
 
   it("check token URI with default", async function () {
     await moldContract["mint(address[],uint256[])"]([signer.address], [tokenId]);

@@ -176,10 +176,22 @@ contract Chocomold is
         _setRoyality(_tokenId, _royaltyAddressMemory, _royaltyMemory);
     }
 
+    function mint(address _to, uint256 _tokenId) public onlyMaintainer {
+        _mint(_to, _tokenId);
+    }
+
     function mint(address[] memory _toList, uint256[] memory _tokenIdList) public onlyMaintainer {
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i]);
         }
+    }
+
+    function mint(
+        address _to,
+        uint256 _tokenId,
+        bytes32 _ipfsHash
+    ) public onlyMaintainer {
+        _mint(_to, _tokenId, _ipfsHash);
     }
 
     function mint(
@@ -193,6 +205,15 @@ contract Chocomold is
     }
 
     function mint(
+        address _to,
+        uint256 _tokenId,
+        address payable[] memory _royaltyAddressMemory,
+        uint256[] memory _royaltyMemory
+    ) public onlyMaintainer {
+        _mint(_to, _tokenId, _royaltyAddressMemory, _royaltyMemory);
+    }
+
+    function mint(
         address[] memory _toList,
         uint256[] memory _tokenIdList,
         address payable[][] memory _royaltyAddressMemory,
@@ -201,6 +222,16 @@ contract Chocomold is
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i], _royaltyAddressMemory[i], _royaltyMemory[i]);
         }
+    }
+
+    function mint(
+        address _to,
+        uint256 _tokenId,
+        bytes32 _ipfsHash,
+        address payable[] memory _royaltyAddressMemory,
+        uint256[] memory _royaltyMemory
+    ) public onlyMaintainer {
+        _mint(_to, _tokenId, _ipfsHash, _royaltyAddressMemory, _royaltyMemory);
     }
 
     function mint(
