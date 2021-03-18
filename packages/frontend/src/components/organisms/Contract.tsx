@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useAuth } from "../../modules/auth";
+import { getContractsForChainId } from "../../modules/web3";
 import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
@@ -10,23 +12,57 @@ import { SpreadSheet } from "../molecules/SpreadSheet";
 export interface ContractProps {
   nftContract?: NFTContract;
   metadataList: Metadata[];
+  deployed: boolean;
 }
 
-export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList }) => {
+export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, deployed }) => {
   const [isBulkEditMode, setIsBulkEditMode] = React.useState(false);
   const [internalMetadataList, setInternalMetadataList] = React.useState<Metadata[]>([]);
+  const [deployedInternal, setDeployedInternal] = React.useState(false);
+
+  const { connectWallet } = useAuth();
 
   React.useEffect(() => {
     setInternalMetadataList(metadataList);
-  }, [metadataList]);
+    setDeployedInternal(deployed);
+  }, [metadataList, deployed]);
+
+  const deployNFTContract = async () => {
+    if (!nftContract) return;
+    const { signerAddress, signer } = await connectWallet();
+    const signerNetwork = await signer.provider.getNetwork();
+    if (nftContract.chainId != signerNetwork.chainId.toString()) return;
+    const { chocofactoryContract, chocomoldContract } = getContractsForChainId(nftContract.chainId);
+    const data = chocomoldContract.interface.encodeFunctionData("initialize", [
+      nftContract.name,
+      nftContract.symbol,
+      signerAddress,
+    ]);
+    const predictedDeployResult = await chocofactoryContract.predictDeployResult(
+      signerAddress,
+      chocomoldContract.address,
+      data
+    );
+    if (predictedDeployResult.toLowerCase() != nftContract.nftContractAddress) return;
+    const { hash } = await chocofactoryContract.connect(signer).deploy(chocomoldContract.address, data);
+    setDeployedInternal(true);
+  };
 
   return nftContract ? (
     <section>
       <div className="flex justify-between mb-4">
         <p className="text-gray-700 text-xl font-medium">NFT Contracts</p>
         <div>
-          <Button type="primary" size="small">
-            Deploy<span className="ml-2">🔧</span>
+          <Button onClick={deployNFTContract} type="primary" size="small" disabled={deployedInternal}>
+            {deployedInternal ? (
+              <>
+                Deployed<span className="ml-2">✅</span>
+              </>
+            ) : (
+              <>
+                Deploy<span className="ml-2">🔧</span>
+              </>
+            )}
           </Button>
         </div>
       </div>

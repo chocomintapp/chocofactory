@@ -7,6 +7,7 @@ import { ContractTemplate, ContractTemplateProps } from "./Contract";
 const args: ContractTemplateProps = {
   nftContract: nftContractList[0],
   metadataList,
+  deployed: false,
 };
 
 export default {

@@ -11,15 +11,16 @@ import { Header } from "../organisms/Header";
 export interface ContractTemplateProps {
   nftContract?: NFTContract;
   metadataList: Metadata[];
+  deployed: boolean;
 }
 
-export const ContractTemplate: React.FC<ContractTemplateProps> = ({ nftContract, metadataList }) => {
+export const ContractTemplate: React.FC<ContractTemplateProps> = ({ nftContract, metadataList, deployed }) => {
   return (
     <Main>
       <Header />
       <Container type="wide">
         <AuthGuard>
-          <Contract nftContract={nftContract} metadataList={metadataList} />
+          <Contract nftContract={nftContract} metadataList={metadataList} deployed={deployed} />
         </AuthGuard>
       </Container>
       <Footer />

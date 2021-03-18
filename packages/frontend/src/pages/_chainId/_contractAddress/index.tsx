@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import { ContractTemplate } from "../../../components/templates/Contract";
 import { useAuth } from "../../../modules/auth";
 import { firestore } from "../../../modules/firebase";
+import { getContractsForChainId } from "../../../modules/web3";
 import { NFTContract, Metadata } from "../../../types";
 
 export const Contract: React.FC = () => {
   const [nftContract, setNFTContract] = React.useState<NFTContract>();
   const [metadataList, setMetadataList] = React.useState<Metadata[]>([]);
+  const [deployed, setDeployed] = React.useState<boolean>(false);
 
   const { nftContractAddress, chainId } = useParams<{ chainId: string; nftContractAddress: string }>();
 
@@ -43,9 +45,14 @@ export const Contract: React.FC = () => {
           setMetadataList(metadataList);
         });
     }
+    const { chocofactoryContract } = getContractsForChainId(chainId);
+    const DeployEvent = chocofactoryContract.filters.Deployed(null, null, nftContractAddress, null);
+    chocofactoryContract.queryFilter(DeployEvent, 0, "latest").then((events) => {
+      setDeployed(events.length > 0);
+    });
   }, [signerAddressState]);
 
-  return <ContractTemplate nftContract={nftContract} metadataList={metadataList} />;
+  return <ContractTemplate nftContract={nftContract} metadataList={metadataList} deployed={deployed} />;
 };
 
 export default Contract;

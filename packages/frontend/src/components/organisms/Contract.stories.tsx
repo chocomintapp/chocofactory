@@ -7,6 +7,7 @@ import { Contract, ContractProps } from "./Contract";
 const args: ContractProps = {
   nftContract: nftContractList[0],
   metadataList,
+  deployed: false,
 };
 
 export default {
