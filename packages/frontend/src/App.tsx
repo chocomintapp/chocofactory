@@ -10,7 +10,7 @@ import Mypage from "./pages/mypage";
 
 const App: React.FC = () => {
   return (
-    <>
+    <div className="font-body">
       <RecoilRoot>
         <AtomsRootLoader>
           <Router>
@@ -34,7 +34,7 @@ const App: React.FC = () => {
           </Router>
         </AtomsRootLoader>
       </RecoilRoot>
-    </>
+    </div>
   );
 };
 
