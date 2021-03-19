@@ -9,8 +9,7 @@ import { Form } from "../atoms/Form";
 
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
-import { Loader, useLoader } from "../molecules/Loader";
-import { MessageModal, useMessageModal } from "../molecules/MessageModal";
+import { useLoadingOverlay, useMessageModal } from "../utils/atoms";
 
 export const CreateNFTContractForm: React.FC = () => {
   const [chainId, setChainId] = React.useState<ChainId>(chainIdValues[0]);
@@ -18,8 +17,8 @@ export const CreateNFTContractForm: React.FC = () => {
   const [nameError, setNameError] = React.useState("");
   const [symbol, setSymbol] = React.useState("");
   const [symbolError, setSymbolError] = React.useState("");
-  const { isLoaderDiplay, openLoader, closeLoader } = useLoader();
-  const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
+  const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
+  const { openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
   const history = useHistory();
 
@@ -46,10 +45,16 @@ export const CreateNFTContractForm: React.FC = () => {
     const signerNetwork = await signer.provider.getNetwork();
     if (chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(chainId);
-      openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
+      openMessageModal({
+        icon: "🤔",
+        messageText: `Please connect ${networkName} network`,
+        buttonText: "Close",
+        onClickConfirm: closeMessageModal,
+        onClickDismiss: closeMessageModal,
+      });
       return;
     }
-    openLoader();
+    openLoadingOverlay();
     try {
       const ownerAddress = signerAddress.toLowerCase();
       const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
@@ -83,10 +88,10 @@ export const CreateNFTContractForm: React.FC = () => {
         ownerAddress,
       });
       const { nftContractAddress } = result.data;
-      closeLoader();
+      closeLoadingOverlay();
       history.push(`/${chainId}/${nftContractAddress}`);
     } catch (err) {
-      closeLoader();
+      closeLoadingOverlay();
       console.log(err);
     }
   };
@@ -114,8 +119,6 @@ export const CreateNFTContractForm: React.FC = () => {
           <FormInput type="text" error={symbolError} value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
       </div>
-      {isLoaderDiplay && <Loader />}
-      {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   );
 };

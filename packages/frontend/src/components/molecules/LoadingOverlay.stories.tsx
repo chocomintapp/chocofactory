@@ -1,14 +1,14 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { Loader } from "./Loader";
+import { LoadingOverlay } from "./LoadingOverlay";
 
 export default {
-  title: "Molecules/Loader",
-  component: Loader,
+  title: "Molecules/LoadingOverlay",
+  component: LoadingOverlay,
 };
 
 export const Control: React.FC = (props) => (
   <MemoryRouter>
-    <Loader {...props}>{props.children}</Loader>
+    <LoadingOverlay {...props}>{props.children}</LoadingOverlay>
   </MemoryRouter>
 );

@@ -8,13 +8,13 @@ import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules
 
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
-import { Loader, useLoader } from "../molecules/Loader";
-import { MessageModal, useMessageModal } from "../molecules/MessageModal";
+
+import { useLoadingOverlay, useMessageModal } from "../utils/atoms";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
-export interface SpreadSheetProps {
+export interface NFTsSpreadSheetViewerProps {
   nftContract: NFTContract;
   metadataList: Metadata[];
   mintedTokenIds: string[];
@@ -22,7 +22,7 @@ export interface SpreadSheetProps {
   setState: (input: Metadata[]) => void;
 }
 
-export const SpreadSheet: React.FC<SpreadSheetProps> = ({
+export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
   nftContract,
   metadataList,
   mintedTokenIds,
@@ -33,9 +33,9 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
   const [, setGridColumnApi] = React.useState<any>();
   const [internalList, setInternalList] = React.useState<Metadata[]>([]);
 
-  const { openMessageModal, closeMessageModal, messageModalProps } = useMessageModal();
+  const { openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
-  const { isLoaderDiplay, openLoader, closeLoader } = useLoader();
+  const { isLoadingOverlayDiplay, openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
 
   React.useEffect(() => {
     if (!metadataList) return;
@@ -49,7 +49,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
   }, [metadataList, mintedTokenIds]);
 
   const saveToFirestore = async () => {
-    openLoader();
+    openLoadingOverlay();
     const rowData: Metadata[] = [];
     gridApi.forEachNode((node: any) => rowData.push(node.data as Metadata));
     const batch = firestore.batch();
@@ -67,7 +67,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     }
     await batch.commit();
     setState(rowData);
-    closeLoader();
+    closeLoadingOverlay();
   };
 
   const exportCSV = () => {
@@ -80,7 +80,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(nftContract.chainId);
-      openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
+      // openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
       return;
     }
 
@@ -88,41 +88,41 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     const selectedRowData: Metadata[] = selectedNodes.map((node: any) => node.data);
     const selectedTokenIds = selectedRowData.map((selectedRow: any) => selectedRow.tokenId);
     if (selectedTokenIds.length == 0) {
-      openMessageModal("🤔", `Please select NFT`, "Close", closeMessageModal, closeMessageModal);
+      // openMessageModal("🤔", `Please select NFT`, "Close", closeMessageModal, closeMessageModal);
       return;
     }
 
     const toList: string[] = [];
     selectedTokenIds.forEach((selectedTokenId) => {
       if (mintedTokenIds.includes(selectedTokenId.toString())) {
-        openMessageModal(
-          "🤔",
-          `NFT #${selectedTokenId} is already minted`,
-          "Close",
-          closeMessageModal,
-          closeMessageModal
-        );
+        // openMessageModal(
+        //   "🤔",
+        //   `NFT #${selectedTokenId} is already minted`,
+        //   "Close",
+        //   closeMessageModal,
+        //   closeMessageModal
+        // );
         return;
       }
       toList.push(nftContract.ownerAddress);
     });
-    openLoader();
+    openLoadingOverlay();
     try {
       const { chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
       const { hash } = await chocomoldContract
         .attach(nftContract.nftContractAddress)
         .connect(signer)
         ["mint(address[],uint256[])"](toList, selectedTokenIds);
-      closeLoader();
-      openMessageModal(
-        "🎉",
-        "NFT is being minted!",
-        "Check",
-        () => window.open(`${explore}tx/${hash}`),
-        closeMessageModal
-      );
+      closeLoadingOverlay();
+      openMessageModal({
+        icon: "🎉",
+        messageText: "Transaction submitted!",
+        buttonText: "Check",
+        onClickConfirm: () => window.open(`${explore}tx/${hash}`),
+        onClickDismiss: closeMessageModal,
+      });
     } catch (err) {
-      closeLoader();
+      closeLoadingOverlay();
       console.log(err);
     }
   };
@@ -214,8 +214,6 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
           rowData={internalList}
         />
       </div>
-      {isLoaderDiplay && <Loader />}
-      {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   );
 };

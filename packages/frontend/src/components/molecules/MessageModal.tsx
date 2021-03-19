@@ -1,7 +1,8 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../atoms/Button";
-import { Modal } from "../atoms/Modal";
 
 export interface MessageModalProps {
   icon: string;
@@ -19,49 +20,34 @@ export const MessageModal: React.FC<MessageModalProps> = ({
   onClickDismiss,
 }) => {
   return (
-    <Modal onClickDismiss={onClickDismiss} icon={icon}>
-      <p className="my-8 text-gray-600">{messageText}</p>
-      {onClickConfirm && (
-        <div className="flex justify-center">
-          <div className="w-6/12">
-            {typeof onClickConfirm == "string" ? (
-              <Link to={onClickConfirm}>
-                <Button type="tertiary">{buttonText}</Button>
-              </Link>
-            ) : (
-              <Button onClick={onClickConfirm} type="tertiary">
-                {buttonText}
-              </Button>
-            )}
-          </div>
+    <section className="fixed z-1 inset-0">
+      <div className="flex p-4 items-center justify-center min-h-screen text-center">
+        <div onClick={onClickDismiss} className="absolute inset-0 overflow-hidden bg-black opacity-40"></div>
+        <div className="bg-white p-6 px-4 transform max-w-lg w-full rounded-xl">
+          <p className="focus:outline-none absolute left-4 top-2 text-gray-400">{icon}</p>
+          {onClickDismiss && (
+            <button onClick={onClickDismiss} className="focus:outline-none absolute right-4 top-2 text-gray-400">
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          )}
+          <p className="my-8 text-gray-600">{messageText}</p>
+          {onClickConfirm && (
+            <div className="flex justify-center">
+              <div className="w-6/12">
+                {typeof onClickConfirm == "string" ? (
+                  <Link to={onClickConfirm}>
+                    <Button type="tertiary">{buttonText}</Button>
+                  </Link>
+                ) : (
+                  <Button onClick={onClickConfirm} type="tertiary">
+                    {buttonText}
+                  </Button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </Modal>
+      </div>
+    </section>
   );
-};
-
-export const useMessageModal = () => {
-  const [messageModalProps, setMessageModalProps] = React.useState<MessageModalProps | undefined>(undefined);
-
-  const openMessageModal = (
-    icon: string,
-    messageText: string,
-    buttonText?: string,
-    onClickConfirm?: () => void,
-    onClickDismiss?: () => void
-  ) => {
-    setMessageModalProps({
-      icon,
-      messageText,
-      buttonText,
-      onClickConfirm,
-      onClickDismiss,
-    });
-  };
-
-  const closeMessageModal = () => {
-    setMessageModalProps(undefined);
-  };
-
-  return { messageModalProps, openMessageModal, closeMessageModal };
 };

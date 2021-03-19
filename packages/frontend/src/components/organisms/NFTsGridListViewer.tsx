@@ -5,14 +5,14 @@ import { getFileType, shortenText } from "../../modules/util";
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 
-import "./GridList.scss";
+import "./NFTsGridListViewer.scss";
 
-export interface GridListProps {
+export interface NFTsGridListViewerProps {
   nftContract: NFTContract;
   metadataList: Metadata[];
 }
 
-export const GridList: React.FC<GridListProps> = ({ nftContract, metadataList }) => {
+export const NFTsGridListViewer: React.FC<NFTsGridListViewerProps> = ({ nftContract, metadataList }) => {
   return (
     <section>
       <div className="mb-2 flex justify-start">

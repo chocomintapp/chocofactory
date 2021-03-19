@@ -4,11 +4,11 @@ import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules
 import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
-import { GridList } from "../molecules/GridList";
-import { Loader, useLoader } from "../molecules/Loader";
-import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 import { NFTCard } from "../molecules/NFTCard";
-import { SpreadSheet } from "../molecules/SpreadSheet";
+import { useLoadingOverlay, useMessageModal } from "../utils/atoms";
+import { NFTsGridListViewer } from "./NFTsGridListViewer";
+
+import { NFTsSpreadSheetViewer } from "./NFTsSpreadSheetViewer";
 
 export interface ContractProps {
   nftContract?: NFTContract;
@@ -25,7 +25,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
 
-  const { isLoaderDiplay, openLoader, closeLoader } = useLoader();
+  const { isLoadingOverlayDiplay, openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
 
   React.useEffect(() => {
     setInternalMetadataList(metadataList);
@@ -43,10 +43,16 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(nftContract.chainId);
-      openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
+      openMessageModal({
+        icon: "🤔",
+        messageText: `Please connect ${networkName} network`,
+        buttonText: "Close",
+        onClickConfirm: closeMessageModal,
+        onClickDismiss: closeMessageModal,
+      });
       return;
     }
-    openLoader();
+    openLoadingOverlay();
     try {
       const { chocofactoryContract, chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
       const predictedDeployResult = await chocofactoryContract.predictDeployResult(
@@ -66,16 +72,16 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
           nftContract.signature
         );
       setDeployedInternal(true);
-      closeLoader();
-      openMessageModal(
-        "🎉",
-        "NFT contract is being deployed!",
-        "Check",
-        () => window.open(`${explore}tx/${hash}`),
-        closeMessageModal
-      );
+      closeLoadingOverlay();
+      openMessageModal({
+        icon: "🎉",
+        messageText: "Transaction submitted!",
+        buttonText: "Check",
+        onClickConfirm: () => window.open(`${explore}tx/${hash}`),
+        onClickDismiss: closeMessageModal,
+      });
     } catch (err) {
-      closeLoader();
+      closeLoadingOverlay();
       console.log(err);
     }
   };
@@ -127,7 +133,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       </div>
       <div>
         {isBulkEditMode ? (
-          <SpreadSheet
+          <NFTsSpreadSheetViewer
             setState={setInternalMetadataList}
             nftContract={nftContract}
             metadataList={internalMetadataList}
@@ -135,11 +141,9 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
             deployed={deployedInternal}
           />
         ) : (
-          <GridList nftContract={nftContract} metadataList={internalMetadataList} />
+          <NFTsGridListViewer nftContract={nftContract} metadataList={internalMetadataList} />
         )}
       </div>
-      {isLoaderDiplay && <Loader />}
-      {messageModalProps && <MessageModal {...messageModalProps} />}
     </section>
   ) : (
     <></>
