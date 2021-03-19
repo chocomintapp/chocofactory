@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useParams } from "react-router-dom";
 import { ContractTemplate } from "../../../components/templates/Contract";
 import { useAuth } from "../../../modules/auth";
