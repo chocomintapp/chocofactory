@@ -23,9 +23,8 @@
     "build": "run-p build:*",
     "build:frontend": "yarn workspace frontend build",
     "build:functions": "yarn workspace functions build",
-    "start:staging": "firebase emulators:start --only hosting,functions",
-    "predeploy-staging": "yarn build",
-    "deploy-staging": "firebase deploy --only hosting:staging,functions,firestore"
+    "predeploy": "yarn build",
+    "deploy": "firebase deploy --only hosting,functions,firestore"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.17.0",

@@ -1,7 +1,9 @@
 {
   "1": "mainnet",
   "4": "rinkeby",
+  "56": "bsc",
   "97": "bsc_test",
+  "137": "matic",
   "80001": "matic_test",
   "31337": "localhost"
 }

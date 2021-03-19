@@ -16,6 +16,19 @@
 - Mold
   https://rinkeby.etherscan.io/address/0x712C9F690AF12c40e57C5C80D4327c05Cef6Be63#code
 
+### Sample Transaction
+
+- Deploy Contract
+  https://etherscan.io/tx/0x2094e2aa20985856e80ab61a5162719d746cbb7bed11efa0d647ed6975db2969
+
+- Bulk Mint
+  https://etherscan.io/tx/0x0ee4f07d5a8e4f28c7a840f63af23aeda16fa88470c7d07dcf6c451949b9bfc2
+
+### Sample Storefront
+
+- Opensea
+  https://opensea.io/collection/blockbase-sandbox
+
 ## Firebase Deploy Notes
 
 - Set functions IAM allusers to call function

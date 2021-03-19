@@ -18,21 +18,6 @@
           "destination": "/index.html"
         }
       ]
-    },
-    {
-      "target": "staging",
-      "public": "packages/frontend/build",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "/metadata/**",
-          "function": "metadata"
-        },
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
     }
   ],
   "emulators": {

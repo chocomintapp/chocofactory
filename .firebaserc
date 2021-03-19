@@ -7,9 +7,6 @@
       "hosting": {
         "production": [
           "chocofactory-prod"
-        ],
-        "staging": [
-          "chocofactory-staging"
         ]
       }
     }

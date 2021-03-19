@@ -34,8 +34,16 @@ module.exports = {
       url: network.rinkeby.rpc,
       accounts: [privateKey],
     },
+    matic: {
+      url: network.matic.rpc,
+      accounts: [privateKey],
+    },
     matic_test: {
       url: network.matic_test.rpc,
+      accounts: [privateKey],
+    },
+    bsc: {
+      url: network.bsc.rpc,
       accounts: [privateKey],
     },
     bsc_test: {

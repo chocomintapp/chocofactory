@@ -13,12 +13,26 @@
     "chocofactory": "0x354D33a61F2085E7b6B41F1edb7c2742c3e9c78a",
     "chocomold": "0x712C9F690AF12c40e57C5C80D4327c05Cef6Be63"
   },
+  "matic": {
+    "chainId": "137",
+    "rpc": "https://rpc-mainnet.maticvigil.com/",
+    "explore": "https://explorer-mainnet.maticvigil.com/",
+    "chocofactory": "0x53B688a8Fb9e6a0bC8ca49bF0bBfddac4696ec72",
+    "chocomold": "0xD3F5dcF16684E23Af28a8F57cde51d03f73Ee667"
+  },
   "matic_test": {
     "chainId": "80001",
     "rpc": "https://rpc-mumbai.matic.today",
     "explore": "https://explorer-mumbai.maticvigil.com/",
     "chocofactory": "0x7cD29C50908154DFB1B8320F3e39d2726F9ba0A2",
     "chocomold": "0xF3b854C226C72e99a251C285b5C67E343323A8c2"
+  },
+  "bsc": {
+    "chainId": "56",
+    "rpc": "https://bsc-dataseed.binance.org/",
+    "explore": "https://bscscan.com/",
+    "chocofactory": "0x1d8ec42571A49d3BEF2c39d37057993Cdd462B8a",
+    "chocomold": "0x1c859bf740394F08dF4f476A86192f2D6322Be0f"
   },
   "bsc_test": {
     "chainId": "97",
