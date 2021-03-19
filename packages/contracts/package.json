@@ -14,7 +14,8 @@
     "deploy-contract-to-localchain": "hardhat run scripts/99_batchMigration.ts --network localhost",
     "deploy-contract-to-rinkeby": "hardhat run scripts/99_batchMigration.ts --network rinkeby",
     "deploy-contract-to-matic_test": "hardhat run scripts/99_batchMigration.ts --network matic_test",
-    "deploy-contract-to-bsc_test": "hardhat run scripts/99_batchMigration.ts --network bsc_test"
+    "deploy-contract-to-bsc_test": "hardhat run scripts/99_batchMigration.ts --network bsc_test",
+    "deploy-contract-to-mainnet": "hardhat run scripts/99_batchMigration.ts --network mainnet"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",
