@@ -9,11 +9,7 @@ import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "./IHasSecondarySaleFees.sol";
 
-contract HasSecondarySaleFees is
-    IERC165,
-    ERC721Upgradeable,
-    IHasSecondarySaleFees
-{
+contract HasSecondarySaleFees is IERC165, ERC721Upgradeable, IHasSecondarySaleFees {
     address payable[] private defaultRoyaltyAddressMemory;
     uint256[] private defaultRoyaltyMemory;
 
@@ -25,22 +21,13 @@ contract HasSecondarySaleFees is
         address payable[] memory _royaltyAddress,
         uint256[] memory _royalty
     ) internal {
-        require(
-            _royaltyAddress.length == _royalty.length,
-            "input length must be same"
-        );
+        require(_royaltyAddress.length == _royalty.length, "input length must be same");
         royaltyAddressMemory[_tokenId] = _royaltyAddress;
         royaltyMemory[_tokenId] = _royalty;
     }
 
-    function _setDefaultRoyality(
-        address payable[] memory _royaltyAddress,
-        uint256[] memory _royalty
-    ) internal {
-        require(
-            _royaltyAddress.length == _royalty.length,
-            "input length must be same"
-        );
+    function _setDefaultRoyality(address payable[] memory _royaltyAddress, uint256[] memory _royalty) internal {
+        require(_royaltyAddress.length == _royalty.length, "input length must be same");
         defaultRoyaltyAddressMemory = _royaltyAddress;
         defaultRoyaltyMemory = _royalty;
     }
@@ -52,33 +39,15 @@ contract HasSecondarySaleFees is
         override(IERC165, ERC721Upgradeable)
         returns (bool)
     {
-        return
-            interfaceId == type(IHasSecondarySaleFees).interfaceId ||
-            super.supportsInterface(interfaceId);
+        return interfaceId == type(IHasSecondarySaleFees).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    function getFeeRecipients(uint256 _tokenId)
-        external
-        view
-        override
-        returns (address payable[] memory)
-    {
-        return
-            royaltyAddressMemory[_tokenId].length > 0
-                ? royaltyAddressMemory[_tokenId]
-                : defaultRoyaltyAddressMemory;
+    function getFeeRecipients(uint256 _tokenId) external view override returns (address payable[] memory) {
+        return royaltyAddressMemory[_tokenId].length > 0 ? royaltyAddressMemory[_tokenId] : defaultRoyaltyAddressMemory;
     }
 
-    function getFeeBps(uint256 _tokenId)
-        external
-        view
-        override
-        returns (uint256[] memory)
-    {
-        return
-            royaltyMemory[_tokenId].length > 0
-                ? royaltyMemory[_tokenId]
-                : defaultRoyaltyMemory;
+    function getFeeBps(uint256 _tokenId) external view override returns (uint256[] memory) {
+        return royaltyMemory[_tokenId].length > 0 ? royaltyMemory[_tokenId] : defaultRoyaltyMemory;
     }
 
     function _burn(uint256 _tokenId) internal virtual override {

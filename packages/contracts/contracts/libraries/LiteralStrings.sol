@@ -2,11 +2,7 @@
 pragma solidity ^0.8.0;
 
 library LiteralStrings {
-    function toLiteralString(bytes memory input)
-        internal
-        pure
-        returns (string memory)
-    {
+    function toLiteralString(bytes memory input) internal pure returns (string memory) {
         bytes memory alphabet = "0123456789abcdef";
         bytes memory output = new bytes(2 + input.length * 2);
         output[0] = "0";

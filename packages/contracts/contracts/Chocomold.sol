@@ -29,8 +29,7 @@ contract Chocomold is
 
     mapping(uint256 => bytes32) public ipfsHashMemory;
 
-    string public constant defaultBaseURI =
-        "https://factory.chocomint.app/metadata/";
+    string public constant defaultBaseURI = "https://factory.chocomint.app/metadata/";
     string public customBaseURI;
 
     function initialize(
@@ -52,10 +51,7 @@ contract Chocomold is
         return super.supportsInterface(_interfaceId);
     }
 
-    function setDefaultRoyality(
-        address payable[] memory _royaltyAddress,
-        uint256[] memory _royalty
-    ) public onlyOwner {
+    function setDefaultRoyality(address payable[] memory _royaltyAddress, uint256[] memory _royalty) public onlyOwner {
         _setDefaultRoyality(_royaltyAddress, _royalty);
     }
 
@@ -73,16 +69,11 @@ contract Chocomold is
         uint256[][] memory _royaltyList
     ) public onlyOwner {
         require(
-            _tokenIdList.length == _royaltyAddressList.length &&
-                _tokenIdList.length == _royaltyList.length,
+            _tokenIdList.length == _royaltyAddressList.length && _tokenIdList.length == _royaltyList.length,
             "input length must be same"
         );
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
-            _setRoyality(
-                _tokenIdList[i],
-                _royaltyAddressList[i],
-                _royaltyList[i]
-            );
+            _setRoyality(_tokenIdList[i], _royaltyAddressList[i], _royaltyList[i]);
         }
     }
 
@@ -102,34 +93,17 @@ contract Chocomold is
         _setIpfsHash(_tokenId, _ipfsHash);
     }
 
-    function setIpfsHash(
-        uint256[] memory _tokenIdList,
-        bytes32[] memory _ipfsHashList
-    ) public onlyOwner {
-        require(
-            _tokenIdList.length == _ipfsHashList.length,
-            "input length must be same"
-        );
+    function setIpfsHash(uint256[] memory _tokenIdList, bytes32[] memory _ipfsHashList) public onlyOwner {
+        require(_tokenIdList.length == _ipfsHashList.length, "input length must be same");
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _setIpfsHash(_tokenIdList[i], _ipfsHashList[i]);
         }
     }
 
-    function tokenURI(uint256 _tokenId)
-        public
-        view
-        override
-        returns (string memory)
-    {
+    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
         require(_exists(_tokenId), "token must exist");
         if (ipfsHashMemory[_tokenId] != "") {
-            return
-                string(
-                    ipfsHashMemory[_tokenId]
-                        .addSha256FunctionCodePrefix()
-                        .toBase58()
-                        .addIpfsBaseUrlPrefix()
-                );
+            return string(ipfsHashMemory[_tokenId].addSha256FunctionCodePrefix().toBase58().addIpfsBaseUrlPrefix());
         } else if (bytes(customBaseURI).length > 0) {
             return super.tokenURI(_tokenId);
         } else {
@@ -151,14 +125,8 @@ contract Chocomold is
         _mint(_to, _tokenId);
     }
 
-    function mint(address[] memory _toList, uint256[] memory _tokenIdList)
-        public
-        onlyOwner
-    {
-        require(
-            _toList.length == _tokenIdList.length,
-            "input length must be same"
-        );
+    function mint(address[] memory _toList, uint256[] memory _tokenIdList) public onlyOwner {
+        require(_toList.length == _tokenIdList.length, "input length must be same");
         for (uint256 i = 0; i < _tokenIdList.length; i++) {
             _mint(_toList[i], _tokenIdList[i]);
         }
@@ -172,11 +140,7 @@ contract Chocomold is
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
-    function _burn(uint256 _tokenId)
-        internal
-        virtual
-        override(ERC721Upgradeable, HasSecondarySaleFees)
-    {
+    function _burn(uint256 _tokenId) internal virtual override(ERC721Upgradeable, HasSecondarySaleFees) {
         super._burn(_tokenId);
         if (ipfsHashMemory[_tokenId] != "") {
             delete ipfsHashMemory[_tokenId];
