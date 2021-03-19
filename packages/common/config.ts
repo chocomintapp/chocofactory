@@ -1,8 +1,10 @@
 export const signatureMessage = `Welcome to Chocofactory!
 
-Click "Sign" to sign in. No password needed!
+You can create your own NFT contract with quite reasonable gas price!
 
-I accept the Chocofactory Terms of Service: https://factory.chocomint.app/tos
+This product is still under alpa and "test in prod" phase.
+
+Click "Sign" to sign in. No password needed.
 
 Wallet address:
 `;

@@ -115,8 +115,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# ignore build
+# frontend
 packages/frontend/build
+storybook-static
 
 # hardhat
 packages/contracts/artifacts
