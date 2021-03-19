@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
       closeLoadingOverlay();
     } catch (err) {
       closeLoadingOverlay();
-      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
+      openNotificationToast({ type: "error", text: err.message });
     }
   };
 
@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
             <span className="ml-1">{mainIcon}</span>
           </div>
         </Link>
-        <div className="px-2 py-6 absolute right-0">
+        <div className="px-4 py-6 absolute right-0">
           {!userAddress ? (
             <Button onClick={signIn} type="tertiary">
               Connect<span className="ml-2">{connectIcon}</span>

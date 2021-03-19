@@ -47,7 +47,7 @@ export const CreateNFTContractForm: React.FC = () => {
     const signerNetwork = await signer.provider.getNetwork();
     if (chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(chainId);
-      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please connect ${networkName} network` });
+      openNotificationToast({ type: "error", text: `Please connect ${networkName} network` });
       return;
     }
     openLoadingOverlay();
@@ -85,11 +85,11 @@ export const CreateNFTContractForm: React.FC = () => {
       });
       const { nftContractAddress } = result.data;
       closeLoadingOverlay();
-      openNotificationToast({ icon: confirmIcon, title: "Confirmation", text: "NFT is created!" });
+      openNotificationToast({ type: "success", text: "NFT is created!" });
       history.push(`/${chainId}/${nftContractAddress}`);
     } catch (err) {
       closeLoadingOverlay();
-      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
+      openNotificationToast({ type: "error", text: err.message });
     }
   };
 

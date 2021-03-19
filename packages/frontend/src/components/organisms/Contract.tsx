@@ -45,7 +45,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(nftContract.chainId);
-      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please connect ${networkName} network` });
+      openNotificationToast({ type: "error", text: `Please connect ${networkName} network` });
       return;
     }
     openLoadingOverlay();
@@ -78,7 +78,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       });
     } catch (err) {
       closeLoadingOverlay();
-      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
+      openNotificationToast({ type: "error", text: err.message });
     }
   };
 

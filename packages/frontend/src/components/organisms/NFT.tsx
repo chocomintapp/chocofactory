@@ -52,7 +52,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       .collection("metadata")
       .doc(metadata.tokenId.toString())
       .set(newMetadata);
-    openNotificationToast({ icon: confirmIcon, title: "Confirmation", text: "NFT is saved!" });
+    openNotificationToast({ type: "success", text: "NFT is saved!" });
     closeLoadingOverlay();
     history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
   };

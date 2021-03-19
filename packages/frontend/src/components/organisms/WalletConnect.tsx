@@ -18,7 +18,7 @@ export const WalletConnect: React.FC = () => {
       closeLoadingOverlay();
     } catch (err) {
       closeLoadingOverlay();
-      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
+      openNotificationToast({ type: "error", text: err.message });
     }
   };
 

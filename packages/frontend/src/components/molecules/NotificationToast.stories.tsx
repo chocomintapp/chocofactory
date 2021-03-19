@@ -2,8 +2,7 @@ import React from "react";
 import { NotificationToast, NotificationToastProps } from "./NotificationToast";
 
 const args: NotificationToastProps = {
-  icon: "✅",
-  title: "transaction confirmed",
+  type: "success",
   text: "OK",
   onClickDismiss: () => {
     console.log("dismiss");

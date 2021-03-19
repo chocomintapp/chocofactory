@@ -69,7 +69,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
     }
     await batch.commit();
     setState(rowData);
-    openNotificationToast({ icon: confirmIcon, title: "Confirmation", text: "NFT is saved!" });
+    openNotificationToast({ type: "success", text: "NFT is saved!" });
     closeLoadingOverlay();
   };
 
@@ -83,7 +83,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(nftContract.chainId);
-      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please connect ${networkName} network` });
+      openNotificationToast({ type: "error", text: `Please connect ${networkName} network` });
       return;
     }
 
@@ -91,14 +91,14 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
     const selectedRowData: Metadata[] = selectedNodes.map((node: any) => node.data);
     const selectedTokenIds = selectedRowData.map((selectedRow: any) => selectedRow.tokenId);
     if (selectedTokenIds.length == 0) {
-      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please select NFTs` });
+      openNotificationToast({ type: "error", text: `Please select NFTs` });
       return;
     }
 
     const toList: string[] = [];
     selectedTokenIds.forEach((selectedTokenId) => {
       if (mintedTokenIds.includes(selectedTokenId.toString())) {
-        openNotificationToast({ icon: errorIcon, title: "Error", text: `NFT #${selectedTokenId} is already minted` });
+        openNotificationToast({ type: "error", text: `NFT #${selectedTokenId} is already minted` });
         return;
       }
       toList.push(nftContract.ownerAddress);
@@ -120,7 +120,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
       });
     } catch (err) {
       closeLoadingOverlay();
-      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
+      openNotificationToast({ type: "error", text: err.message });
     }
   };
 
