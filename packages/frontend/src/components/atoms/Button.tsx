@@ -9,13 +9,13 @@ export interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, children }) => {
-  const sizeClass = size == "small" ? "px-4 py-1 text-xs rounded-md shadow" : "text-sm py-2 px-4 rounded-md shadow-sm";
+  const sizeClass = size == "small" ? "text-xs px-4 py-1" : "text-sm py-2 px-4";
 
   return type === "primary" ? (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-white bg-green-400 ${sizeClass}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-white bg-green-400 rounded-md shadow ${sizeClass}`}
     >
       {children}
     </button>
@@ -23,7 +23,7 @@ export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, c
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-gray-800 bg-gray-100 ${sizeClass}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-gray-800 bg-gray-100 rounded-md shadow ${sizeClass}`}
     >
       {children}
     </button>
@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, c
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-gray-600 bg-white border ${sizeClass}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-gray-600 bg-white border rounded-md shadow ${sizeClass}`}
     >
       {children}
     </button>

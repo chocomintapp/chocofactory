@@ -5,6 +5,7 @@ import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
 import { GridList } from "../molecules/GridList";
+import { Loader, useLoader } from "../molecules/Loader";
 import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 import { NFTCard } from "../molecules/NFTCard";
 import { SpreadSheet } from "../molecules/SpreadSheet";
@@ -24,10 +25,17 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
 
+  const { isLoaderDiplay, openLoader, closeLoader } = useLoader();
+
   React.useEffect(() => {
     setInternalMetadataList(metadataList);
     setDeployedInternal(deployed);
   }, [metadataList, deployed]);
+
+  const openAddressExplore = (chainId: string, address: string) => {
+    const { explore } = getContractsForChainId(chainId);
+    window.open(`${explore}address/${address}`);
+  };
 
   const deployNFTContract = async () => {
     if (!nftContract) return;
@@ -38,37 +46,44 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
       return;
     }
-    const { chocofactoryContract, chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
-    const predictedDeployResult = await chocofactoryContract.predictDeployResult(
-      chocomoldContract.address,
-      signerAddress,
-      nftContract.name,
-      nftContract.symbol
-    );
-    if (predictedDeployResult.toLowerCase() != nftContract.nftContractAddress) return;
-    const { hash } = await chocofactoryContract
-      .connect(signer)
-      .deployWithTypedSig(
+    openLoader();
+    try {
+      const { chocofactoryContract, chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
+      const predictedDeployResult = await chocofactoryContract.predictDeployResult(
         chocomoldContract.address,
-        nftContract.ownerAddress,
+        signerAddress,
         nftContract.name,
-        nftContract.symbol,
-        nftContract.signature
+        nftContract.symbol
       );
-    setDeployedInternal(true);
-    openMessageModal(
-      "🎉",
-      "NFT contract is being deployed!",
-      "Check",
-      () => window.open(`${explore}${hash}`),
-      closeMessageModal
-    );
+      if (predictedDeployResult.toLowerCase() != nftContract.nftContractAddress) return;
+      const { hash } = await chocofactoryContract
+        .connect(signer)
+        .deployWithTypedSig(
+          chocomoldContract.address,
+          nftContract.ownerAddress,
+          nftContract.name,
+          nftContract.symbol,
+          nftContract.signature
+        );
+      setDeployedInternal(true);
+      closeLoader();
+      openMessageModal(
+        "🎉",
+        "NFT contract is being deployed!",
+        "Check",
+        () => window.open(`${explore}tx/${hash}`),
+        closeMessageModal
+      );
+    } catch (err) {
+      closeLoader();
+      console.log(err);
+    }
   };
 
   return nftContract ? (
     <section>
       <div className="flex justify-between mb-4">
-        <p className="text-gray-700 text-xl font-bold">NFT Contracts</p>
+        <p className="text-gray-700 text-xl font-bold">NFT Contract</p>
         <div>
           <Button onClick={deployNFTContract} type="primary" size="small" disabled={deployedInternal}>
             {deployedInternal ? (
@@ -85,6 +100,14 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       </div>
       <div className="mb-8 relative">
         <NFTCard nftContract={nftContract} />
+        <p className="text-xs mt-1 text-right text-blue-400 font-bold underline">
+          <span
+            onClick={() => openAddressExplore(nftContract.chainId, nftContract.nftContractAddress)}
+            className="cursor-pointer "
+          >
+            Open Block Explore 📖
+          </span>
+        </p>
       </div>
       <div className="flex justify-between mb-4">
         <p className="text-gray-700 text-xl font-bold">NFTs</p>
@@ -115,6 +138,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
           <GridList nftContract={nftContract} metadataList={internalMetadataList} />
         )}
       </div>
+      {isLoaderDiplay && <Loader />}
       {messageModalProps && <MessageModal {...messageModalProps} />}
     </section>
   ) : (

@@ -8,7 +8,7 @@ import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules
 
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
-
+import { Loader, useLoader } from "../molecules/Loader";
 import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
@@ -35,14 +35,13 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
 
   const { openMessageModal, closeMessageModal, messageModalProps } = useMessageModal();
   const { connectWallet } = useAuth();
+  const { isLoaderDiplay, openLoader, closeLoader } = useLoader();
 
   React.useEffect(() => {
     if (!metadataList) return;
     const result = metadataList.map((metadata: any) => {
       if (mintedTokenIds.includes(metadata.tokenId.toString())) {
-        metadata.minted = true;
-      } else {
-        metadata.minted = false;
+        metadata.minted = "✅";
       }
       return metadata;
     });
@@ -50,6 +49,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
   }, [metadataList, mintedTokenIds]);
 
   const saveToFirestore = async () => {
+    openLoader();
     const rowData: Metadata[] = [];
     gridApi.forEachNode((node: any) => rowData.push(node.data as Metadata));
     const batch = firestore.batch();
@@ -67,7 +67,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
     }
     await batch.commit();
     setState(rowData);
-    openMessageModal("🎉", "NFTs are saved", "Close", closeMessageModal, closeMessageModal);
+    closeLoader();
   };
 
   const exportCSV = () => {
@@ -83,6 +83,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
       openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
       return;
     }
+
     const selectedNodes = gridApi.getSelectedNodes();
     const selectedRowData: Metadata[] = selectedNodes.map((node: any) => node.data);
     const selectedTokenIds = selectedRowData.map((selectedRow: any) => selectedRow.tokenId);
@@ -90,6 +91,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
       openMessageModal("🤔", `Please select NFT`, "Close", closeMessageModal, closeMessageModal);
       return;
     }
+
     const toList: string[] = [];
     selectedTokenIds.forEach((selectedTokenId) => {
       if (mintedTokenIds.includes(selectedTokenId.toString())) {
@@ -104,12 +106,25 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
       }
       toList.push(nftContract.ownerAddress);
     });
-    const { chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
-    const { hash } = await chocomoldContract
-      .attach(nftContract.nftContractAddress)
-      .connect(signer)
-      ["mint(address[],uint256[])"](toList, selectedTokenIds);
-    openMessageModal("🎉", "NFT is being minted!", "Check", () => window.open(`${explore}${hash}`), closeMessageModal);
+    openLoader();
+    try {
+      const { chocomoldContract, explore } = getContractsForChainId(nftContract.chainId);
+      const { hash } = await chocomoldContract
+        .attach(nftContract.nftContractAddress)
+        .connect(signer)
+        ["mint(address[],uint256[])"](toList, selectedTokenIds);
+      closeLoader();
+      openMessageModal(
+        "🎉",
+        "NFT is being minted!",
+        "Check",
+        () => window.open(`${explore}tx/${hash}`),
+        closeMessageModal
+      );
+    } catch (err) {
+      closeLoader();
+      console.log(err);
+    }
   };
 
   const onGridReady = (params: any) => {
@@ -199,6 +214,7 @@ export const SpreadSheet: React.FC<SpreadSheetProps> = ({
           rowData={internalList}
         />
       </div>
+      {isLoaderDiplay && <Loader />}
       {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   );

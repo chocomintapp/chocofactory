@@ -29,7 +29,7 @@ contract Chocomold is
 
     mapping(uint256 => bytes32) public ipfsHashMemory;
 
-    string public constant defaultBaseURI = "https://asia-northeast1-chocofactory-prod.cloudfunctions.net/metadata/";
+    string public constant defaultBaseURI = "https://factory.chocomint.app/metadata/";
     string public customBaseURI;
 
     function initialize(

@@ -10,6 +10,10 @@
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
+          "source": "/metadata/**",
+          "function": "metadata"
+        },
+        {
           "source": "**",
           "destination": "/index.html"
         }
@@ -21,12 +25,12 @@
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
-          "source": "**",
-          "destination": "/index.html"
+          "source": "/metadata/**",
+          "function": "metadata"
         },
         {
-          "source": "metadata",
-          "function": "metadata"
+          "source": "**",
+          "destination": "/index.html"
         }
       ]
     }

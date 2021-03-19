@@ -6,8 +6,10 @@ import { functions } from "../../modules/firebase";
 import { getContractsForChainId, chainIdLabels, chainIdValues, getNetworkNameFromChainId } from "../../modules/web3";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
+
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
+import { Loader, useLoader } from "../molecules/Loader";
 import { MessageModal, useMessageModal } from "../molecules/MessageModal";
 
 export const CreateNFTContractForm: React.FC = () => {
@@ -16,14 +18,10 @@ export const CreateNFTContractForm: React.FC = () => {
   const [nameError, setNameError] = React.useState("");
   const [symbol, setSymbol] = React.useState("");
   const [symbolError, setSymbolError] = React.useState("");
-
+  const { isLoaderDiplay, openLoader, closeLoader } = useLoader();
   const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useAuth();
   const history = useHistory();
-
-  const moveToContractPage = (nftContractAddress: string) => {
-    history.push(`/${chainId}/${nftContractAddress}`);
-  };
 
   const validateForm = () => {
     let result = true;
@@ -51,41 +49,46 @@ export const CreateNFTContractForm: React.FC = () => {
       openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
       return;
     }
-    const ownerAddress = signerAddress.toLowerCase();
-    const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
-    const domain = {
-      name: "Chocofactory",
-      version: "1",
-      chainId,
-      verifyingContract: chocofactoryContract.address,
-    };
-    const types = {
-      Choco: [
-        { name: "implementation", type: "address" },
-        { name: "name", type: "string" },
-        { name: "symbol", type: "string" },
-      ],
-    };
-    const value = {
-      test: "chocomoldContract",
-      implementation: chocomoldContract.address,
-      name: name,
-      symbol: symbol,
-    };
-    const signature = await signer._signTypedData(domain, types, value);
-    const result = await functions.httpsCallable("createNFTContract")({
-      chainId,
-      factoryAddress: chocofactoryContract.address,
-      moldAddress: chocomoldContract.address.toLowerCase(),
-      signature,
-      name,
-      symbol,
-      ownerAddress,
-    });
-    const { nftContractAddress } = result.data;
-    openMessageModal("🎉", `NFT contract is created!`, "Detail", () =>
-      history.push(`/${chainId}/${nftContractAddress}`)
-    );
+    openLoader();
+    try {
+      const ownerAddress = signerAddress.toLowerCase();
+      const { chocomoldContract, chocofactoryContract } = getContractsForChainId(chainId);
+      const domain = {
+        name: "Chocofactory",
+        version: "1",
+        chainId,
+        verifyingContract: chocofactoryContract.address,
+      };
+      const types = {
+        Choco: [
+          { name: "implementation", type: "address" },
+          { name: "name", type: "string" },
+          { name: "symbol", type: "string" },
+        ],
+      };
+      const value = {
+        test: "chocomoldContract",
+        implementation: chocomoldContract.address,
+        name: name,
+        symbol: symbol,
+      };
+      const signature = await signer._signTypedData(domain, types, value);
+      const result = await functions.httpsCallable("createNFTContract")({
+        chainId,
+        factoryAddress: chocofactoryContract.address,
+        moldAddress: chocomoldContract.address.toLowerCase(),
+        signature,
+        name,
+        symbol,
+        ownerAddress,
+      });
+      const { nftContractAddress } = result.data;
+      closeLoader();
+      history.push(`/${chainId}/${nftContractAddress}`);
+    } catch (err) {
+      closeLoader();
+      console.log(err);
+    }
   };
 
   return (
@@ -111,6 +114,7 @@ export const CreateNFTContractForm: React.FC = () => {
           <FormInput type="text" error={symbolError} value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
       </div>
+      {isLoaderDiplay && <Loader />}
       {messageModalProps && <MessageModal {...messageModalProps} />}
     </>
   );

@@ -8,6 +8,7 @@ import { Form } from "../atoms/Form";
 import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
+import { Loader, useLoader } from "../molecules/Loader";
 
 export interface NFTProps {
   nftContract?: NFTContract;
@@ -21,6 +22,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const [animationUrl, setAnimationUrl] = React.useState("");
 
   const history = useHistory();
+  const { isLoaderDiplay, openLoader, closeLoader } = useLoader();
 
   React.useEffect(() => {
     if (!metadata) return;
@@ -31,6 +33,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   }, [metadata]);
   const createNFT = async () => {
     if (!nftContract || !metadata) return;
+    openLoader();
     const newMetadata: Metadata = {
       chainId: nftContract.chainId,
       nftContractAddress: nftContract.nftContractAddress,
@@ -48,6 +51,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       .collection("metadata")
       .doc(metadata.tokenId.toString())
       .set(newMetadata);
+    closeLoader();
     history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
   };
 
@@ -68,7 +72,6 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
             </Button>
           </div>
         </div>
-
         <Form>
           <FormInput type="number" value={metadata.tokenId} label="TokenID" readonly={true} />
           <FormInput type="text" value={name} label="Name" setState={setName} />
@@ -80,7 +83,8 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
             value={animationUrl}
             setState={setAnimationUrl}
           />
-        </Form>
+        </Form>{" "}
+        {isLoaderDiplay && <Loader />}
       </div>
     </>
   ) : (
