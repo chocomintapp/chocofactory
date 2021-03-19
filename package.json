@@ -23,6 +23,7 @@
     "build": "run-p build:*",
     "build:frontend": "yarn workspace frontend build",
     "build:functions": "yarn workspace functions build",
+    "start": "firebase serve --only hosting",
     "predeploy": "yarn build",
     "deploy": "firebase deploy --only hosting,functions,firestore"
   },
