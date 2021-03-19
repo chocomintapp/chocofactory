@@ -10,15 +10,27 @@ export interface NotificationToastProps {
 }
 
 export const NotificationToast: React.FC<NotificationToastProps> = ({ icon, title, text, onClickDismiss }) => {
+  const [active, setActive] = React.useState(false);
   React.useEffect(() => {
     if (!onClickDismiss) return;
+    setTimeout(() => {
+      setActive(true);
+    }, 100);
+    setTimeout(() => {
+      setActive(false);
+    }, 3400);
     setTimeout(() => {
       onClickDismiss();
     }, 3500);
   }, []);
 
   return (
-    <div className="fixed z-1 mt-20 mr-10 top-0 right-0 w-80 h-20 bg-white border shadow rounded-md overflow-hidden">
+    <div
+      className={
+        "fixed z-1 mt-20 mr-10 top-0 right-0 w-80 h-20 bg-white border shadow rounded-md overflow-hidden transition-opacity ease-in-out" +
+        (active ? " opacity-100" : " opacity-0")
+      }
+    >
       <div className="p-2">
         <div className="flex items-start">
           <div>{icon}</div>
