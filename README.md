@@ -1,5 +1,13 @@
 ## Contracts
 
+### Mainnet
+
+- Factory
+  https://etherscan.io/address/0xea968E6AC95A95c68bF66DEcc803A1B2848cdc4A#code
+
+- Mold
+  https://etherscan.io/address/0x1e38149c18117Ec8481452B5dd841D9b280c0953#code
+
 ### Rinkeby
 
 - Factory
