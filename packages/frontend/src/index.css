@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 @layer utilities {
+  .text-primary {
+    @apply text-gray-800;
+  }
+  .text-secondary {
+    @apply text-gray-600;
+  }
+  .text-tertiary {
+    @apply text-gray-400;
+  }
 }

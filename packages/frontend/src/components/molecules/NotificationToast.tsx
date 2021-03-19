@@ -23,13 +23,13 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({ icon, titl
         <div className="flex items-start">
           <div>{icon}</div>
           <div className="ml-3 w-0 flex-1 pt-0.5">
-            <p className="text-sm font-medium text-gray-900">{title}</p>
-            <p className="mt-1 text-xs text-gray-500">{text}</p>
+            <p className="text-sm font-bold text-primary">{title}</p>
+            <p className="mt-1 text-xs text-secondary">{text}</p>
           </div>
           <div className="ml-4 flex-shrink-0 flex">
             <button
               onClick={onClickDismiss}
-              className="bg-white rounded-md inline-flex text-gray-400 focus:outline-none"
+              className="bg-white rounded-md inline-flex text-tertiary focus:outline-none"
             >
               <span className="sr-only">Close</span>
               <FontAwesomeIcon icon={faTimes} />

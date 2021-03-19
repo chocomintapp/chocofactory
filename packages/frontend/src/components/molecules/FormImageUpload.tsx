@@ -77,7 +77,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
     <div>
       <Label text={label} />
       <div id="dropContainer h-full">
-        <div className="mt-1 h-full flex justify-center border border-gray-300 border-dashed rounded-xl">
+        <div className="mt-1 h-full flex justify-center border border-gray-300 border-dashed rounded-md">
           <div className={"cursor-pointer"} onClick={clickInputFile}>
             {!imagePreview ? (
               <div className={`h-20 w-20 m-10 ${isImageLoading && "opacity-25 animate-bounce"}`}>
@@ -87,7 +87,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
               <>
                 {type == "png" || type == "jpg" || type == "jpeg" || type == "gif" ? (
                   <div className="h-32 w-32 m-4">
-                    <img className="rounded-xl h-full object-cover mx-auto" src={imagePreview} />
+                    <img className="rounded-md h-full object-cover mx-auto" src={imagePreview} />
                   </div>
                 ) : type == "mp3" ? (
                   <div className="h-32 w-64 m-4">
@@ -97,7 +97,7 @@ export const FormImageUpload: React.FC<FormImageUploadProps> = ({ label, value, 
                   </div>
                 ) : type == "mp4" ? (
                   <div className="h-32 w-32 m-4">
-                    <video className="rounded-xl h-full object-cover mx-auto" controls>
+                    <video className="rounded-md h-full object-cover mx-auto" controls>
                       <source src={imagePreview} type="video/mp4" />
                     </video>
                   </div>

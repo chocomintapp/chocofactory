@@ -23,7 +23,7 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({ label, value, error,
         onChange={handleChange}
         value={value}
         readOnly={readonly}
-        className="mt-1 p-2 block w-full focus:ring-green-400 focus:border-green-400 text-xs border-gray-300 rounded-xl"
+        className="mt-1 p-2 block w-full focus:ring-green-400 focus:border-green-400 text-xs border-gray-300 rounded-md"
       />
       <p className="h-2 text-xs text-xs ml-2 text-red-400">{error}</p>
     </div>

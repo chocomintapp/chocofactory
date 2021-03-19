@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { Hero } from "./Hero";
 
 export default {
-  title: "Molecules/Hero",
+  title: "Organisms/Hero",
   component: Hero,
 };
 

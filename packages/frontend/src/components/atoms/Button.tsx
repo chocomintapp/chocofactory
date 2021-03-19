@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, c
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-white bg-green-400 rounded-md shadow ${sizeClass}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full rounded-md shadow text-white bg-green-400 ${sizeClass}`}
     >
       {children}
     </button>
@@ -23,7 +23,7 @@ export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, c
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-gray-800 bg-gray-100 rounded-md shadow ${sizeClass}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full rounded-md shadow text-primary bg-gray-100 ${sizeClass}`}
     >
       {children}
     </button>
@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({ size, type, disabled, onClick, c
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-gray-600 bg-white border rounded-md shadow ${sizeClass}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-75 focus:outline-none w-full text-secondary rounded-md shadow bg-white border ${sizeClass}`}
     >
       {children}
     </button>

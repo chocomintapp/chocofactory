@@ -58,7 +58,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   };
 
   return nftContract && metadata ? (
-    <>
+    <section>
       <div className="mb-8">
         <div className="flex justify-end mb-4">
           <div className="mr-2">
@@ -87,7 +87,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
           />
         </Form>
       </div>
-    </>
+    </section>
   ) : (
     <></>
   );

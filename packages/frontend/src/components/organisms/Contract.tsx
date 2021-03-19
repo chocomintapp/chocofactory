@@ -85,7 +85,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   return nftContract ? (
     <section>
       <div className="flex justify-between mb-4">
-        <p className="text-gray-700 text-xl font-bold">NFT Contract</p>
+        <p className="text-primary text-xl font-bold">NFT Contract</p>
         <div>
           <Button onClick={deployNFTContract} type="primary" size="small" disabled={deployedInternal}>
             {deployedInternal ? (
@@ -112,19 +112,17 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
         </p>
       </div>
       <div className="flex justify-between mb-4">
-        <p className="text-gray-700 text-xl font-bold">NFTs</p>
-        <div className="flex">
-          <div>
-            <Button
-              type="tertiary"
-              size="small"
-              onClick={() => {
-                setIsBulkEditMode(!isBulkEditMode);
-              }}
-            >
-              {isBulkEditMode ? "Grid" : "Spread"} <span className="ml-2">{viewIcon}</span>
-            </Button>
-          </div>
+        <p className="text-primary text-xl font-bold">NFTs</p>
+        <div>
+          <Button
+            type="tertiary"
+            size="small"
+            onClick={() => {
+              setIsBulkEditMode(!isBulkEditMode);
+            }}
+          >
+            {isBulkEditMode ? "Grid" : "Spread"} <span className="ml-2">{viewIcon}</span>
+          </Button>
         </div>
       </div>
       <div>

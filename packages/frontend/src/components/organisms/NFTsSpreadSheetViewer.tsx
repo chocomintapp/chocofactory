@@ -169,7 +169,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
   };
 
   return (
-    <>
+    <section>
       <div className="mb-2 flex justify-between">
         <div className="flex">
           <div className="mr-2">
@@ -211,6 +211,6 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
           rowData={internalList}
         />
       </div>
-    </>
+    </section>
   );
 };

@@ -5,5 +5,5 @@ export interface FormProps {
 }
 
 export const Form: React.FC<FormProps> = ({ children }) => {
-  return <form className="space-y-4">{children}</form>;
+  return <form className="space-y-2">{children}</form>;
 };

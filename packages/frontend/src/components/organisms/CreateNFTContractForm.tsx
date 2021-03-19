@@ -94,7 +94,7 @@ export const CreateNFTContractForm: React.FC = () => {
   };
 
   return (
-    <>
+    <section>
       <div className="flex justify-end mb-4">
         <div className="mr-2">
           <Link to={`/mypage`}>
@@ -116,6 +116,6 @@ export const CreateNFTContractForm: React.FC = () => {
           <FormInput type="text" error={symbolError} value={symbol} label="Symbol" setState={setSymbol} />
         </Form>
       </div>
-    </>
+    </section>
   );
 };
