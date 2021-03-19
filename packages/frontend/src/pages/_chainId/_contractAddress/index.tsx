@@ -53,19 +53,25 @@ export const Contract: React.FC = () => {
           setMetadataList(metadataList);
         });
     }
-    const { chocofactoryContract, chocomoldContract } = getContractsForChainId(chainId);
-    const DeployEvent = chocofactoryContract.filters.Deployed(null, null, nftContractAddress, null, null);
-    chocofactoryContract.queryFilter(DeployEvent, 0, "latest").then((events) => {
-      setDeployed(events.length > 0);
-    });
-    const MintEvent = chocomoldContract.filters.Transfer(NULL_ADDRESS, null, null);
-    chocomoldContract
-      .attach(nftContractAddress)
-      .queryFilter(MintEvent, 0, "latest")
-      .then((events) => {
-        const tokenIds = events.map((event) => event.args!.tokenId.toString());
-        setMintedTokenIds(tokenIds);
+
+    const { chocofactoryContract, chocomoldContract, provider } = getContractsForChainId(chainId);
+    provider.getBlockNumber().then((latest) => {
+      console.log(latest);
+      const DeployEvent = chocofactoryContract.filters.Deployed(null, null, nftContractAddress, null, null);
+      chocofactoryContract.queryFilter(DeployEvent, 0, latest).then((events) => {
+        console.log(events);
+        setDeployed(events.length > 0);
       });
+      const MintEvent = chocomoldContract.filters.Transfer(NULL_ADDRESS, null, null);
+      chocomoldContract
+        .attach(nftContractAddress)
+        .queryFilter(MintEvent, 0, latest)
+        .then((events) => {
+          console.log(events);
+          const tokenIds = events.map((event) => event.args!.tokenId.toString());
+          setMintedTokenIds(tokenIds);
+        });
+    });
   }, [userAddress]);
 
   return (

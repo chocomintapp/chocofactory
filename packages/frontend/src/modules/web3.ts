@@ -64,5 +64,5 @@ export const getContractsForChainId = (chainId: string) => {
   const provider = new ethers.providers.JsonRpcProvider(rpc);
   const chocomoldContract = new ethers.Contract(chocomold, chocomoldAbi, provider) as Chocomold;
   const chocofactoryContract = new ethers.Contract(chocofactory, chocofactoryAbi, provider) as Chocofactory;
-  return { chocofactoryContract, chocomoldContract, explore };
+  return { chocofactoryContract, chocomoldContract, explore, provider };
 };
