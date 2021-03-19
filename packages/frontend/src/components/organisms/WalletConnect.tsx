@@ -28,7 +28,7 @@ export const WalletConnect: React.FC = () => {
         <div className="bg-white shadow border p-6 px-4 transform max-w-lg w-full rounded-md">
           <p className="focus:outline-none absolute left-4 top-2 text-tertiary">{mainIcon}</p>
           <p className="my-8 text-sm text-secondary">Please connect with web3 wallet</p>
-          <div className="flex justify-center">
+          <div className="flex justify-center pointer-events-auto">
             <div className="flex space-x-4">
               <Link to="/">
                 <Button type="tertiary">Home</Button>
