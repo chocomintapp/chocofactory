@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      body: ["Robot", ...defaultTheme.fontFamily.sans],
+      body: ["Roboto", ...defaultTheme.fontFamily.sans],
     },
   },
   variants: {
