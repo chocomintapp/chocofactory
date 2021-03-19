@@ -5,6 +5,9 @@ const args: NotificationToastProps = {
   icon: "✅",
   title: "transaction confirmed",
   text: "OK",
+  onClickDismiss: () => {
+    console.log("dismiss");
+  },
 };
 
 export default {

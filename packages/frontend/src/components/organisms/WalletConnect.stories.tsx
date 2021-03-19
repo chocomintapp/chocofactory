@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { WalletConnect } from "./WalletConnect";
 export default {
-  title: "Molecules/WalletConnect",
+  title: "Organisms/WalletConnect",
   component: WalletConnect,
 };
 

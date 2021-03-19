@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { mainIcon } from "../../configs.json";
+import { errorIcon } from "../../configs.json";
 import { Button } from "../atoms/Button";
-import { userWallet } from "../utils/hooks";
-import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
+import { useWallet } from "../utils/hooks";
+import { useLoadingOverlay, useNotificationToast } from "../utils/hooks";
 
 export const WalletConnect: React.FC = () => {
-  const { connectWallet } = userWallet();
+  const { connectWallet } = useWallet();
   const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
+  const { openNotificationToast } = useNotificationToast();
 
   const signIn = async () => {
     try {
@@ -16,14 +18,14 @@ export const WalletConnect: React.FC = () => {
       closeLoadingOverlay();
     } catch (err) {
       closeLoadingOverlay();
-      console.log("chatc", err);
+      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
     }
   };
 
   return (
     <section className="fixed inset-0">
       <div className="flex p-4 items-center justify-center min-h-full text-center">
-        <div className="bg-white border p-6 px-4 transform max-w-lg w-full rounded-xl">
+        <div className="bg-white shadow border p-6 px-4 transform max-w-lg w-full rounded-xl">
           <p className="focus:outline-none absolute left-4 top-2 text-gray-400">{mainIcon}</p>
           <p className="my-8 text-gray-600">Please connect with web3 wallet</p>
           <div className="flex justify-center">

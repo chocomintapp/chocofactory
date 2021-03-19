@@ -8,7 +8,7 @@ import { Form } from "../atoms/Form";
 
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
-import { userWallet } from "../utils/hooks";
+import { useWallet } from "../utils/hooks";
 import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
 
 export const CreateNFTContractForm: React.FC = () => {
@@ -19,7 +19,7 @@ export const CreateNFTContractForm: React.FC = () => {
   const [symbolError, setSymbolError] = React.useState("");
   const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
   const { openMessageModal, closeMessageModal } = useMessageModal();
-  const { connectWallet } = userWallet();
+  const { connectWallet } = useWallet();
   const history = useHistory();
 
   const validateForm = () => {

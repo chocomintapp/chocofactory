@@ -11,6 +11,10 @@ import { MessageModal } from "../molecules/MessageModal";
 import { NotificationToastProps } from "../molecules/NotificationToast";
 import { NotificationToast } from "../molecules/NotificationToast";
 
+export interface AtomsRootProps {
+  children: React.ReactNode;
+}
+
 export const loadingOverlayDisplayAtom = atom({
   key: "loadingOverlayDisplay",
   default: false,
@@ -21,7 +25,7 @@ export const messageModalDisplayAtom = atom({
 });
 export const notificationToastDisplayAtom = atom({
   key: "notificationToastDisplay",
-  default: false,
+  default: true,
 });
 export const messageModalPropsAtom = atom<MessageModalProps | undefined>({
   key: "messageModalProps",
@@ -69,6 +73,7 @@ export const useNotificationToast = () => {
   const openNotificationToast = (props: NotificationToastProps) => {
     setNotificationToastProps(props);
     setNotificationToastDisplay(true);
+    console.log("set");
   };
   const closeNotificationToast = () => {
     setNotificationToastDisplay(false);
@@ -78,25 +83,7 @@ export const useNotificationToast = () => {
   return { isNotificationToastDisplay, notificationToastProps, openNotificationToast, closeNotificationToast };
 };
 
-interface AtomsRootProps {
-  children: React.ReactNode;
-}
-
-export const AtomsRootLoader: React.FC<AtomsRootProps> = ({ children }) => {
-  const { isLoadingOverlayDiplay } = useLoadingOverlay();
-  const { isMessageModalDisplay, messageModalProps } = useMessageModal();
-  const { isNotificationToastDisplay, notificationToastProps } = useNotificationToast();
-  return (
-    <>
-      {children}
-      {isLoadingOverlayDiplay && <LoadingOverlay />}
-      {isMessageModalDisplay && messageModalProps && <MessageModal {...messageModalProps} />}
-      {isNotificationToastDisplay && notificationToastProps && <NotificationToast {...notificationToastProps} />}
-    </>
-  );
-};
-
-export const userWallet = () => {
+export const useWallet = () => {
   const [userAddress, setSignerAddressState] = useRecoilState(signerAddressAtom);
 
   const connectWallet = async () => {
@@ -121,4 +108,20 @@ export const userWallet = () => {
     console.log("log out...");
   };
   return { userAddress, connectWallet, disconnectWallet };
+};
+
+export const AtomsRootLoader: React.FC<AtomsRootProps> = ({ children }) => {
+  const { isLoadingOverlayDiplay } = useLoadingOverlay();
+  const { isMessageModalDisplay, messageModalProps } = useMessageModal();
+  const { isNotificationToastDisplay, notificationToastProps, closeNotificationToast } = useNotificationToast();
+  return (
+    <>
+      {children}
+      {isLoadingOverlayDiplay && <LoadingOverlay />}
+      {isMessageModalDisplay && messageModalProps && <MessageModal {...messageModalProps} />}
+      {isNotificationToastDisplay && notificationToastProps && (
+        <NotificationToast {...notificationToastProps} onClickDismiss={closeNotificationToast} />
+      )}
+    </>
+  );
 };

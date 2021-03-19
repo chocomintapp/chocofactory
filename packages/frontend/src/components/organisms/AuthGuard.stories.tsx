@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { AuthGuard, AuthGuardProps } from "./AuthGuard";
 const args: AuthGuardProps = {
@@ -6,13 +7,15 @@ const args: AuthGuardProps = {
 };
 
 export default {
-  title: "Molecules/AuthGuard",
+  title: "Organisms/AuthGuard",
   component: AuthGuard,
   args,
 };
 
 export const Control: React.FC<AuthGuardProps> = (props) => (
   <RecoilRoot>
-    <AuthGuard {...props}>{props.children}</AuthGuard>
+    <MemoryRouter>
+      <AuthGuard {...props}>{props.children}</AuthGuard>
+    </MemoryRouter>
   </RecoilRoot>
 );

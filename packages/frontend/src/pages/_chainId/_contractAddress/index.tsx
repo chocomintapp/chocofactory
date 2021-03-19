@@ -2,7 +2,7 @@ import React from "react";
 
 import { useParams } from "react-router-dom";
 import { ContractTemplate } from "../../../components/templates/Contract";
-import { userWallet } from "../../../components/utils/hooks";
+import { useWallet } from "../../../components/utils/hooks";
 import { firestore, DB_VIRSION } from "../../../modules/firebase";
 import { getContractsForChainId, NULL_ADDRESS } from "../../../modules/web3";
 import { NFTContract, Metadata } from "../../../types";
@@ -15,7 +15,7 @@ export const Contract: React.FC = () => {
 
   const { nftContractAddress, chainId } = useParams<{ chainId: string; nftContractAddress: string }>();
 
-  const { userAddress } = userWallet();
+  const { userAddress } = useWallet();
 
   React.useEffect(() => {
     if (userAddress) {

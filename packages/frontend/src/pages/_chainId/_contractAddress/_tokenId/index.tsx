@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { NFTTemplate } from "../../../../components/templates/NFT";
-import { userWallet } from "../../../../components/utils/hooks";
+import { useWallet } from "../../../../components/utils/hooks";
 import { firestore, DB_VIRSION } from "../../../../modules/firebase";
 import { Metadata, NFTContract } from "../../../../types";
 
@@ -14,7 +14,7 @@ export const NFTGrid: React.FC = () => {
     tokenId: string;
   }>();
 
-  const { userAddress } = userWallet();
+  const { userAddress } = useWallet();
 
   React.useEffect(() => {
     if (userAddress) {

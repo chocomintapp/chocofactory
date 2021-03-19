@@ -1,7 +1,8 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import { nftContractList, metadataList } from "../../__fixtures__/mock.stories.json";
 import { NFTsSpreadSheetViewer, NFTsSpreadSheetViewerProps } from "./NFTsSpreadSheetViewer";
-
 const args: NFTsSpreadSheetViewerProps = {
   nftContract: nftContractList[0],
   metadataList,
@@ -13,11 +14,15 @@ const args: NFTsSpreadSheetViewerProps = {
 };
 
 export default {
-  title: "Molecules/NFTsSpreadSheetViewer",
+  title: "Organisms/NFTsSpreadSheetViewer",
   component: NFTsSpreadSheetViewer,
   args,
 };
 
 export const Control: React.FC<NFTsSpreadSheetViewerProps> = (props) => (
-  <NFTsSpreadSheetViewer {...props}>{props.children}</NFTsSpreadSheetViewer>
+  <MemoryRouter>
+    <RecoilRoot>
+      <NFTsSpreadSheetViewer {...props}>{props.children}</NFTsSpreadSheetViewer>
+    </RecoilRoot>
+  </MemoryRouter>
 );

@@ -7,7 +7,7 @@ import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules
 
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
-import { userWallet } from "../utils/hooks";
+import { useWallet } from "../utils/hooks";
 
 import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
 
@@ -34,7 +34,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
   const [internalList, setInternalList] = React.useState<Metadata[]>([]);
 
   const { openMessageModal, closeMessageModal } = useMessageModal();
-  const { connectWallet } = userWallet();
+  const { connectWallet } = useWallet();
   const { isLoadingOverlayDiplay, openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
 
   React.useEffect(() => {

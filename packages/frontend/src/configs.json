@@ -1,5 +1,6 @@
 {
   "name": "Chocofactory",
   "mainIcon": "🏭",
-  "personIcon": "👷"
+  "personIcon": "👷",
+  "errorIcon": "🚫"
 }
