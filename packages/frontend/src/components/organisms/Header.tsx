@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { name, mainIcon, personIcon } from "../../configs.json";
+import { name, mainIcon, personIcon, connectIcon } from "../../configs.json";
 import { shortenAddress } from "../../modules/util";
 
 import { Button } from "../atoms/Button";
@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
         <div className="px-2 py-6 absolute right-0">
           {!userAddress ? (
             <Button onClick={connectWallet} type="tertiary">
-              Connect<span className="ml-2">🔌</span>
+              Connect<span className="ml-2">{connectIcon}</span>
             </Button>
           ) : (
             <Link to="/mypage">

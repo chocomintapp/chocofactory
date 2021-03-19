@@ -1,11 +1,12 @@
 import React from "react";
+import { errorIcon, confirmIcon, viewIcon, explorerIcon, checkedIcon, deployIcon } from "../../configs.json";
 import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
 import { NFTCard } from "../molecules/NFTCard";
 import { useWallet } from "../utils/hooks";
-import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
+import { useLoadingOverlay, useMessageModal, useNotificationToast } from "../utils/hooks";
 import { NFTsGridListViewer } from "./NFTsGridListViewer";
 
 import { NFTsSpreadSheetViewer } from "./NFTsSpreadSheetViewer";
@@ -22,10 +23,11 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   const [internalMetadataList, setInternalMetadataList] = React.useState<Metadata[]>([]);
   const [deployedInternal, setDeployedInternal] = React.useState(false);
 
-  const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
+  const { openMessageModal, closeMessageModal } = useMessageModal();
+  const { openNotificationToast } = useNotificationToast();
   const { connectWallet } = useWallet();
 
-  const { isLoadingOverlayDiplay, openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
+  const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
 
   React.useEffect(() => {
     setInternalMetadataList(metadataList);
@@ -43,13 +45,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(nftContract.chainId);
-      openMessageModal({
-        icon: "🤔",
-        messageText: `Please connect ${networkName} network`,
-        buttonText: "Close",
-        onClickConfirm: closeMessageModal,
-        onClickDismiss: closeMessageModal,
-      });
+      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please connect ${networkName} network` });
       return;
     }
     openLoadingOverlay();
@@ -74,7 +70,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       setDeployedInternal(true);
       closeLoadingOverlay();
       openMessageModal({
-        icon: "🎉",
+        icon: confirmIcon,
         messageText: "Transaction submitted!",
         buttonText: "Check",
         onClickConfirm: () => window.open(`${explore}tx/${hash}`),
@@ -82,7 +78,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
       });
     } catch (err) {
       closeLoadingOverlay();
-      console.log(err);
+      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
     }
   };
 
@@ -94,11 +90,11 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
           <Button onClick={deployNFTContract} type="primary" size="small" disabled={deployedInternal}>
             {deployedInternal ? (
               <>
-                Deployed<span className="ml-2">✅</span>
+                Deployed<span className="ml-2">{checkedIcon}</span>
               </>
             ) : (
               <>
-                Deploy<span className="ml-2">🔧</span>
+                Deploy<span className="ml-2">{deployIcon}</span>
               </>
             )}
           </Button>
@@ -111,7 +107,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
             onClick={() => openAddressExplore(nftContract.chainId, nftContract.nftContractAddress)}
             className="cursor-pointer "
           >
-            Open Block Explore 📖
+            Open Block Explore {explorerIcon}
           </span>
         </p>
       </div>
@@ -126,7 +122,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
                 setIsBulkEditMode(!isBulkEditMode);
               }}
             >
-              {isBulkEditMode ? "Grid" : "Spread"} <span className="ml-2">👀</span>
+              {isBulkEditMode ? "Grid" : "Spread"} <span className="ml-2">{viewIcon}</span>
             </Button>
           </div>
         </div>

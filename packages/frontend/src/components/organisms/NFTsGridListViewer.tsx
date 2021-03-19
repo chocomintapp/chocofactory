@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { fancyIcon } from "../../configs.json";
 import { getFileType, shortenText } from "../../modules/util";
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
@@ -19,7 +20,7 @@ export const NFTsGridListViewer: React.FC<NFTsGridListViewerProps> = ({ nftContr
         <div>
           <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}/${metadataList.length + 1}`}>
             <Button type="primary" size="small">
-              New<span className="ml-2">✨</span>
+              New<span className="ml-2">{fancyIcon}</span>
             </Button>
           </Link>
         </div>

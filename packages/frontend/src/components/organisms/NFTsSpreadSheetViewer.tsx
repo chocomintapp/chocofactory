@@ -1,6 +1,7 @@
 import { AgGridReact } from "ag-grid-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { checkedIcon, errorIcon, saveIcon, mintIcon, fileIcon, confirmIcon } from "../../configs.json";
 
 import { firestore, DB_VIRSION } from "../../modules/firebase";
 import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
@@ -9,7 +10,7 @@ import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { useWallet } from "../utils/hooks";
 
-import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
+import { useLoadingOverlay, useMessageModal, useNotificationToast } from "../utils/hooks";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
@@ -35,13 +36,14 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
 
   const { openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useWallet();
-  const { isLoadingOverlayDiplay, openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
+  const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
+  const { openNotificationToast } = useNotificationToast();
 
   React.useEffect(() => {
     if (!metadataList) return;
     const result = metadataList.map((metadata: any) => {
       if (mintedTokenIds.includes(metadata.tokenId.toString())) {
-        metadata.minted = "✅";
+        metadata.minted = checkedIcon;
       }
       return metadata;
     });
@@ -67,6 +69,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
     }
     await batch.commit();
     setState(rowData);
+    openNotificationToast({ icon: confirmIcon, title: "Confirmation", text: "NFT is saved!" });
     closeLoadingOverlay();
   };
 
@@ -80,7 +83,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
     const signerNetwork = await signer.provider.getNetwork();
     if (nftContract.chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(nftContract.chainId);
-      // openMessageModal("🤔", `Please connect ${networkName} network`, "Close", closeMessageModal, closeMessageModal);
+      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please connect ${networkName} network` });
       return;
     }
 
@@ -88,20 +91,14 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
     const selectedRowData: Metadata[] = selectedNodes.map((node: any) => node.data);
     const selectedTokenIds = selectedRowData.map((selectedRow: any) => selectedRow.tokenId);
     if (selectedTokenIds.length == 0) {
-      // openMessageModal("🤔", `Please select NFT`, "Close", closeMessageModal, closeMessageModal);
+      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please select NFTs` });
       return;
     }
 
     const toList: string[] = [];
     selectedTokenIds.forEach((selectedTokenId) => {
       if (mintedTokenIds.includes(selectedTokenId.toString())) {
-        // openMessageModal(
-        //   "🤔",
-        //   `NFT #${selectedTokenId} is already minted`,
-        //   "Close",
-        //   closeMessageModal,
-        //   closeMessageModal
-        // );
+        openNotificationToast({ icon: errorIcon, title: "Error", text: `NFT #${selectedTokenId} is already minted` });
         return;
       }
       toList.push(nftContract.ownerAddress);
@@ -115,7 +112,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
         ["mint(address[],uint256[])"](toList, selectedTokenIds);
       closeLoadingOverlay();
       openMessageModal({
-        icon: "🎉",
+        icon: confirmIcon,
         messageText: "Transaction submitted!",
         buttonText: "Check",
         onClickConfirm: () => window.open(`${explore}tx/${hash}`),
@@ -123,7 +120,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
       });
     } catch (err) {
       closeLoadingOverlay();
-      console.log(err);
+      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
     }
   };
 
@@ -184,18 +181,18 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
           </div>
           <div className="mr-2">
             <Button onClick={saveToFirestore} type="primary" size="small">
-              Save<span className="ml-2">💾</span>
+              Save<span className="ml-2">{saveIcon}</span>
             </Button>
           </div>
           <div className="mr-2">
             <Button onClick={mintNFTs} type="primary" size="small" disabled={!deployed}>
-              Mint<span className="ml-2">💎</span>
+              Mint<span className="ml-2">{mintIcon}</span>
             </Button>
           </div>
         </div>
         <div>
           <Button onClick={exportCSV} type="tertiary" size="small">
-            Export<span className="ml-2">📁</span>
+            Export<span className="ml-2">{fileIcon}</span>
           </Button>
         </div>
       </div>

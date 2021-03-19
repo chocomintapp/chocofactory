@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { confirmIcon } from "../../configs.json";
 import { firestore, DB_VIRSION } from "../../modules/firebase";
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
@@ -8,7 +9,7 @@ import { Form } from "../atoms/Form";
 import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
-import { useLoadingOverlay } from "../utils/hooks";
+import { useLoadingOverlay, useNotificationToast } from "../utils/hooks";
 
 export interface NFTProps {
   nftContract?: NFTContract;
@@ -23,7 +24,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
 
   const history = useHistory();
   const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
-
+  const { openNotificationToast } = useNotificationToast();
   React.useEffect(() => {
     if (!metadata) return;
     setName(metadata.name);
@@ -51,6 +52,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       .collection("metadata")
       .doc(metadata.tokenId.toString())
       .set(newMetadata);
+    openNotificationToast({ icon: confirmIcon, title: "Confirmation", text: "NFT is saved!" });
     closeLoadingOverlay();
     history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
   };

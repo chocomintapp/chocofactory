@@ -2,5 +2,16 @@
   "name": "Chocofactory",
   "mainIcon": "🏭",
   "personIcon": "👷",
-  "errorIcon": "🚫"
+  "confirmIcon": "🎉",
+  "errorIcon": "🚫",
+  "backIcon": "↩️",
+  "saveIcon": "💾",
+  "connectIcon": "🔌",
+  "fancyIcon": "✨",
+  "viewIcon": "👀",
+  "explorerIcon": "📖",
+  "checkedIcon": "✅",
+  "deployIcon": "🔧",
+  "mintIcon": "💎",
+  "fileIcon": "📁"
 }

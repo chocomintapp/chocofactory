@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ChainId } from "../../../../contracts/helpers/types";
+import { saveIcon, backIcon, errorIcon, confirmIcon } from "../../configs.json";
 import { functions } from "../../modules/firebase";
 import { getContractsForChainId, chainIdLabels, chainIdValues, getNetworkNameFromChainId } from "../../modules/web3";
 import { Button } from "../atoms/Button";
@@ -9,7 +10,7 @@ import { Form } from "../atoms/Form";
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
 import { useWallet } from "../utils/hooks";
-import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
+import { useLoadingOverlay, useNotificationToast } from "../utils/hooks";
 
 export const CreateNFTContractForm: React.FC = () => {
   const [chainId, setChainId] = React.useState<ChainId>(chainIdValues[0]);
@@ -18,7 +19,8 @@ export const CreateNFTContractForm: React.FC = () => {
   const [symbol, setSymbol] = React.useState("");
   const [symbolError, setSymbolError] = React.useState("");
   const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
-  const { openMessageModal, closeMessageModal } = useMessageModal();
+  const { openNotificationToast } = useNotificationToast();
+
   const { connectWallet } = useWallet();
   const history = useHistory();
 
@@ -45,13 +47,7 @@ export const CreateNFTContractForm: React.FC = () => {
     const signerNetwork = await signer.provider.getNetwork();
     if (chainId != signerNetwork.chainId.toString()) {
       const networkName = getNetworkNameFromChainId(chainId);
-      openMessageModal({
-        icon: "🤔",
-        messageText: `Please connect ${networkName} network`,
-        buttonText: "Close",
-        onClickConfirm: closeMessageModal,
-        onClickDismiss: closeMessageModal,
-      });
+      openNotificationToast({ icon: errorIcon, title: "Error", text: `Please connect ${networkName} network` });
       return;
     }
     openLoadingOverlay();
@@ -89,10 +85,11 @@ export const CreateNFTContractForm: React.FC = () => {
       });
       const { nftContractAddress } = result.data;
       closeLoadingOverlay();
+      openNotificationToast({ icon: confirmIcon, title: "Confirmation", text: "NFT is created!" });
       history.push(`/${chainId}/${nftContractAddress}`);
     } catch (err) {
       closeLoadingOverlay();
-      console.log(err);
+      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
     }
   };
 
@@ -102,13 +99,13 @@ export const CreateNFTContractForm: React.FC = () => {
         <div className="mr-2">
           <Link to={`/mypage`}>
             <Button size="small" type="secondary">
-              Cancel<span className="ml-2">↩</span>
+              Cancel<span className="ml-2">{backIcon}</span>
             </Button>
           </Link>
         </div>
         <div>
           <Button onClick={createNFTContract} size="small" type="primary">
-            Save<span className="ml-2">💾</span>
+            Save<span className="ml-2">{saveIcon}</span>
           </Button>
         </div>
       </div>
