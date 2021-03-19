@@ -26,18 +26,25 @@ export const CreateNFTContractForm: React.FC = () => {
 
   const validateForm = () => {
     let result = true;
-    if (!name) {
+    if (!name || name.trim() == "") {
       setNameError("please input name");
+      result = false;
+    } else if (name.length > 20) {
+      setNameError("Please input 20 characters or less");
       result = false;
     } else {
       setNameError("");
     }
-    if (!symbol) {
+    if (!symbol || symbol.trim() == "") {
       setSymbolError("please input symbol");
+      result = false;
+    } else if (symbol.length > 20) {
+      setSymbolError("Please input 20 characters or less");
       result = false;
     } else {
       setSymbolError("");
     }
+
     return result;
   };
 
