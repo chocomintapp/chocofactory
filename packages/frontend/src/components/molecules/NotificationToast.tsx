@@ -28,7 +28,7 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({ type, text
 
   return (
     <div
-      className={`fixed z-1 mt-24 mr-4 top-0 right-0 w-80 h-20 shadow rounded-md overflow-hidden transition-opacity ease-in-out ${bgColor}
+      className={`fixed z-1 mt-20 mr-4 top-0 right-0 w-80 h-20 shadow rounded-md overflow-hidden transition-opacity ease-in-out ${bgColor}
         ${active ? " opacity-90" : " opacity-0"}`}
     >
       <div className="px-2 pt-2 pb-4">

@@ -4,7 +4,7 @@ You can create your own NFT contract with quite reasonable gas price!
 
 This product is still under alpa and "test in prod" phase.
 
-Click "Sign" to sign in. No password needed.
+Click "Sign" to sign in.
 
 Wallet address:
 `;

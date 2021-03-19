@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { NFTTemplate } from "../../../../components/templates/NFT";
 import { useWallet } from "../../../../components/utils/hooks";
 import { firestore, DB_VIRSION } from "../../../../modules/firebase";
@@ -15,6 +15,7 @@ export const NFTGrid: React.FC = () => {
   }>();
 
   const { userAddress } = useWallet();
+  const history = useHistory();
 
   React.useEffect(() => {
     if (userAddress) {
@@ -27,7 +28,12 @@ export const NFTGrid: React.FC = () => {
         .then((doc) => {
           if (doc.exists) {
             setNFTContract(doc.data() as NFTContract);
+          } else {
+            history.push("/mypage");
           }
+        })
+        .catch((err) => {
+          history.push("/mypage");
         });
 
       firestore
