@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../utils/hooks";
+import { userWallet } from "../utils/hooks";
 import { WalletConnect } from "./WalletConnect";
 
 export interface AuthGuardProps {
@@ -7,6 +7,6 @@ export interface AuthGuardProps {
 }
 
 export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
-  const { userAddress } = useAuth();
+  const { userAddress } = userWallet();
   return <>{userAddress ? children : <WalletConnect />}</>;
 };

@@ -5,10 +5,10 @@ import { name, mainIcon, personIcon } from "../../configs.json";
 import { shortenAddress } from "../../modules/util";
 
 import { Button } from "../atoms/Button";
-import { useAuth } from "../utils/hooks";
+import { userWallet } from "../utils/hooks";
 
 export const Header: React.FC = () => {
-  const { connectWallet, userAddress } = useAuth();
+  const { connectWallet, userAddress } = userWallet();
 
   return (
     <header>

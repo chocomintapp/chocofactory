@@ -27,14 +27,22 @@ contract Chocofactory is EIP712 {
         string symbol
     );
 
-    constructor(string memory name, string memory version) EIP712(name, version) {}
+    constructor(string memory name, string memory version)
+        EIP712(name, version)
+    {}
 
     function _encode(
         address owner,
         string memory name,
         string memory symbol
     ) internal pure returns (bytes memory) {
-        return abi.encodeWithSignature("initialize(address,string,string)", owner, name, symbol);
+        return
+            abi.encodeWithSignature(
+                "initialize(address,string,string)",
+                owner,
+                name,
+                symbol
+            );
     }
 
     function _deploy(
@@ -66,7 +74,15 @@ contract Chocofactory is EIP712 {
         bytes memory signature
     ) public view returns (bool) {
         bytes32 digest =
-            keccak256(abi.encodePacked(block.chainid, address(this), implementation, name, symbol))
+            keccak256(
+                abi.encodePacked(
+                    block.chainid,
+                    address(this),
+                    implementation,
+                    name,
+                    symbol
+                )
+            )
                 .toEthSignedMessageHash();
         address recovered = digest.recover(signature);
         return owner == recovered;
@@ -79,7 +95,10 @@ contract Chocofactory is EIP712 {
         string memory symbol,
         bytes memory signature
     ) public payable {
-        require(verifySig(implementation, owner, name, symbol, signature), "signature must be valid");
+        require(
+            verifySig(implementation, owner, name, symbol, signature),
+            "signature must be valid"
+        );
         _deploy(implementation, owner, name, symbol);
     }
 
@@ -94,7 +113,9 @@ contract Chocofactory is EIP712 {
             _hashTypedDataV4(
                 keccak256(
                     abi.encode(
-                        keccak256("Choco(address implementation,string name,string symbol)"),
+                        keccak256(
+                            "Choco(address implementation,string name,string symbol)"
+                        ),
                         implementation,
                         keccak256(bytes(name)),
                         keccak256(bytes(symbol))
@@ -112,7 +133,10 @@ contract Chocofactory is EIP712 {
         string memory symbol,
         bytes memory signature
     ) public payable {
-        require(verifyTypedSig(implementation, owner, name, symbol, signature), "signature must be valid");
+        require(
+            verifyTypedSig(implementation, owner, name, symbol, signature),
+            "signature must be valid"
+        );
         _deploy(implementation, owner, name, symbol);
     }
 

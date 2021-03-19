@@ -4,7 +4,7 @@ import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
 import { NFTCard } from "../molecules/NFTCard";
-import { useAuth } from "../utils/hooks";
+import { userWallet } from "../utils/hooks";
 import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
 import { NFTsGridListViewer } from "./NFTsGridListViewer";
 
@@ -23,7 +23,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
   const [deployedInternal, setDeployedInternal] = React.useState(false);
 
   const { messageModalProps, openMessageModal, closeMessageModal } = useMessageModal();
-  const { connectWallet } = useAuth();
+  const { connectWallet } = userWallet();
 
   const { isLoadingOverlayDiplay, openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
 

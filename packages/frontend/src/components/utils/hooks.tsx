@@ -96,7 +96,7 @@ export const AtomsRootLoader: React.FC<AtomsRootProps> = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
+export const userWallet = () => {
   const [userAddress, setSignerAddressState] = useRecoilState(signerAddressAtom);
 
   const connectWallet = async () => {

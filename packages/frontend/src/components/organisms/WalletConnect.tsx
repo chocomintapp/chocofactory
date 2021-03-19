@@ -2,15 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { mainIcon } from "../../configs.json";
 import { Button } from "../atoms/Button";
-import { useAuth } from "../utils/hooks";
+import { userWallet } from "../utils/hooks";
+import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
 
 export const WalletConnect: React.FC = () => {
-  const { connectWallet } = useAuth();
+  const { connectWallet } = userWallet();
+  const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
 
-  const signIn = () => {
+  const signIn = async () => {
     try {
-      connectWallet();
+      openLoadingOverlay();
+      await connectWallet();
+      closeLoadingOverlay();
     } catch (err) {
+      closeLoadingOverlay();
       console.log("chatc", err);
     }
   };

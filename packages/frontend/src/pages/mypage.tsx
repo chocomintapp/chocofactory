@@ -1,7 +1,7 @@
 import React from "react";
 
 import { MypageTemplate } from "../components/templates/Mypage";
-import { useAuth } from "../components/utils/hooks";
+import { userWallet } from "../components/utils/hooks";
 import { firestore, DB_VIRSION } from "../modules/firebase";
 import { chainIdValues } from "../modules/web3";
 import { NFTContract } from "../types";
@@ -9,7 +9,7 @@ import { NFTContract } from "../types";
 export const Mypage: React.FC = () => {
   const [nftContractList, setNFTContractList] = React.useState<NFTContract[]>([]);
 
-  const { userAddress } = useAuth();
+  const { userAddress } = userWallet();
 
   React.useEffect(() => {
     if (userAddress) {
