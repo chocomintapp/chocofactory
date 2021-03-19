@@ -3,13 +3,16 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   purge: ["./src/pages/*.tsx", "./src/components/**/*.tsx"],
   darkMode: false,
+  theme: {
+    extend: {},
+    fontFamily: {
+      body: ["Robot", ...defaultTheme.fontFamily.sans],
+    },
+  },
   variants: {
     extend: {
       opacity: ["disabled"],
       cursor: ["disabled"],
-    },
-    fontFamily: {
-      sans: ["Roboto", ...defaultTheme.fontFamily.sans],
     },
   },
   plugins: [require("@tailwindcss/forms")],
