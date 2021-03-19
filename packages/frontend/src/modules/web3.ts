@@ -13,12 +13,12 @@ export { NULL_ADDRESS } from "../../../contracts/helpers/constants";
 
 export const chainIdLabels =
   process.env.NODE_ENV == "development"
-    ? ["Local", "Rinkeby", "Matic Test", "BSC Test"]
+    ? ["Local", "Rinkeby", "Matic Test", "BSC Test", "BSC", "Matic", "Mainnet"]
     : ["Rinkeby", "BSC", "Matic", "Mainnet"];
 
 export const chainIdValues =
   process.env.NODE_ENV == "development"
-    ? (["31337", "4", "80001", "97"] as ChainId[])
+    ? (["31337", "4", "80001", "97", "56", "137", "1"] as ChainId[])
     : (["4", "56", "137", "1"] as ChainId[]);
 
 export const providerOptions = {
