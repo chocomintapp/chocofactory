@@ -19,7 +19,7 @@ export const chainIdLabels =
 export const chainIdValues =
   process.env.NODE_ENV == "development"
     ? (["31337", "4", "80001", "97"] as ChainId[])
-    : (["4", "4", "80001", "97"] as ChainId[]);
+    : (["4", "80001", "97"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
