@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ChainId } from "../../../../contracts/helpers/types";
-import { useAuth } from "../../modules/auth";
 import { functions } from "../../modules/firebase";
 import { getContractsForChainId, chainIdLabels, chainIdValues, getNetworkNameFromChainId } from "../../modules/web3";
 import { Button } from "../atoms/Button";
@@ -9,7 +8,8 @@ import { Form } from "../atoms/Form";
 
 import { FormInput } from "../molecules/FormInput";
 import { FormRadio } from "../molecules/FormRadio";
-import { useLoadingOverlay, useMessageModal } from "../utils/atoms";
+import { useAuth } from "../utils/hooks";
+import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
 
 export const CreateNFTContractForm: React.FC = () => {
   const [chainId, setChainId] = React.useState<ChainId>(chainIdValues[0]);

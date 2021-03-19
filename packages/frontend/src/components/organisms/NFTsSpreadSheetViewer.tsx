@@ -2,14 +2,14 @@ import { AgGridReact } from "ag-grid-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "../../modules/auth";
 import { firestore, DB_VIRSION } from "../../modules/firebase";
 import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
 
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
+import { useAuth } from "../utils/hooks";
 
-import { useLoadingOverlay, useMessageModal } from "../utils/atoms";
+import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";

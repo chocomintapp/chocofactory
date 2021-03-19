@@ -1,11 +1,11 @@
 import React from "react";
-import { useAuth } from "../../modules/auth";
 import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract, Metadata } from "../../types";
 
 import { Button } from "../atoms/Button";
 import { NFTCard } from "../molecules/NFTCard";
-import { useLoadingOverlay, useMessageModal } from "../utils/atoms";
+import { useAuth } from "../utils/hooks";
+import { useLoadingOverlay, useMessageModal } from "../utils/hooks";
 import { NFTsGridListViewer } from "./NFTsGridListViewer";
 
 import { NFTsSpreadSheetViewer } from "./NFTsSpreadSheetViewer";

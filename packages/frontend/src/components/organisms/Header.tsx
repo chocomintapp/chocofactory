@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { name, mainIcon, personIcon } from "../../configs.json";
-import { useAuth } from "../../modules/auth";
 import { shortenAddress } from "../../modules/util";
 
 import { Button } from "../atoms/Button";
+import { useAuth } from "../utils/hooks";
 
 export const Header: React.FC = () => {
-  const { connectWallet, signerAddressState } = useAuth();
+  const { connectWallet, userAddress } = useAuth();
 
   return (
     <header>
@@ -20,14 +20,14 @@ export const Header: React.FC = () => {
           </div>
         </Link>
         <div className="px-2 py-6 absolute right-0">
-          {!signerAddressState ? (
+          {!userAddress ? (
             <Button onClick={connectWallet} type="tertiary">
               Connect<span className="ml-2">🔌</span>
             </Button>
           ) : (
             <Link to="/mypage">
               <Button type="tertiary">
-                {shortenAddress(signerAddressState)}
+                {shortenAddress(userAddress)}
                 <span className="ml-2">{personIcon}</span>
               </Button>
             </Link>

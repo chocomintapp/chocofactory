@@ -1,7 +1,7 @@
 import React from "react";
 
 import { MypageTemplate } from "../components/templates/Mypage";
-import { useAuth } from "../modules/auth";
+import { useAuth } from "../components/utils/hooks";
 import { firestore, DB_VIRSION } from "../modules/firebase";
 import { chainIdValues } from "../modules/web3";
 import { NFTContract } from "../types";
@@ -9,16 +9,16 @@ import { NFTContract } from "../types";
 export const Mypage: React.FC = () => {
   const [nftContractList, setNFTContractList] = React.useState<NFTContract[]>([]);
 
-  const { signerAddressState } = useAuth();
+  const { userAddress } = useAuth();
 
   React.useEffect(() => {
-    if (signerAddressState) {
+    if (userAddress) {
       const promises = chainIdValues.map((chainId) => {
         return firestore
           .collection(DB_VIRSION)
           .doc(chainId)
           .collection("nftContract")
-          .where("ownerAddress", "==", signerAddressState)
+          .where("ownerAddress", "==", userAddress)
           .get();
       });
       Promise.all(promises).then((resolved) => {
@@ -31,7 +31,7 @@ export const Mypage: React.FC = () => {
         setNFTContractList(nftContractList);
       });
     }
-  }, [signerAddressState]);
+  }, [userAddress]);
 
   return <MypageTemplate nftContractList={nftContractList} />;
 };

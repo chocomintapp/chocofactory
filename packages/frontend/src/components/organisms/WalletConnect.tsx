@@ -1,11 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { mainIcon } from "../../configs.json";
-import { useAuth } from "../../modules/auth";
 import { Button } from "../atoms/Button";
+import { useAuth } from "../utils/hooks";
 
 export const WalletConnect: React.FC = () => {
   const { connectWallet } = useAuth();
+
+  const signIn = () => {
+    try {
+      connectWallet();
+    } catch (err) {
+      console.log("chatc", err);
+    }
+  };
+
   return (
     <section className="fixed inset-0">
       <div className="flex p-4 items-center justify-center min-h-full text-center">
@@ -17,7 +26,7 @@ export const WalletConnect: React.FC = () => {
               <Link to="/">
                 <Button type="tertiary">Home</Button>
               </Link>
-              <Button type="primary" onClick={connectWallet}>
+              <Button type="primary" onClick={signIn}>
                 Connect
               </Button>
             </div>

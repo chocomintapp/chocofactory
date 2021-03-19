@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { NFTTemplate } from "../../../../components/templates/NFT";
-import { useAuth } from "../../../../modules/auth";
+import { useAuth } from "../../../../components/utils/hooks";
 import { firestore, DB_VIRSION } from "../../../../modules/firebase";
 import { Metadata, NFTContract } from "../../../../types";
 
@@ -14,10 +14,10 @@ export const NFTGrid: React.FC = () => {
     tokenId: string;
   }>();
 
-  const { signerAddressState } = useAuth();
+  const { userAddress } = useAuth();
 
   React.useEffect(() => {
-    if (signerAddressState) {
+    if (userAddress) {
       firestore
         .collection(DB_VIRSION)
         .doc(chainId)
@@ -54,7 +54,7 @@ export const NFTGrid: React.FC = () => {
           }
         });
     }
-  }, [signerAddressState]);
+  }, [userAddress]);
 
   return <NFTTemplate nftContract={nftContract} metadata={metadata} />;
 };

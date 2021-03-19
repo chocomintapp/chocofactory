@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { AtomsRootLoader } from "./components/utils/atoms";
+import { AtomsRootLoader } from "./components/utils/hooks";
 import Contract from "./pages/_chainId/_contractAddress";
 import NFT from "./pages/_chainId/_contractAddress/_tokenId";
 import CreateNFTContract from "./pages/create-nft-contract";

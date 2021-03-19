@@ -2,7 +2,7 @@ import React from "react";
 
 import { useParams } from "react-router-dom";
 import { ContractTemplate } from "../../../components/templates/Contract";
-import { useAuth } from "../../../modules/auth";
+import { useAuth } from "../../../components/utils/hooks";
 import { firestore, DB_VIRSION } from "../../../modules/firebase";
 import { getContractsForChainId, NULL_ADDRESS } from "../../../modules/web3";
 import { NFTContract, Metadata } from "../../../types";
@@ -15,10 +15,10 @@ export const Contract: React.FC = () => {
 
   const { nftContractAddress, chainId } = useParams<{ chainId: string; nftContractAddress: string }>();
 
-  const { signerAddressState } = useAuth();
+  const { userAddress } = useAuth();
 
   React.useEffect(() => {
-    if (signerAddressState) {
+    if (userAddress) {
       firestore
         .collection(DB_VIRSION)
         .doc(chainId)
@@ -60,7 +60,7 @@ export const Contract: React.FC = () => {
         const tokenIds = events.map((event) => event.args!.tokenId.toString());
         setMintedTokenIds(tokenIds);
       });
-  }, [signerAddressState]);
+  }, [userAddress]);
 
   return (
     <ContractTemplate

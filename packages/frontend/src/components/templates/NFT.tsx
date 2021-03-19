@@ -3,7 +3,7 @@ import React from "react";
 import { NFTContract, Metadata } from "../../types";
 import { Container } from "../atoms/Container";
 import { Main } from "../atoms/Main";
-import { AuthGuard } from "../molecules/AuthGuard";
+import { AuthGuard } from "../organisms/AuthGuard";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 import { NFT } from "../organisms/NFT";

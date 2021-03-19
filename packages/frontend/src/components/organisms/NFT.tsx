@@ -8,7 +8,7 @@ import { Form } from "../atoms/Form";
 import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
 import { FormTextArea } from "../molecules/FormTextArea";
-import { useLoadingOverlay } from "../utils/atoms";
+import { useLoadingOverlay } from "../utils/hooks";
 
 export interface NFTProps {
   nftContract?: NFTContract;

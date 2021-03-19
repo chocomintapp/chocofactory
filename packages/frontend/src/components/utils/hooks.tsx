@@ -1,6 +1,10 @@
 import React from "react";
 import { atom, useRecoilState } from "recoil";
 
+import { signatureMessage } from "../../../../common/config";
+
+import { auth, functions } from "../../modules/firebase";
+import { initializeWeb3Modal, getWeb3, getEthersSigner } from "../../modules/web3";
 import { LoadingOverlay } from "../molecules/LoadingOverlay";
 import { MessageModalProps } from "../molecules/MessageModal";
 import { MessageModal } from "../molecules/MessageModal";
@@ -27,6 +31,11 @@ export const messageModalPropsAtom = atom<MessageModalProps | undefined>({
 export const notificationToastPropsAtom = atom<NotificationToastProps | undefined>({
   key: "notificationToastProps",
   default: undefined,
+});
+
+export const signerAddressAtom = atom({
+  key: "signerAddress",
+  default: "",
 });
 
 export const useLoadingOverlay = () => {
@@ -85,4 +94,31 @@ export const AtomsRootLoader: React.FC<AtomsRootProps> = ({ children }) => {
       {isNotificationToastDisplay && notificationToastProps && <NotificationToast {...notificationToastProps} />}
     </>
   );
+};
+
+export const useAuth = () => {
+  const [userAddress, setSignerAddressState] = useRecoilState(signerAddressAtom);
+
+  const connectWallet = async () => {
+    const provider = await initializeWeb3Modal();
+    const signerAddress = provider.selectedAddress.toLowerCase();
+    const web3 = await getWeb3(provider);
+    const signer = await getEthersSigner(provider);
+    if (userAddress != signerAddress) {
+      const message = signatureMessage;
+      const signature = await web3.eth.personal.sign(`${message}${signerAddress}`, signerAddress, "");
+      const response = await functions.httpsCallable("connectWallet")({
+        signature,
+        signerAddress,
+      });
+      auth.signInWithCustomToken(response.data);
+      setSignerAddressState(signerAddress);
+    }
+    return { web3, signer, signerAddress };
+  };
+
+  const disconnectWallet = () => {
+    console.log("log out...");
+  };
+  return { userAddress, connectWallet, disconnectWallet };
 };
