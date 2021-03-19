@@ -8,7 +8,7 @@ const corsHandler = cors({ origin: true });
 
 module.exports = functions.https.onRequest(async (req, res) => {
   corsHandler(req, res, async () => {
-    const [, chainId, nftContractAddress, tokenId] = req.originalUrl.split("/");
+    const [, , chainId, nftContractAddress, tokenId] = req.originalUrl.split("/");
     if (!chainId || !nftContractAddress || !tokenId) {
       return res.send("invalid param");
     }
