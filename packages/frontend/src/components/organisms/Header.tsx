@@ -1,14 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { name, mainIcon, personIcon, connectIcon } from "../../configs.json";
+import { name, mainIcon, personIcon, connectIcon, errorIcon } from "../../configs.json";
 import { shortenAddress } from "../../modules/util";
 
 import { Button } from "../atoms/Button";
 import { useWallet } from "../utils/hooks";
+import { useLoadingOverlay, useNotificationToast } from "../utils/hooks";
 
 export const Header: React.FC = () => {
   const { connectWallet, userAddress } = useWallet();
+
+  const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
+  const { openNotificationToast } = useNotificationToast();
+
+  const signIn = async () => {
+    try {
+      openLoadingOverlay();
+      await connectWallet();
+      closeLoadingOverlay();
+    } catch (err) {
+      closeLoadingOverlay();
+      openNotificationToast({ icon: errorIcon, title: "Error", text: err.message });
+    }
+  };
 
   return (
     <header>
@@ -21,7 +36,7 @@ export const Header: React.FC = () => {
         </Link>
         <div className="px-2 py-6 absolute right-0">
           {!userAddress ? (
-            <Button onClick={connectWallet} type="tertiary">
+            <Button onClick={signIn} type="tertiary">
               Connect<span className="ml-2">{connectIcon}</span>
             </Button>
           ) : (
