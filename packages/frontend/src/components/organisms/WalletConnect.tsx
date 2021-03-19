@@ -23,7 +23,7 @@ export const WalletConnect: React.FC = () => {
   };
 
   return (
-    <section className="fixed inset-0">
+    <section className="fixed inset-0 pointer-events-none">
       <div className="flex p-4 items-center justify-center min-h-full text-center">
         <div className="bg-white shadow border p-6 px-4 transform max-w-lg w-full rounded-md">
           <p className="focus:outline-none absolute left-4 top-2 text-tertiary">{mainIcon}</p>
