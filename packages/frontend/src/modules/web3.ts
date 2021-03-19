@@ -32,7 +32,6 @@ export const providerOptions = {
 
 export const web3Modal = new Web3Modal({
   providerOptions,
-  cacheProvider: true,
 });
 
 export const initializeWeb3Modal = async () => {

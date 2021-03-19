@@ -4,7 +4,7 @@ import { atom, useRecoilState } from "recoil";
 import { signatureMessage } from "../../../../common/config";
 
 import { auth, functions } from "../../modules/firebase";
-import { initializeWeb3Modal, getWeb3, getEthersSigner } from "../../modules/web3";
+import { initializeWeb3Modal, getWeb3, getEthersSigner, clearWeb3Modal } from "../../modules/web3";
 import { LoadingOverlay } from "../molecules/LoadingOverlay";
 import { MessageModalProps } from "../molecules/MessageModal";
 import { MessageModal } from "../molecules/MessageModal";
@@ -105,7 +105,8 @@ export const useWallet = () => {
   };
 
   const disconnectWallet = () => {
-    console.log("log out...");
+    clearWeb3Modal();
+    setSignerAddressState("");
   };
   return { userAddress, connectWallet, disconnectWallet };
 };

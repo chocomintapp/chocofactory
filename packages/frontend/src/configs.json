@@ -13,5 +13,6 @@
   "checkedIcon": "✅",
   "deployIcon": "🔧",
   "mintIcon": "💎",
-  "fileIcon": "📁"
+  "fileIcon": "📁",
+  "signOutIcon": "🚶‍♂️"
 }
