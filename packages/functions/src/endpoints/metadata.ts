@@ -23,10 +23,10 @@ module.exports = functions.https.onRequest(async (req, res) => {
 
     if (doc.exists) {
       const metadata = doc.data() as any;
-      metadata.animation_url = metadata.animationURL;
+      metadata.animation_url = metadata.animationUrl;
       metadata.nft_contract_address = metadata.nftContractAddress;
       metadata.token_id = metadata.tokenId;
-      delete metadata.animationURL;
+      delete metadata.animationUrl;
       delete metadata.nftContractAddress;
       delete metadata.tokenId;
       return res.send(metadata);
