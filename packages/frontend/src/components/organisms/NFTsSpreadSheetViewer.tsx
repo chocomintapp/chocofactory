@@ -1,7 +1,7 @@
 import { AgGridReact } from "ag-grid-react";
 import React from "react";
 import { Link } from "react-router-dom";
-import { checkedIcon, errorIcon, saveIcon, mintIcon, fileIcon, confirmIcon } from "../../configs.json";
+import { checkedIcon, saveIcon, mintIcon, fileIcon, confirmIcon } from "../../configs.json";
 
 import { firestore, DB_VIRSION } from "../../modules/firebase";
 import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
@@ -33,17 +33,19 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
   const [gridApi, setGridApi] = React.useState<any>();
   const [, setGridColumnApi] = React.useState<any>();
   const [internalList, setInternalList] = React.useState<Metadata[]>([]);
-
   const { openMessageModal, closeMessageModal } = useMessageModal();
   const { connectWallet } = useWallet();
   const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
   const { openNotificationToast } = useNotificationToast();
 
   React.useEffect(() => {
-    if (!metadataList) return;
+    console.log("test");
+    if (!metadataList || !mintedTokenIds) return;
     const result = metadataList.map((metadata: any) => {
       if (mintedTokenIds.includes(metadata.tokenId.toString())) {
         metadata.minted = checkedIcon;
+      } else {
+        metadata.minted = "";
       }
       return metadata;
     });

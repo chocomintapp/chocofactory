@@ -13,8 +13,8 @@ import { NFTsSpreadSheetViewer } from "./NFTsSpreadSheetViewer";
 
 export interface ContractProps {
   nftContract?: NFTContract;
-  metadataList: Metadata[];
   deployed: boolean;
+  metadataList: Metadata[];
   mintedTokenIds: string[];
 }
 
