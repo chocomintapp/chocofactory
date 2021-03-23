@@ -88,9 +88,10 @@ export const useWallet = () => {
 
   const connectWallet = async () => {
     const provider = await initializeWeb3Modal();
-    const signerAddress = provider.selectedAddress.toLowerCase();
+
     const web3 = await getWeb3(provider);
     const signer = await getEthersSigner(provider);
+    const signerAddress = (await signer.getAddress()).toLowerCase();
     if (userAddress != signerAddress) {
       const message = signatureMessage;
       const signature = await web3.eth.personal.sign(`${message}${signerAddress}`, signerAddress, "");
