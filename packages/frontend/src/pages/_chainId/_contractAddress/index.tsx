@@ -19,60 +19,79 @@ export const Contract: React.FC = () => {
   const history = useHistory();
 
   React.useEffect(() => {
-    if (userAddress) {
-      firestore
-        .collection(DB_VIRSION)
-        .doc(chainId)
-        .collection("nftContract")
-        .doc(nftContractAddress)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setNFTContract(doc.data() as NFTContract);
-          } else {
-            history.push("/mypage");
-          }
-        })
-        .catch((err) => {
-          history.push("/mypage");
-        });
-
-      firestore
-        .collection(DB_VIRSION)
-        .doc(chainId)
-        .collection("nftContract")
-        .doc(nftContractAddress)
-        .collection("metadata")
-        .orderBy("tokenId")
-        .get()
-        .then((querySnapshot) => {
-          const metadataList: Metadata[] = [];
-          querySnapshot.forEach((doc) => {
-            metadataList.push(doc.data() as Metadata);
-          });
-          setMetadataList(metadataList);
-        });
-    }
-
     const { chocofactoryContract, chocomoldContract, provider } = getContractsForChainId(chainId);
-    console.log(chainId);
-    provider.getBlockNumber().then((latest) => {
-      console.log(latest);
-      const DeployEvent = chocofactoryContract.filters.Deployed(null, null, nftContractAddress, null, null);
-      chocofactoryContract.queryFilter(DeployEvent, latest - 999, latest).then((events) => {
-        console.log(events);
-        setDeployed(events.length > 0);
+    if (userAddress) {
+      provider.getCode(nftContractAddress).then((code: string) => {
+        const deployed = code != "0x";
+        setDeployed(deployed);
+        firestore
+          .collection(DB_VIRSION)
+          .doc(chainId)
+          .collection("nftContract")
+          .doc(nftContractAddress)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setNFTContract(doc.data() as NFTContract);
+            } else {
+              history.push("/mypage");
+            }
+          })
+          .catch((err) => {
+            history.push("/mypage");
+          });
+
+        firestore
+          .collection(DB_VIRSION)
+          .doc(chainId)
+          .collection("nftContract")
+          .doc(nftContractAddress)
+          .collection("metadata")
+          .orderBy("tokenId")
+          .get()
+          .then((querySnapshot) => {
+            const metadataList: Metadata[] = [];
+            querySnapshot.forEach((doc) => {
+              metadataList.push(doc.data() as Metadata);
+            });
+            setMetadataList(metadataList);
+            if (chainId != "1" && chainId != "4") {
+              provider.getCode(nftContractAddress).then((code: string) => {
+                if (code != "0x") {
+                  const promises = metadataList.map((metadata) => {
+                    return chocomoldContract
+                      .attach(nftContractAddress)
+                      .ownerOf(metadata.tokenId)
+                      .catch((err) => err);
+                  });
+                  Promise.all(promises).then((resolves) => {
+                    const tokenIds = resolves
+                      .map((resolve, i: number) => {
+                        if (typeof resolve == "string") {
+                          return metadataList[i].tokenId;
+                        }
+                      })
+                      .filter((item) => item != undefined);
+                    if (!tokenIds) {
+                      setMintedTokenIds(tokenIds);
+                    }
+                  });
+                }
+              });
+            }
+          });
       });
-      const MintEvent = chocomoldContract.filters.Transfer(NULL_ADDRESS, null, null);
-      chocomoldContract
-        .attach(nftContractAddress)
-        .queryFilter(MintEvent, latest - 999, latest)
-        .then((events) => {
-          console.log(events);
-          const tokenIds = events.map((event) => event.args!.tokenId.toString());
-          setMintedTokenIds(tokenIds);
-        });
-    });
+      if (chainId == "1" || chainId == "4") {
+        const MintEvent = chocomoldContract.filters.Transfer(NULL_ADDRESS, null, null);
+        chocomoldContract
+          .attach(nftContractAddress)
+          .queryFilter(MintEvent, 0, "latest")
+          .then((events) => {
+            const tokenIds = events.map((event) => event.args!.tokenId.toString());
+            setMintedTokenIds(tokenIds);
+          });
+      }
+    }
   }, [userAddress]);
 
   return (
