@@ -20,6 +20,18 @@ module.exports = functions.https.onRequest(async (req, res) => {
       .collection("metadata")
       .doc(tokenId)
       .get();
-    return res.send(doc.data());
+
+    if (doc.exists) {
+      const metadata = doc.data() as any;
+      metadata.animation_url = metadata.animationURL;
+      metadata.nft_contract_address = metadata.nftContractAddress;
+      metadata.token_id = metadata.tokenId;
+      delete metadata.animationURL;
+      delete metadata.nftContractAddress;
+      delete metadata.tokenId;
+      return res.send(metadata);
+    } else {
+      return res.send("metadata not exist");
+    }
   });
 });
