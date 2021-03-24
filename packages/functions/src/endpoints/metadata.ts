@@ -9,19 +9,22 @@ const corsHandler = cors({ origin: true });
 module.exports = functions.https.onRequest(async (req, res) => {
   corsHandler(req, res, async () => {
     const [, , chainId, nftContractAddress, tokenId] = req.originalUrl.split("/");
-    if (!chainId || !nftContractAddress || !tokenId) {
+    if (!chainId || !nftContractAddress) {
       return res.send("invalid param");
     }
-    const doc = await firestore
-      .collection(DB_VIRSION)
-      .doc(chainId)
-      .collection("nftContract")
-      .doc(nftContractAddress)
-      .collection("metadata")
-      .doc(tokenId)
-      .get();
 
-    if (doc.exists) {
+    if (tokenId) {
+      const doc = await firestore
+        .collection(DB_VIRSION)
+        .doc(chainId)
+        .collection("nftContract")
+        .doc(nftContractAddress)
+        .collection("metadata")
+        .doc(tokenId)
+        .get();
+      if (!doc.exists) {
+        return res.send("metadata not exist");
+      }
       const metadata = doc.data() as any;
       metadata.animation_url = metadata.animationUrl;
       metadata.nft_contract_address = metadata.nftContractAddress;
@@ -31,7 +34,28 @@ module.exports = functions.https.onRequest(async (req, res) => {
       delete metadata.tokenId;
       return res.send(metadata);
     } else {
-      return res.send("metadata not exist");
+      const doc = await firestore
+        .collection(DB_VIRSION)
+        .doc(chainId)
+        .collection("nftContract")
+        .doc(nftContractAddress)
+        .get();
+      if (!doc.exists) {
+        return res.send("metadata not exist");
+      }
+      const contract = doc.data() as any;
+      const querySnapshot = await firestore
+        .collection(DB_VIRSION)
+        .doc(chainId)
+        .collection("nftContract")
+        .doc(nftContractAddress)
+        .collection("metadata")
+        .get();
+      const metadata: any[] = [];
+      querySnapshot.forEach((doc) => {
+        metadata.push(doc.data());
+      });
+      return res.send({ contract, metadata });
     }
   });
 });
