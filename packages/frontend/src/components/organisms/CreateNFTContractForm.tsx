@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ChainId } from "../../../../contracts/helpers/types";
 import { saveIcon, backIcon, errorIcon, confirmIcon } from "../../configs.json";
-import { functions } from "../../modules/firebase";
+import { analytics, functions } from "../../modules/firebase";
 import { getContractsForChainId, chainIdLabels, chainIdValues, getNetworkNameFromChainId } from "../../modules/web3";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
@@ -93,6 +93,12 @@ export const CreateNFTContractForm: React.FC = () => {
       const { nftContractAddress } = result.data;
       closeLoadingOverlay();
       openNotificationToast({ type: "success", text: "NFT is created!" });
+
+      analytics.logEvent("click", {
+        type: "button",
+        name: "create_nft_contract",
+      });
+
       history.push(`/${chainId}/${nftContractAddress}`);
     } catch (err) {
       closeLoadingOverlay();
