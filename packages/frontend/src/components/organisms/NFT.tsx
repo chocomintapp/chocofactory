@@ -87,7 +87,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
           <FormImageUpload label="Image" accept="video/*,image/*" value={image} setState={setImage} />
           <FormImageUpload
             label="Animation URL"
-            accept="audio/*,video/*,image/*"
+            accept="audio/*,video/*,image/*,.glb"
             value={animationUrl}
             setState={setAnimationUrl}
           />
