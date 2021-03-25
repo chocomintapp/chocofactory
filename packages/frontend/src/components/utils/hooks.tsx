@@ -3,7 +3,7 @@ import { atom, useRecoilState } from "recoil";
 
 import { signatureMessage } from "../../../../common/config";
 
-import { auth, functions } from "../../modules/firebase";
+import { auth, analytics, functions } from "../../modules/firebase";
 import { initializeWeb3Modal, getWeb3, getEthersSigner, clearWeb3Modal } from "../../modules/web3";
 import { LoadingOverlay } from "../molecules/LoadingOverlay";
 import { MessageModalProps } from "../molecules/MessageModal";
@@ -102,12 +102,23 @@ export const useWallet = () => {
       auth.signInWithCustomToken(response.data);
       setSignerAddressState(signerAddress);
     }
+
+    analytics.logEvent("click", {
+      type: "button",
+      name: "connect_wallet",
+    });
+
     return { web3, signer, signerAddress };
   };
 
   const disconnectWallet = () => {
     clearWeb3Modal();
     setSignerAddressState("");
+
+    analytics.logEvent("click", {
+      type: "button",
+      name: "disconnect_wallet",
+    });
   };
   return { userAddress, connectWallet, disconnectWallet };
 };

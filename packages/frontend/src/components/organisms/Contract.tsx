@@ -1,5 +1,6 @@
 import React from "react";
 import { errorIcon, confirmIcon, viewIcon, explorerIcon, checkedIcon, deployIcon } from "../../configs.json";
+import { analytics } from "../../modules/firebase";
 import { getContractsForChainId, getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract, Metadata } from "../../types";
 
@@ -69,6 +70,12 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
         );
       setDeployedInternal(true);
       closeLoadingOverlay();
+
+      analytics.logEvent("click", {
+        type: "button",
+        name: "deploy_nft_contract",
+      });
+
       openMessageModal({
         icon: confirmIcon,
         messageText: "Transaction submitted!",

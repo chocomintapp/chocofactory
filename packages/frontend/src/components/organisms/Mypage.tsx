@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { signOutIcon } from "../../configs.json";
+import { analytics } from "../../modules/firebase";
 import { NFTContract } from "../../types";
 import { Button } from "../atoms/Button";
 import { NFTCard } from "../molecules/NFTCard";
@@ -13,6 +14,13 @@ export interface MypageProps {
 
 export const Mypage: React.FC<MypageProps> = ({ nftContractList }) => {
   const { disconnectWallet } = useWallet();
+
+  const onClickNFT = () => {
+    analytics.logEvent("click", {
+      type: "button",
+      name: "nft_card",
+    });
+  };
 
   return (
     <section>
@@ -36,7 +44,7 @@ export const Mypage: React.FC<MypageProps> = ({ nftContractList }) => {
       <div>
         {nftContractList.map((nftContract, i) => {
           return (
-            <div key={i} className="mt-4">
+            <div key={i} className="mt-4" onClick={onClickNFT}>
               <Link key={i} to={`${nftContract.chainId}/${nftContract.nftContractAddress}`}>
                 <NFTCard nftContract={nftContract} />
               </Link>

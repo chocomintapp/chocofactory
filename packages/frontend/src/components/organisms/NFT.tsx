@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { confirmIcon } from "../../configs.json";
-import { firestore, DB_VIRSION } from "../../modules/firebase";
+import { analytics, firestore, DB_VIRSION } from "../../modules/firebase";
 import { NFTContract, Metadata } from "../../types";
 import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
@@ -54,6 +54,12 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       .set(newMetadata);
     openNotificationToast({ type: "success", text: "NFT is saved!" });
     closeLoadingOverlay();
+
+    analytics.logEvent("click", {
+      type: "button",
+      name: "save_nft",
+    });
+
     history.push(`/${nftContract.chainId}/${nftContract.nftContractAddress}`);
   };
 
