@@ -93,18 +93,27 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
     <section>
       <div className="flex justify-between mb-4">
         <p className="text-primary text-xl font-bold">NFT Contract</p>
-        <div>
-          <Button onClick={deployNFTContract} type="primary" size="small" disabled={deployedInternal}>
-            {deployedInternal ? (
-              <>
-                Deployed<span className="ml-2">{checkedIcon}</span>
-              </>
-            ) : (
-              <>
-                Deploy<span className="ml-2">{deployIcon}</span>
-              </>
-            )}
-          </Button>
+        <div className="flex">
+          <div className="mr-2">
+            <Button onClick={deployNFTContract} type="primary" size="small" disabled={deployedInternal}>
+              {deployedInternal ? (
+                <>
+                  Deployed<span className="ml-2">{checkedIcon}</span>
+                </>
+              ) : (
+                <>
+                  Deploy<span className="ml-2">{deployIcon}</span>
+                </>
+              )}
+            </Button>
+          </div>
+          <div className="mr-2">
+            <a href={`https://shop.chocomint.app/${nftContract.chainId}/${nftContract.nftContractAddress}`}>
+              <Button type="tertiary" size="small" disabled={!deployedInternal}>
+                Chocoshop<span className="ml-2">🛒</span>
+              </Button>
+            </a>
+          </div>
         </div>
       </div>
       <div className="mb-8 relative">
