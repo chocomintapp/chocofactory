@@ -29,8 +29,8 @@ export const CreateNFTContractForm: React.FC = () => {
     if (!name || name.trim() == "") {
       setNameError("please input name");
       result = false;
-    } else if (name.length > 20) {
-      setNameError("Please input 20 characters or less");
+    } else if (name.length > 50) {
+      setNameError("Please input 50 characters or less");
       result = false;
     } else {
       setNameError("");
