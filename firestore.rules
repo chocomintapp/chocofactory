@@ -28,7 +28,7 @@ service cloud.firestore {
 
     match /{virsion}/{network} {
       match /nftContract/{address} {
-        allow read: if isUserAuthenticated(existingData().ownerAddress);
+        allow read;
     
         match /metadata/{tokenId} {
           allow read, create, update, delete: if isUserAuthenticated(nftContract(virsion, network, address).ownerAddress);

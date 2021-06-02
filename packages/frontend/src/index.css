@@ -14,4 +14,10 @@
   .text-tertiary {
     @apply text-gray-400;
   }
+  .solidity {
+    @apply border-b-2 border-gray-200 shadow-md rounded-xl;
+  }
+  .grab-animation {
+    @apply cursor-pointer transition duration-500 transform hover:-translate-y-1;
+  }
 }

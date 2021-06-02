@@ -18,3 +18,15 @@ export interface Metadata {
   image: string;
   animationUrl: string;
 }
+
+export interface NFTContractWithMetadata {
+  chainId: string;
+  factoryAddress: string;
+  moldAddress: string;
+  nftContractAddress: string;
+  name: string;
+  symbol: string;
+  ownerAddress: string;
+  signature: string;
+  metadata: Metadata[];
+}
