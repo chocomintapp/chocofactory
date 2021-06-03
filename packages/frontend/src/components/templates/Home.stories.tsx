@@ -6,6 +6,7 @@ import { HomeTemplate, HomeTemplateProps } from "./Home";
 
 const args: HomeTemplateProps = {
   nftContractList,
+  contractCountsForChainId: [],
 };
 export default {
   title: "Templates/HomeTemplate",

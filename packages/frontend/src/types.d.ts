@@ -19,14 +19,7 @@ export interface Metadata {
   animationUrl: string;
 }
 
-export interface NFTContractWithMetadata {
+export interface ContractCountsForChainId {
   chainId: string;
-  factoryAddress: string;
-  moldAddress: string;
-  nftContractAddress: string;
-  name: string;
-  symbol: string;
-  ownerAddress: string;
-  signature: string;
-  metadata: Metadata[];
+  count: number;
 }
