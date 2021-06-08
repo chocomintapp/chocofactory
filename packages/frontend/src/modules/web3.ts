@@ -13,8 +13,8 @@ export { NULL_ADDRESS } from "../../../contracts/helpers/constants";
 
 export const chainIdLabels =
   process.env.NODE_ENV == "development"
-    ? ["Local", "Rinkeby", "Matic Test", "BSC Test", "BSC", "Matic", "Mainnet"]
-    : ["Rinkeby", "BSC", "Matic", "Mainnet"];
+    ? ["Local", "Rinkeby", "Polygon Test", "BSC Test", "BSC", "Polygon", "Mainnet"]
+    : ["Rinkeby", "BSC", "Polygon", "Mainnet"];
 
 export const chainIdValues =
   process.env.NODE_ENV == "development"
