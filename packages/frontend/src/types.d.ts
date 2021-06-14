@@ -18,3 +18,8 @@ export interface Metadata {
   image: string;
   animationUrl: string;
 }
+
+export interface ContractCountsForChainId {
+  chainId: string;
+  count: number;
+}
