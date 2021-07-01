@@ -107,13 +107,6 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
               )}
             </Button>
           </div>
-          <div className="mr-2">
-            <a href={`https://shop.chocomint.app/${nftContract.chainId}/${nftContract.nftContractAddress}`}>
-              <Button type="tertiary" size="small" disabled={!deployedInternal}>
-                Chocoshop<span className="ml-2">🛒</span>
-              </Button>
-            </a>
-          </div>
         </div>
       </div>
       <div className="mb-8 relative">
