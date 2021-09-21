@@ -50,6 +50,10 @@ module.exports = {
       url: network.bsc_test.rpc,
       accounts: [privateKey],
     },
+    shibuya: {
+      url: "https://rpc.shibuya.astar.network:8545",
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

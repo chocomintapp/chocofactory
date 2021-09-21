@@ -41,6 +41,13 @@
     "chocofactory": "0x7cD29C50908154DFB1B8320F3e39d2726F9ba0A2",
     "chocomold": "0xF3b854C226C72e99a251C285b5C67E343323A8c2"
   },
+  "shibuya": {
+    "chainId": "81",
+    "rpc": "https://rpc.shibuya.astar.network:8545",
+    "explore": "",
+    "chocofactory": "0x007D2718D11e6E68D02cDD20F529C9eC2619b92a",
+    "chocomold": "0x2c15dae42adE903d8dD6754CdC12c2baC89595de"
+  },
   "localhost": {
     "chainId": "31337",
     "rpc": "http://localhost:8545",

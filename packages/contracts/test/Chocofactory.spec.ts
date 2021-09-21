@@ -7,7 +7,7 @@ import { main } from "../scripts/98_internalBatchMigration";
 chai.use(solidity);
 const { expect } = chai;
 
-const chainId = 31337;
+const chainId = 81;
 
 describe("Chocofactory", function () {
   let signer, factoryContract, moldContract;
