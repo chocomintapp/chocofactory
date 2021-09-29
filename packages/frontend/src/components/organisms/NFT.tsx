@@ -21,7 +21,10 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState("");
   const [animationUrl, setAnimationUrl] = React.useState("");
+  const [traitType, setTraitType] = React.useState("");
+  const [value, setValue] = React.useState("");
 
+  const attributes: any = [];
   const history = useHistory();
   const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
   const { openNotificationToast } = useNotificationToast();
@@ -35,6 +38,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const createNFT = async () => {
     if (!nftContract || !metadata) return;
     openLoadingOverlay();
+    attributes.push({ trait_type: traitType, value: value });
     const newMetadata: Metadata = {
       chainId: nftContract.chainId,
       nftContractAddress: nftContract.nftContractAddress,
@@ -43,6 +47,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       description,
       image,
       animationUrl,
+      attributes,
     };
     await firestore
       .collection(DB_VIRSION)
@@ -91,6 +96,8 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
             value={animationUrl}
             setState={setAnimationUrl}
           />
+          <FormInput type="text" value={traitType} label="Trait Type" setState={setTraitType} />
+          <FormInput type="text" value={value} label="Value" setState={setValue} />
         </Form>
       </div>
     </section>

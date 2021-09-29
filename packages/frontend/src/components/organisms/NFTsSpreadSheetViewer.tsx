@@ -150,6 +150,9 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
       field: "animationUrl",
     },
     {
+      field: "attributes",
+    },
+    {
       field: "minted",
       editable: false,
     },

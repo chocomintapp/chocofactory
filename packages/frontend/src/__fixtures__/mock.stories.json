@@ -44,7 +44,8 @@
       "name": "Choco",
       "description": "This is Choco NFT",
       "image": "https://ipfs.io/ipfs/QmWYJDgg9we8jdjV3gqr4fBeZk9CbpfetCyKR4iVnNmMjY/nft.png",
-      "animationUrl": "http://localhost:6006/sample.png"
+      "animationUrl": "http://localhost:6006/sample.png",
+      "attributes": [{ "trait_type": "choco", "value": "mint" }]
     },
     {
       "chainId": "1",
@@ -53,7 +54,8 @@
       "name": "Choco",
       "description": "This is Choco NFT",
       "image": "https://ipfs.io/ipfs/QmZdMu4uEkmmygxt99GnZeN3EEPQfx8aJoCLgkDbApaBuB/nft.png",
-      "animationUrl": "http://localhost:6006/sample.png"
+      "animationUrl": "http://localhost:6006/sample.png",
+      "attributes": [{ "trait_type": "choco", "value": "mint" }]
     },
     {
       "chainId": "1",
@@ -62,7 +64,8 @@
       "name": "Choco",
       "description": "This is Choco NFT",
       "image": "https://ipfs.io/ipfs/Qma42xHxFTehX77kaqAj9kViydaz1gYCPTYSA1eJdeUkiA/nft.png",
-      "animationUrl": "http://localhost:6006/sample.png"
+      "animationUrl": "http://localhost:6006/sample.png",
+      "attributes": [{ "trait_type": "choco", "value": "mint" }]
     }
   ]
 }

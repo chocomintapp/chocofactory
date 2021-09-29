@@ -54,6 +54,7 @@ export const NFTGrid: React.FC = () => {
             description: "",
             image: "",
             animationUrl: "",
+            attributes: [],
           });
         }
       });
