@@ -80,7 +80,14 @@ export const CreateNFTContractForm: React.FC = () => {
         name: name,
         symbol: symbol,
       };
-      const signature = await signer._signTypedData(domain, types, value);
+      let signature = await signer._signTypedData(domain, types, value);
+
+      const vInInt = parseInt(signature.slice(-2), 16);
+      if (vInInt < 27) {
+        const modifiedVInInt = vInInt + 27;
+        signature = signature.slice(0, signature.length - 2) + modifiedVInInt.toString(16);
+      }
+
       const result = await functions.httpsCallable("createNFTContract")({
         chainId,
         factoryAddress: chocofactoryContract.address,
