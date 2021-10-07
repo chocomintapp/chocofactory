@@ -39,9 +39,11 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
   const { openNotificationToast } = useNotificationToast();
 
   React.useEffect(() => {
-    console.log("test");
     if (!metadataList || !mintedTokenIds) return;
     const result = metadataList.map((metadata: any) => {
+      if (metadata.attributes) {
+        metadata.attributes = metadata.attributes.map((attribute: any) => JSON.stringify(attribute)).toString();
+      }
       if (mintedTokenIds.includes(metadata.tokenId.toString())) {
         metadata.minted = checkedIcon;
       } else {
@@ -151,6 +153,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
     },
     {
       field: "attributes",
+      editable: false,
     },
     {
       field: "minted",
