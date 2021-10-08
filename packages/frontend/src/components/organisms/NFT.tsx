@@ -76,6 +76,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
     setDescription(metadata.description);
     setImage(metadata.image);
     setAnimationUrl(metadata.animationUrl);
+    if (!metadata.attributes) return;
     const savedAttributes = metadata.attributes.map((attribute, i) => {
       return { index: i, trait_type: attribute.trait_type, value: attribute.value };
     });
