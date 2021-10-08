@@ -1,10 +1,10 @@
+import { FormControl, FormLabel, Input, HStack, Button } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { confirmIcon } from "../../configs.json";
 import { analytics, firestore, DB_VIRSION } from "../../modules/firebase";
 import { NFTContract, Metadata } from "../../types";
-import { Button } from "../atoms/Button";
 import { Form } from "../atoms/Form";
 import { FormImageUpload } from "../molecules/FormImageUpload";
 import { FormInput } from "../molecules/FormInput";
@@ -21,24 +21,73 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState("");
   const [animationUrl, setAnimationUrl] = React.useState("");
-  const [traitType, setTraitType] = React.useState("");
-  const [value, setValue] = React.useState("");
 
-  const attributes: any = [];
+  const [attributes, setAttributes] = React.useState([
+    {} as { index: number; trait_type: string; value: string | number },
+  ]);
+
+  const addTrait = () => {
+    const newTrait = attributes.concat([
+      {
+        index: attributes.length,
+        trait_type: "",
+        value: "",
+      },
+    ]);
+    setAttributes(newTrait);
+  };
+
+  const handleTraitChange = (traitIndex: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const newAttributes = attributes.map((attribute, i) => {
+      if (i === traitIndex) {
+        return { index: traitIndex, trait_type: e.currentTarget.value, value: attribute.value };
+      } else return attribute;
+    });
+    setAttributes(newAttributes);
+  };
+
+  const handleTraitValueChange = (traitIndex: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const newAttributes = attributes.map((attribute, i) => {
+      if (i === traitIndex) {
+        return { index: traitIndex, trait_type: attribute.trait_type, value: e.currentTarget.value };
+      } else return attribute;
+    });
+    setAttributes(newAttributes);
+  };
+
+  const removeTrait = (traitIndex: number, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const newAttributes = attributes
+      .filter((n) => {
+        return n.index !== traitIndex;
+      })
+      .map((attribute, i) => {
+        return { index: i, trait_type: attribute.trait_type, value: attribute.value };
+      });
+    setAttributes(newAttributes);
+  };
+
   const history = useHistory();
   const { openLoadingOverlay, closeLoadingOverlay } = useLoadingOverlay();
   const { openNotificationToast } = useNotificationToast();
+
   React.useEffect(() => {
     if (!metadata) return;
     setName(metadata.name);
     setDescription(metadata.description);
     setImage(metadata.image);
     setAnimationUrl(metadata.animationUrl);
+    const savedAttributes = metadata.attributes.map((attribute, i) => {
+      return { index: i, trait_type: attribute.trait_type, value: attribute.value };
+    });
+    setAttributes(savedAttributes);
   }, [metadata]);
+
   const createNFT = async () => {
     if (!nftContract || !metadata) return;
     openLoadingOverlay();
-    attributes.push({ trait_type: traitType, value: value });
+    const formattedAttributes = attributes.map((attribute) => {
+      return { trait_type: attribute.trait_type, value: attribute.value };
+    });
     const newMetadata: Metadata = {
       chainId: nftContract.chainId,
       nftContractAddress: nftContract.nftContractAddress,
@@ -47,7 +96,7 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
       description,
       image,
       animationUrl,
-      attributes,
+      attributes: formattedAttributes,
     };
     await firestore
       .collection(DB_VIRSION)
@@ -74,13 +123,13 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
         <div className="flex justify-end mb-4">
           <div className="mr-2">
             <Link to={`/${nftContract.chainId}/${nftContract.nftContractAddress}`}>
-              <Button type="secondary" size="small">
+              <Button colorScheme="gray" size="sm">
                 Cancel<span className="ml-2">↩</span>
               </Button>
             </Link>
           </div>
           <div className="mr-2">
-            <Button onClick={createNFT} type="primary" size="small">
+            <Button onClick={createNFT} colorScheme="teal" size="sm">
               Save<span className="ml-2">💾</span>
             </Button>
           </div>
@@ -96,8 +145,37 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
             value={animationUrl}
             setState={setAnimationUrl}
           />
-          <FormInput type="text" value={traitType} label="Trait Type" setState={setTraitType} />
-          <FormInput type="text" value={value} label="Value" setState={setValue} />
+          <FormControl>
+            <FormLabel margin="16px 0 ">Attributes</FormLabel>
+            {attributes.map((attribute, traitIndex: number) => (
+              <div key={traitIndex}>
+                <HStack mt="2">
+                  <Input
+                    key={`type${traitIndex}`}
+                    name={traitIndex.toString()}
+                    placeholder="Trait"
+                    value={attribute.trait_type}
+                    onChange={(e) => handleTraitChange(traitIndex, e)}
+                  />
+                  <Input
+                    key={`value${traitIndex}`}
+                    name={traitIndex.toString()}
+                    placeholder="Value"
+                    value={attribute.value}
+                    onChange={(e) => handleTraitValueChange(traitIndex, e)}
+                  />
+                  <Button colorScheme="teal" onClick={(e) => removeTrait(traitIndex, e)}>
+                    ×
+                  </Button>
+                </HStack>
+              </div>
+            ))}
+          </FormControl>
+          <HStack mt={4}>
+            <Button colorScheme="teal" onClick={addTrait}>
+              +
+            </Button>
+          </HStack>
         </Form>
       </div>
     </section>

@@ -17,7 +17,7 @@ export interface Metadata {
   description: string;
   image: string;
   animationUrl: string;
-  attributes: { trait_type: string; value: string }[];
+  attributes: { trait_type: string; value: string | number }[];
 }
 
 export interface ContractCountsForChainId {
