@@ -164,11 +164,9 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
                     value={attribute.value}
                     onChange={(e) => handleTraitValueChange(traitIndex, e)}
                   />
-                  {/* {traitIndex + 1 === attributes.length && ( */}
                   <Button colorScheme="teal" onClick={(e) => removeTrait(traitIndex, e)}>
                     ×
                   </Button>
-                  {/* )} */}
                 </HStack>
               </div>
             ))}
