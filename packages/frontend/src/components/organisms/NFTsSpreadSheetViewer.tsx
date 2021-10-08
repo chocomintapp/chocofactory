@@ -41,9 +41,6 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
   React.useEffect(() => {
     if (!metadataList || !mintedTokenIds) return;
     const result = metadataList.map((metadata: any) => {
-      if (metadata.attributes) {
-        metadata.attributes = metadata.attributes.map((attribute: any) => JSON.stringify(attribute)).toString();
-      }
       if (mintedTokenIds.includes(metadata.tokenId.toString())) {
         metadata.minted = checkedIcon;
       } else {
@@ -122,7 +119,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
         onClickConfirm: () => window.open(`${explore}tx/${hash}`),
         onClickDismiss: closeMessageModal,
       });
-    } catch (err) {
+    } catch (err: any) {
       closeLoadingOverlay();
       openNotificationToast({ type: "error", text: err.message });
     }
