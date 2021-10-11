@@ -22,9 +22,9 @@ export const NFT: React.FC<NFTProps> = ({ nftContract, metadata }) => {
   const [image, setImage] = React.useState("");
   const [animationUrl, setAnimationUrl] = React.useState("");
 
-  const [attributes, setAttributes] = React.useState([
-    {} as { index: number; trait_type: string; value: string | number },
-  ]);
+  const [attributes, setAttributes] = React.useState(
+    [] as { index: number; trait_type: string; value: string | number }[]
+  );
 
   const addTrait = () => {
     const newTrait = attributes.concat([
