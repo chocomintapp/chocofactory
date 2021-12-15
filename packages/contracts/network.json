@@ -44,14 +44,14 @@
   "shibuya": {
     "chainId": "81",
     "rpc": "https://rpc.shibuya.astar.network:8545",
-    "explore": "",
+    "explore": "https://shibuya.subscan.io/",
     "chocofactory": "0x007D2718D11e6E68D02cDD20F529C9eC2619b92a",
     "chocomold": "0x2c15dae42adE903d8dD6754CdC12c2baC89595de"
   },
   "shiden": {
     "chainId": "336",
     "rpc": "https://rpc.shiden.astar.network:8545",
-    "explore": "",
+    "explore": "https://shiden.subscan.io/",
     "chocofactory": "0xc5e476a888B597aa8249f74B358452757637d334",
     "chocomold": "0x03980CFBCf56Fd38f4F421A7e8A110b240fA3740"
   },
