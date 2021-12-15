@@ -18,7 +18,8 @@
     "deploy-contract-to-matic_test": "hardhat run scripts/99_batchMigration.ts --network matic_test",
     "deploy-contract-to-bsc": "hardhat run scripts/99_batchMigration.ts --network bsc",
     "deploy-contract-to-bsc_test": "hardhat run scripts/99_batchMigration.ts --network bsc_test",
-    "deploy-contract-to-shibuya": "hardhat run scripts/99_batchMigration.ts --network shibuya"
+    "deploy-contract-to-shibuya": "hardhat run scripts/99_batchMigration.ts --network shibuya",
+    "deploy-contract-to-shiden": "hardhat run scripts/99_batchMigration.ts --network shiden"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

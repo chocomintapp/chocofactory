@@ -51,7 +51,11 @@ module.exports = {
       accounts: [privateKey],
     },
     shibuya: {
-      url: "https://rpc.shibuya.astar.network:8545",
+      url: network.shibuya.rpc,
+      accounts: [privateKey],
+    },
+    shiden: {
+      url: network.shiden.rpc,
       accounts: [privateKey],
     },
   },
