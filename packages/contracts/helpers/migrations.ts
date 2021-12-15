@@ -6,7 +6,7 @@ import { NetworkName } from "./types";
 export const filePath = "../network.json";
 export const networkName = hre.network.name == "hardhat" ? "localhost" : <NetworkName>hre.network.name;
 
-export const gasPrice = process.env.GAS_PRICE ? parseInt(process.env.GAS_PRICE) : 10000000000; //10 gwei
+export const gasPrice = process.env.GAS_PRICE ? parseInt(process.env.GAS_PRICE) : 1000000000; //1 gwei
 
 export const readFileAsJson = () => {
   const configsBuffer = fs.readFileSync(path.join(__dirname, filePath));
