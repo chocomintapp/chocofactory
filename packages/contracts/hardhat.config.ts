@@ -58,6 +58,18 @@ module.exports = {
       url: network.shiden.rpc,
       accounts: [privateKey],
     },
+    aurora_test: {
+      url: network.aurora_test.rpc,
+      accounts: [privateKey],
+    },
+    rinkarby: {
+      url: network.rinkarby.rpc,
+      accounts: [privateKey],
+    },
+    avalanch_fuji: {
+      url: network.avalanch_fuji.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
