@@ -55,6 +55,34 @@
     "chocofactory": "0xc5e476a888B597aa8249f74B358452757637d334",
     "chocomold": "0x03980CFBCf56Fd38f4F421A7e8A110b240fA3740"
   },
+  "aurora_test": {
+    "chainId": "1313161555",
+    "rpc": "https://testnet.aurora.dev/",
+    "explore": "",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "rinkarby": {
+    "chainId": "421611",
+    "rpc": "https://rinkeby.arbitrum.io/rpc",
+    "explore": "https://testnet.arbiscan.io/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "avalanch_fuji": {
+    "chainId": "43113",
+    "rpc": "https://api.avax-test.network/ext/bc/C/rpc",
+    "explore": "https://cchain.explorer.avax-test.network/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "optimistic_kovan": {
+    "chainId": "69",
+    "rpc": "https://kovan.optimism.io",
+    "explore": "https://kovan-optimistic.etherscan.io/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "localhost": {
     "chainId": "31337",
     "rpc": "http://localhost:8545",
