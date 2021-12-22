@@ -26,12 +26,13 @@ export const chainIdLabels =
         "Aurora Test",
         "RinkArby",
         "Avalanch Fuji",
+        "Optimistic Kovan",
       ]
     : ["Rinkeby", "BSC", "Polygon", "Mainnet", "shibuya", "Shiden"];
 
 export const chainIdValues =
   process.env.NODE_ENV == "development"
-    ? (["31337", "4", "80001", "97", "56", "137", "1", "81", "336", "1313161555", "421611", "43113"] as ChainId[])
+    ? (["31337", "4", "80001", "97", "56", "137", "1", "81", "336", "1313161555", "421611", "43113", "69"] as ChainId[])
     : (["4", "56", "137", "1", "81", "336"] as ChainId[]);
 
 export const providerOptions = {

@@ -70,6 +70,10 @@ module.exports = {
       url: network.avalanch_fuji.rpc,
       accounts: [privateKey],
     },
+    optimistic_kovan: {
+      url: network.optimistic_kovan.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

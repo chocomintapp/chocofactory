@@ -2,6 +2,7 @@
   "1": "mainnet",
   "4": "rinkeby",
   "56": "bsc",
+  "69": "optimistic_kovan",
   "81": "shibuya",
   "97": "bsc_test",
   "137": "matic",
