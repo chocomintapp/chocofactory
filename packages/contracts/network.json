@@ -15,7 +15,7 @@
   },
   "matic": {
     "chainId": "137",
-    "rpc": "https://rpc-mainnet.maticvigil.com/",
+    "rpc": "https://polygon-rpc.com/",
     "explore": "https://explorer-mainnet.maticvigil.com/",
     "chocofactory": "0x53B688a8Fb9e6a0bC8ca49bF0bBfddac4696ec72",
     "chocomold": "0xD3F5dcF16684E23Af28a8F57cde51d03f73Ee667"
