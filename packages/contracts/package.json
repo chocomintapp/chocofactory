@@ -19,7 +19,11 @@
     "deploy-contract-to-bsc": "hardhat run scripts/99_batchMigration.ts --network bsc",
     "deploy-contract-to-bsc_test": "hardhat run scripts/99_batchMigration.ts --network bsc_test",
     "deploy-contract-to-shibuya": "hardhat run scripts/99_batchMigration.ts --network shibuya",
-    "deploy-contract-to-shiden": "hardhat run scripts/99_batchMigration.ts --network shiden"
+    "deploy-contract-to-shiden": "hardhat run scripts/99_batchMigration.ts --network shiden",
+    "deploy-contract-to-aurora_test": "hardhat run scripts/99_batchMigration.ts --network aurora_test",
+    "deploy-contract-to-rinkarby": "hardhat run scripts/99_batchMigration.ts --network rinkarby",
+    "deploy-contract-to-avalanch_fuji": "hardhat run scripts/99_batchMigration.ts --network avalanch_fuji",
+    "deploy-contract-to-optimistic_kovan": "hardhat run scripts/99_batchMigration.ts --network optimistic_kovan"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",
