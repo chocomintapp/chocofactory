@@ -74,6 +74,18 @@ module.exports = {
       url: network.optimistic_kovan.rpc,
       accounts: [privateKey],
     },
+    boba_rinkeby: {
+      url: network.boba_rinkeby.rpc,
+      accounts: [privateKey],
+    },
+    metis_stardust: {
+      url: network.metis_stardust.rpc,
+      accounts: [privateKey],
+    },
+    oasis_testnet: {
+      url: network.oasis_testnet.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
