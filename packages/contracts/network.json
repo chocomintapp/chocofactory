@@ -69,6 +69,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "astar": {
+    "chainId": "592",
+    "rpc": "https://rpc.astar.bldnodes.org",
+    "explore": "https://astar.subscan.io/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "oasis_testnet": {
     "chainId": "42261",
     "rpc": "https://testnet.emerald.oasis.dev",

@@ -30,8 +30,9 @@ export const chainIdLabels =
         "Boba Rinkeby",
         "Metis Stardust",
         "Oasis Testnet",
+        "Astar",
       ]
-    : ["Rinkeby", "BSC", "Polygon", "Mainnet", "shibuya", "Shiden", "Aurora Test"];
+    : ["Rinkeby", "BSC", "Polygon", "Mainnet", "Shiden", "Astar"];
 
 export const chainIdValues =
   process.env.NODE_ENV == "development"
@@ -52,8 +53,9 @@ export const chainIdValues =
         "28",
         "588",
         "42261",
+        "592",
       ] as ChainId[])
-    : (["4", "56", "137", "1", "81", "336", "1313161555"] as ChainId[]);
+    : (["4", "56", "137", "1", "336", "592"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {

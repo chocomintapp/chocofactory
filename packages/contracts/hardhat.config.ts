@@ -86,6 +86,10 @@ module.exports = {
       url: network.oasis_testnet.rpc,
       accounts: [privateKey],
     },
+    astar: {
+      url: network.astar.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
