@@ -27,7 +27,8 @@
     "deploy-contract-to-boba_rinkeby": "hardhat run scripts/99_batchMigration.ts --network boba_rinkeby",
     "deploy-contract-to-metis_stardust": "hardhat run scripts/99_batchMigration.ts --network metis_stardust",
     "deploy-contract-to-oasis_testnet": "hardhat run scripts/99_batchMigration.ts --network oasis_testnet",
-    "deploy-contract-to-astar": "hardhat run scripts/99_batchMigration.ts --network astar"
+    "deploy-contract-to-astar": "hardhat run scripts/99_batchMigration.ts --network astar",
+    "deploy-contract-to-fantom_test": "hardhat run scripts/99_batchMigration.ts --network fantom_test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

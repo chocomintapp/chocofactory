@@ -76,6 +76,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "fantom_test": {
+    "chainId": "4002",
+    "rpc": "https://rpc.testnet.fantom.network/",
+    "explore": "https://testnet.ftmscan.com/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "oasis_testnet": {
     "chainId": "42261",
     "rpc": "https://testnet.emerald.oasis.dev",

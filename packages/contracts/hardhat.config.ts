@@ -90,6 +90,10 @@ module.exports = {
       url: network.astar.rpc,
       accounts: [privateKey],
     },
+    fantom_test: {
+      url: network.fantom_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
