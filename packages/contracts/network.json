@@ -50,7 +50,7 @@
   },
   "matic": {
     "chainId": "137",
-    "rpc": "https://polygon-rpc.com/",
+    "rpc": "https://polygon-mainnet.g.alchemy.com/v2/odtelyP_4AoBBN5bjNnVwu-dDKmhBAgK",
     "explore": "https://explorer-mainnet.maticvigil.com/",
     "chocofactory": "0x53B688a8Fb9e6a0bC8ca49bF0bBfddac4696ec72",
     "chocomold": "0xD3F5dcF16684E23Af28a8F57cde51d03f73Ee667"
@@ -92,7 +92,7 @@
   },
   "matic_test": {
     "chainId": "80001",
-    "rpc": "https://rpc-mumbai.matic.today",
+    "rpc": "https://polygon-mumbai.g.alchemy.com/v2/odtelyP_4AoBBN5bjNnVwu-dDKmhBAgK",
     "explore": "https://explorer-mumbai.maticvigil.com/",
     "chocofactory": "0x7cD29C50908154DFB1B8320F3e39d2726F9ba0A2",
     "chocomold": "0xF3b854C226C72e99a251C285b5C67E343323A8c2"
