@@ -31,6 +31,7 @@ export const chainIdLabels =
         "Metis Stardust",
         "Oasis Testnet",
         "Astar",
+        "Fantom",
       ]
     : ["Rinkeby", "BSC", "Polygon", "Mainnet", "Shiden", "Astar"];
 
@@ -54,6 +55,7 @@ export const chainIdValues =
         "588",
         "42261",
         "592",
+        "250",
       ] as ChainId[])
     : (["4", "56", "137", "1", "336", "592"] as ChainId[]);
 
