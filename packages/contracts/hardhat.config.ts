@@ -90,12 +90,20 @@ module.exports = {
       url: network.astar.rpc,
       accounts: [privateKey],
     },
+    fantom_test: {
+      url: network.fantom_test.rpc,
+      accounts: [privateKey],
+    },
     fantom: {
       url: network.fantom.rpc,
       accounts: [privateKey],
     },
     forge_test: {
       url: network.forge_test.rpc,
+      accounts: [privateKey],
+    },
+    avalanch_c: {
+      url: network.avalanch_c.rpc,
       accounts: [privateKey],
     },
   },
