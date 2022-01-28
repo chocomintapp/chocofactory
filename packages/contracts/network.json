@@ -69,6 +69,13 @@
     "chocofactory": "0xc5e476a888B597aa8249f74B358452757637d334",
     "chocomold": "0x03980CFBCf56Fd38f4F421A7e8A110b240fA3740"
   },
+  "forge_test": {
+    "chainId": "525",
+    "rpc": "https://prod-forge.prod.findora.org:8545",
+    "explore": "https://testnet-forge.evm.findorascan.io/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "metis_stardust": {
     "chainId": "588",
     "rpc": "https://stardust.metis.io/?owner=588",

@@ -94,6 +94,10 @@ module.exports = {
       url: network.fantom.rpc,
       accounts: [privateKey],
     },
+    forge_test: {
+      url: network.forge_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
