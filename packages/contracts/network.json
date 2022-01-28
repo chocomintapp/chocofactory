@@ -50,10 +50,17 @@
   },
   "matic": {
     "chainId": "137",
-    "rpc": "https://polygon-rpc.com/",
+    "rpc": "https://polygon-mainnet.g.alchemy.com/v2/odtelyP_4AoBBN5bjNnVwu-dDKmhBAgK",
     "explore": "https://explorer-mainnet.maticvigil.com/",
     "chocofactory": "0x53B688a8Fb9e6a0bC8ca49bF0bBfddac4696ec72",
     "chocomold": "0xD3F5dcF16684E23Af28a8F57cde51d03f73Ee667"
+  },
+  "fantom": {
+    "chainId": "250",
+    "rpc": "https://rpc.ftm.tools/",
+    "explore": "https://ftmscan.com/",
+    "chocofactory": "0xDbE7340FdA7eb36e4BA83bd7bbC23440cc317c8e",
+    "chocomold": "0xc67AB2a63991AfBda3339Dc1f7217df28BF3dd88"
   },
   "shiden": {
     "chainId": "336",
@@ -61,6 +68,13 @@
     "explore": "https://shiden.subscan.io/",
     "chocofactory": "0xc5e476a888B597aa8249f74B358452757637d334",
     "chocomold": "0x03980CFBCf56Fd38f4F421A7e8A110b240fA3740"
+  },
+  "forge_test": {
+    "chainId": "525",
+    "rpc": "https://prod-forge.prod.findora.org:8545",
+    "explore": "https://testnet-forge.evm.findorascan.io/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
   "metis_stardust": {
     "chainId": "588",
@@ -97,9 +111,16 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "avalanch_c": {
+    "chainId": "43114",
+    "rpc": "https://api.avax.network/ext/bc/C/rpc",
+    "explore": "https://cchain.explorer.avax.network/",
+    "chocofactory": "0x54E99696bF0Df5c712e52A61e467F3e165178cff",
+    "chocomold": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445"
+  },
   "matic_test": {
     "chainId": "80001",
-    "rpc": "https://rpc-mumbai.matic.today",
+    "rpc": "https://polygon-mumbai.g.alchemy.com/v2/odtelyP_4AoBBN5bjNnVwu-dDKmhBAgK",
     "explore": "https://explorer-mumbai.maticvigil.com/",
     "chocofactory": "0x7cD29C50908154DFB1B8320F3e39d2726F9ba0A2",
     "chocomold": "0xF3b854C226C72e99a251C285b5C67E343323A8c2"

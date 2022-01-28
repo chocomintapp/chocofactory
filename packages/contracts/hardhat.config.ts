@@ -94,6 +94,18 @@ module.exports = {
       url: network.fantom_test.rpc,
       accounts: [privateKey],
     },
+    fantom: {
+      url: network.fantom.rpc,
+      accounts: [privateKey],
+    },
+    forge_test: {
+      url: network.forge_test.rpc,
+      accounts: [privateKey],
+    },
+    avalanch_c: {
+      url: network.avalanch_c.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
