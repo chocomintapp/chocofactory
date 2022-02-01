@@ -139,6 +139,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "harmony_test": {
+    "chainId": "1666700000",
+    "rpc": "https://api.s0.b.hmny.io",
+    "explore": "https://explorer.pops.one/",
+    "chocofactory": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445",
+    "chocomold": "0x5D012024139F3b76215C49131a5723bAD2B1Dd57"
+  },
   "localhost": {
     "chainId": "31337",
     "rpc": "http://localhost:8545",

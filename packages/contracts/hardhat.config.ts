@@ -106,6 +106,10 @@ module.exports = {
       url: network.avalanch_c.rpc,
       accounts: [privateKey],
     },
+    harmony_test: {
+      url: network.harmony_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
