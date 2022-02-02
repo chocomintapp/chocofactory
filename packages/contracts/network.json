@@ -62,12 +62,26 @@
     "chocofactory": "0xDbE7340FdA7eb36e4BA83bd7bbC23440cc317c8e",
     "chocomold": "0xc67AB2a63991AfBda3339Dc1f7217df28BF3dd88"
   },
+  "heco_test": {
+    "chainId": "256",
+    "rpc": "https://http-testnet.hecochain.com",
+    "explore": "https://testnet.hecoinfo.com/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "shiden": {
     "chainId": "336",
     "rpc": "https://rpc.shiden.astar.network:8545",
     "explore": "https://shiden.subscan.io/",
     "chocofactory": "0xc5e476a888B597aa8249f74B358452757637d334",
     "chocomold": "0x03980CFBCf56Fd38f4F421A7e8A110b240fA3740"
+  },
+  "cronos_test": {
+    "chainId": "338",
+    "rpc": "https://cronos-testnet-3.crypto.org:8545",
+    "explore": "https://cronos.crypto.org/explorer/testnet3",
+    "chocofactory": "0x774b5785b1aCb3ac3F3F6C213A98195301A8aA0A",
+    "chocomold": "0x000B33af9C72fF5ABf90EB53Cae06267683c92Eb"
   },
   "forge_test": {
     "chainId": "525",
@@ -94,6 +108,13 @@
     "chainId": "4002",
     "rpc": "https://rpc.testnet.fantom.network/",
     "explore": "https://testnet.ftmscan.com/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "ontology_test": {
+    "chainId": "5851",
+    "rpc": "https://polaris3.ont.io:20339",
+    "explore": "https://explorer.ont.io/testnet/",
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },

@@ -110,6 +110,18 @@ module.exports = {
       url: network.harmony_test.rpc,
       accounts: [privateKey],
     },
+    ontology_test: {
+      url: network.ontology_test.rpc,
+      accounts: [privateKey],
+    },
+    heco_test: {
+      url: network.heco_test.rpc,
+      accounts: [privateKey],
+    },
+    cronos_test: {
+      url: network.cronos_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
