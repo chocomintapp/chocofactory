@@ -34,6 +34,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "sokol": {
+    "chainId": "77",
+    "rpc": "https://sokol.poa.network",
+    "explore": "https://blockscout.com/poa/sokol/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "shibuya": {
     "chainId": "81",
     "rpc": "https://rpc.shibuya.astar.network:8545",
@@ -104,6 +111,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "moonbase": {
+    "chainId": "1287",
+    "rpc": "https://rpc.testnet.moonbeam.network",
+    "explore": "https://moonbase.subscan.io/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "fantom_test": {
     "chainId": "4002",
     "rpc": "https://rpc.testnet.fantom.network/",
@@ -138,6 +152,13 @@
     "explore": "https://cchain.explorer.avax.network/",
     "chocofactory": "0x54E99696bF0Df5c712e52A61e467F3e165178cff",
     "chocomold": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445"
+  },
+  "celo_alfajores": {
+    "chainId": "44787",
+    "rpc": "https://alfajores-forno.celo-testnet.org",
+    "explore": "https://alfajores-blockscout.celo-testnet.org/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
   "matic_test": {
     "chainId": "80001",

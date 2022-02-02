@@ -35,7 +35,10 @@
     "deploy-contract-to-harmony_test": "hardhat run scripts/99_batchMigration.ts --network harmony_test",
     "deploy-contract-to-ontology_test": "hardhat run scripts/99_batchMigration.ts --network ontology_test",
     "deploy-contract-to-heco_test": "hardhat run scripts/99_batchMigration.ts --network heco_test",
-    "deploy-contract-to-cronos_test": "hardhat run scripts/99_batchMigration.ts --network cronos_test"
+    "deploy-contract-to-cronos_test": "hardhat run scripts/99_batchMigration.ts --network cronos_test",
+    "deploy-contract-to-moonbase": "hardhat run scripts/99_batchMigration.ts --network moonbase",
+    "deploy-contract-to-celo_alfajores": "hardhat run scripts/99_batchMigration.ts --network celo_alfajores",
+    "deploy-contract-to-sokol": "hardhat run scripts/99_batchMigration.ts --network sokol"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

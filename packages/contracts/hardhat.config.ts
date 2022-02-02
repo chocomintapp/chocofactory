@@ -122,6 +122,18 @@ module.exports = {
       url: network.cronos_test.rpc,
       accounts: [privateKey],
     },
+    moonbase: {
+      url: network.moonbase.rpc,
+      accounts: [privateKey],
+    },
+    celo_alfajores: {
+      url: network.celo_alfajores.rpc,
+      accounts: [privateKey],
+    },
+    sokol: {
+      url: network.sokol.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

@@ -39,6 +39,9 @@ export const chainIdLabels =
         "Ontology Testnet (Error)",
         "Heco Testnet",
         "Cronos Testnet",
+        "Moonbase",
+        "Celo Aflojores",
+        "Sokol",
       ]
     : ["Rinkeby", "BSC", "Polygon", "Mainnet", "Shiden", "Astar", "Fantom", "Avalanch C-Chain", "Harmony Testnet"];
 
@@ -70,6 +73,9 @@ export const chainIdValues =
         "5851",
         "256",
         "338",
+        "1287",
+        "44787",
+        "77",
       ] as ChainId[])
     : (["4", "56", "137", "1", "336", "592", "250", "43114", "1666700000"] as ChainId[]);
 
