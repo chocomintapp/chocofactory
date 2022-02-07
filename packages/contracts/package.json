@@ -38,7 +38,9 @@
     "deploy-contract-to-cronos_test": "hardhat run scripts/99_batchMigration.ts --network cronos_test",
     "deploy-contract-to-moonbase": "hardhat run scripts/99_batchMigration.ts --network moonbase",
     "deploy-contract-to-celo_alfajores": "hardhat run scripts/99_batchMigration.ts --network celo_alfajores",
-    "deploy-contract-to-sokol": "hardhat run scripts/99_batchMigration.ts --network sokol"
+    "deploy-contract-to-sokol": "hardhat run scripts/99_batchMigration.ts --network sokol",
+    "deploy-contract-to-bittorrent_donau": "hardhat run scripts/99_batchMigration.ts --network bittorrent_donau",
+    "deploy-contract-to-meter_test": "hardhat run scripts/99_batchMigration.ts --network meter_test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

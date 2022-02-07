@@ -134,6 +134,14 @@ module.exports = {
       url: network.sokol.rpc,
       accounts: [privateKey],
     },
+    bittorrent_donau: {
+      url: network.bittorrent_donau.rpc,
+      accounts: [privateKey],
+    },
+    meter_test: {
+      url: network.meter_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

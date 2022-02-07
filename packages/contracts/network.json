@@ -48,6 +48,13 @@
     "chocofactory": "0x007D2718D11e6E68D02cDD20F529C9eC2619b92a",
     "chocomold": "0x2c15dae42adE903d8dD6754CdC12c2baC89595de"
   },
+  "meter_test": {
+    "chainId": "83",
+    "rpc": "https://rpctest.meter.io",
+    "explore": "https://scan-warringstakes.meter.io/",
+    "chocofactory": "0xB2986152434A751bEDa6F840Aa0473f514545E51",
+    "chocomold": "0x8e1E0f9581580006E10383A19588ECE12ac15D1A"
+  },
   "bsc_test": {
     "chainId": "97",
     "rpc": "https://data-seed-prebsc-1-s1.binance.org:8545/",
@@ -110,6 +117,13 @@
     "explore": "https://astar.subscan.io/",
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "bittorrent_donau": {
+    "chainId": "1029",
+    "rpc": "https://pre-rpc.bt.io/",
+    "explore": "https://testscan.bt.io/",
+    "chocofactory": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445",
+    "chocomold": "0x5D012024139F3b76215C49131a5723bAD2B1Dd57"
   },
   "moonbase": {
     "chainId": "1287",
