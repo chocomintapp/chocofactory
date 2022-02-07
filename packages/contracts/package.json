@@ -32,7 +32,15 @@
     "deploy-contract-to-fantom": "hardhat run scripts/99_batchMigration.ts --network fantom",
     "deploy-contract-to-forge_test": "hardhat run scripts/99_batchMigration.ts --network forge_test",
     "deploy-contract-to-avalanch_c": "hardhat run scripts/99_batchMigration.ts --network avalanch_c",
-    "deploy-contract-to-harmony_test": "hardhat run scripts/99_batchMigration.ts --network harmony_test"
+    "deploy-contract-to-harmony_test": "hardhat run scripts/99_batchMigration.ts --network harmony_test",
+    "deploy-contract-to-ontology_test": "hardhat run scripts/99_batchMigration.ts --network ontology_test",
+    "deploy-contract-to-heco_test": "hardhat run scripts/99_batchMigration.ts --network heco_test",
+    "deploy-contract-to-cronos_test": "hardhat run scripts/99_batchMigration.ts --network cronos_test",
+    "deploy-contract-to-moonbase": "hardhat run scripts/99_batchMigration.ts --network moonbase",
+    "deploy-contract-to-celo_alfajores": "hardhat run scripts/99_batchMigration.ts --network celo_alfajores",
+    "deploy-contract-to-sokol": "hardhat run scripts/99_batchMigration.ts --network sokol",
+    "deploy-contract-to-bittorrent_donau": "hardhat run scripts/99_batchMigration.ts --network bittorrent_donau",
+    "deploy-contract-to-meter_test": "hardhat run scripts/99_batchMigration.ts --network meter_test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",
