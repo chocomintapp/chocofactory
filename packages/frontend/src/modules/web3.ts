@@ -45,7 +45,18 @@ export const chainIdLabels =
         "BitTorrent Chain Donau (Error)",
         "Meter Testnet",
       ]
-    : ["Rinkeby", "BSC", "Polygon", "Mainnet", "Shiden", "Astar", "Fantom", "Avalanch C-Chain", "Harmony Testnet"];
+    : [
+        "Rinkeby",
+        "BSC",
+        "Polygon",
+        "Mainnet",
+        "Shiden",
+        "Astar",
+        "Fantom",
+        "Avalanch C-Chain",
+        "Oasis Testnet",
+        "Metis Stardust",
+      ];
 
 export const chainIdValues =
   process.env.NODE_ENV == "development"
@@ -81,7 +92,7 @@ export const chainIdValues =
         "1029",
         "83",
       ] as ChainId[])
-    : (["4", "56", "137", "1", "336", "592", "250", "43114", "1666700000"] as ChainId[]);
+    : (["4", "56", "137", "1", "336", "592", "250", "43114", "42261", "588"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
