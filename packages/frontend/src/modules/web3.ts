@@ -44,6 +44,7 @@ export const chainIdLabels =
         "Sokol",
         "BitTorrent Chain Donau (Error)",
         "Meter Testnet",
+        "Aurora",
       ]
     : [
         "Rinkeby",
@@ -54,6 +55,7 @@ export const chainIdLabels =
         "Astar",
         "Fantom",
         "Avalanch C-Chain",
+        "Aurora",
         "Oasis Testnet",
         "Metis Stardust",
       ];
@@ -91,8 +93,9 @@ export const chainIdValues =
         "77",
         "1029",
         "83",
+        "1313161554",
       ] as ChainId[])
-    : (["4", "56", "137", "1", "336", "592", "250", "43114", "42261", "588"] as ChainId[]);
+    : (["4", "56", "137", "1", "336", "592", "250", "43114", "1313161554", "42261", "588"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
