@@ -142,6 +142,10 @@ module.exports = {
       url: network.meter_test.rpc,
       accounts: [privateKey],
     },
+    aurora: {
+      url: network.aurora.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

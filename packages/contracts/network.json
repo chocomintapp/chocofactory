@@ -188,6 +188,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "aurora": {
+    "chainId": "1313161554",
+    "rpc": "https://mainnet.aurora.dev",
+    "explore": "https://aurorascan.dev/",
+    "chocofactory": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445",
+    "chocomold": "0x5D012024139F3b76215C49131a5723bAD2B1Dd57"
+  },
   "aurora_test": {
     "chainId": "1313161555",
     "rpc": "https://testnet.aurora.dev/",
