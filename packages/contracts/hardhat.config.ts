@@ -146,6 +146,18 @@ module.exports = {
       url: network.aurora.rpc,
       accounts: [privateKey],
     },
+    telos_test: {
+      url: network.telos_test.rpc,
+      accounts: [privateKey],
+    },
+    klaytn_test: {
+      url: network.klaytn_test.rpc,
+      accounts: [privateKey],
+    },
+    velas_test: {
+      url: network.velas_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

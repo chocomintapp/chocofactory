@@ -35,7 +35,7 @@ export const chainIdLabels =
         "Fantom",
         "Forge Testnet",
         "Avalanch C-Chain",
-        "Harmony Testnet",
+        "Harmony Testnet (Error)",
         "Ontology Testnet (Error)",
         "Heco Testnet",
         "Cronos Testnet",
@@ -45,6 +45,9 @@ export const chainIdLabels =
         "BitTorrent Chain Donau (Error)",
         "Meter Testnet",
         "Aurora",
+        "Telos Testnet",
+        "Klaytn Testnet",
+        "Velas Testnet (Error)",
       ]
     : [
         "Rinkeby",
@@ -94,6 +97,9 @@ export const chainIdValues =
         "1029",
         "83",
         "1313161554",
+        "41",
+        "1001",
+        "111",
       ] as ChainId[])
     : (["4", "56", "137", "1", "336", "592", "250", "43114", "1313161554", "42261", "588"] as ChainId[]);
 

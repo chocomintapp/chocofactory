@@ -20,6 +20,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "telos_test": {
+    "chainId": "41",
+    "rpc": "https://testnet.telos.net/evm",
+    "explore": "https://telos.net/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "bsc": {
     "chainId": "56",
     "rpc": "https://bsc-dataseed.binance.org/",
@@ -61,6 +68,13 @@
     "explore": "https://testnet.bscscan.com/",
     "chocofactory": "0x7cD29C50908154DFB1B8320F3e39d2726F9ba0A2",
     "chocomold": "0xF3b854C226C72e99a251C285b5C67E343323A8c2"
+  },
+  "velas_test": {
+    "chainId": "111",
+    "rpc": "https://testnet.velas.com/rpc/",
+    "explore": "https://evmexplorer.testnet.velas.com",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
   "matic": {
     "chainId": "137",
@@ -117,6 +131,13 @@
     "explore": "https://astar.subscan.io/",
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "klaytn_test": {
+    "chainId": "1001",
+    "rpc": "https://api.baobab.klaytn.net:8651",
+    "explore": "https://baobab.scope.klaytn.com/",
+    "chocofactory": "0x72cc6e601975c3357c749e5e4e97e893f4deebca",
+    "chocomold": "0x54e99696bf0df5c712e52a61e467f3e165178cff"
   },
   "bittorrent_donau": {
     "chainId": "1029",
@@ -206,8 +227,8 @@
     "chainId": "1666700000",
     "rpc": "https://api.s0.b.hmny.io",
     "explore": "https://explorer.pops.one/",
-    "chocofactory": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445",
-    "chocomold": "0x5D012024139F3b76215C49131a5723bAD2B1Dd57"
+    "chocofactory": "0x5b1d1dd951a03d782e33b001271957eb13fcb175",
+    "chocomold": "0x774b5785b1acb3ac3f3f6c213a98195301a8aa0a"
   },
   "localhost": {
     "chainId": "31337",
