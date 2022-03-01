@@ -4,7 +4,7 @@ import { Container } from "../atoms/Container";
 import { Main } from "../atoms/Main";
 import { AuthGuard } from "../organisms/AuthGuard";
 import { CreateNFTContractForm } from "../organisms/CreateNFTContractForm";
-import { Footer } from "../organisms/Footer";
+import Footer from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 
 export const CreateNFTContractTemplate: React.FC = () => {

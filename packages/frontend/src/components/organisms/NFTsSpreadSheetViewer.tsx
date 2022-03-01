@@ -119,7 +119,7 @@ export const NFTsSpreadSheetViewer: React.FC<NFTsSpreadSheetViewerProps> = ({
         onClickConfirm: () => window.open(`${explore}tx/${hash}`),
         onClickDismiss: closeMessageModal,
       });
-    } catch (err: any) {
+    } catch (err) {
       closeLoadingOverlay();
       openNotificationToast({ type: "error", text: err.message });
     }
