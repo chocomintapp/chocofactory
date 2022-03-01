@@ -11,7 +11,7 @@ const features = Array(...Array(8)).map(function (x, i) {
   };
 });
 
-export default function Feature() {
+export const Feature: React.FC = () => {
   return (
     <Box p={4}>
       <Stack spacing={4} as={Container} maxW={"3xl"} textAlign={"center"}>
@@ -39,4 +39,4 @@ export default function Feature() {
       </Container>
     </Box>
   );
-}
+};

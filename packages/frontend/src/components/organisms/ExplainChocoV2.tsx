@@ -14,8 +14,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
+import { openWindow } from "../utils/hooks";
 
-export default function ExplainChocoV2() {
+export const ExplainChocoV2: React.FC = () => {
   return (
     <Container maxW={"7xl"}>
       <Stack
@@ -54,8 +55,8 @@ export default function ExplainChocoV2() {
             </Text>
           </Heading>
           <Text color={"gray.500"}>
-            Snippy is a rich coding snippets app that lets you create your own code snippets, categorize them, and even
-            sync them in the cloud so you can use them anywhere. All that is free!
+            The beta version of Chocomint V2, which supports Bulk Mint and Bulk Distribution, has been launched. Join us
+            as a test monitor!
           </Text>
           <Stack spacing={{ base: 4, sm: 6 }} direction={{ base: "column", sm: "row" }}>
             <Button
@@ -68,8 +69,9 @@ export default function ExplainChocoV2() {
               color={"#26CD97"}
               px={6}
               _hover={{ bg: "#26CD97" }}
+              onClick={() => openWindow("https://chocomint-deployer.vercel.app/")}
             >
-              Get early access
+              Get early access (β)
             </Button>
             <Button
               rounded={"full"}
@@ -77,6 +79,7 @@ export default function ExplainChocoV2() {
               fontWeight={"normal"}
               px={6}
               leftIcon={<PlayIcon h={4} w={4} color={"gray.300"} />}
+              onClick={() => openWindow("https://docs.chocomint.app/")}
             >
               Document
             </Button>
@@ -106,7 +109,7 @@ export default function ExplainChocoV2() {
       </Stack>
     </Container>
   );
-}
+};
 
 const PlayIcon = createIcon({
   displayName: "PlayIcon",

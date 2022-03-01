@@ -1,7 +1,7 @@
 import { Box, chakra, Container, Stack, Text, useColorModeValue, VisuallyHidden } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import React from "react";
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaTwitter, FaMedium, FaDiscord } from "react-icons/fa";
 
 const SocialButton = ({ children, label, href }: { children: ReactNode; label: string; href: string }) => {
   return (
@@ -27,7 +27,7 @@ const SocialButton = ({ children, label, href }: { children: ReactNode; label: s
   );
 };
 
-export default function Footer() {
+export const Footer: React.FC = () => {
   return (
     <Box bg={useColorModeValue("gray.50", "gray.900")} color={useColorModeValue("gray.700", "gray.200")}>
       <Container
@@ -39,19 +39,19 @@ export default function Footer() {
         justify={{ base: "center", md: "space-between" }}
         align={{ base: "center", md: "center" }}
       >
-        <Text>© 2020 Chakra Templates. All rights reserved</Text>
+        <Text>© 2022 BlockBase,Inc. All rights reserved</Text>
         <Stack direction={"row"} spacing={6}>
-          <SocialButton label={"Twitter"} href={"#"}>
+          <SocialButton label={"Twitter"} href={"https://twitter.com/chocomintapp"}>
             <FaTwitter />
           </SocialButton>
-          <SocialButton label={"YouTube"} href={"#"}>
-            <FaYoutube />
+          <SocialButton label={"Discord"} href={"https://discord.com/invite/UMcFBDfPa8"}>
+            <FaDiscord />
           </SocialButton>
-          <SocialButton label={"Instagram"} href={"#"}>
-            <FaInstagram />
+          <SocialButton label={"Medium"} href={"https://medium.com/@Chocomintapp"}>
+            <FaMedium />
           </SocialButton>
         </Stack>
       </Container>
     </Box>
   );
-}
+};

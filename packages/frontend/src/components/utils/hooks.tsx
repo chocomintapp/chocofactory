@@ -138,3 +138,7 @@ export const AtomsRootLoader: React.FC<AtomsRootProps> = ({ children }) => {
     </>
   );
 };
+
+export const openWindow = (link: string) => {
+  window.open(link);
+};
