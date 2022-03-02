@@ -103,7 +103,7 @@ export const ExplainChocoV2: React.FC = () => {
             width={"full"}
             overflow={"hidden"}
           >
-            <Image align={"center"} h={"100%"} src={"img/choco_v2.png"} />
+            <Image align={"center"} h={"100%"} src={"img/collective.png"} />
           </Box>
         </Flex>
       </Stack>
