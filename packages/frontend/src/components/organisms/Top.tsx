@@ -43,10 +43,8 @@ export const Top: React.FC = () => {
             <Link to="/mypage" onClick={onClickMypage}>
               <Button
                 color={"#26CD97"}
-                //   colorScheme={"green"}
                 bg={"white"}
                 rounded={"full"}
-                //   px={6}
                 _hover={{
                   bg: "white",
                   opacity: 0.75,

@@ -53,6 +53,8 @@ export const Total: React.FC<TotalTemplateProps> = ({ nftContractList, contractC
           );
         })}
       </SimpleGrid>
+
+      {/* NFT Contract List */}
       {/* <Container type="wide">
         <NFTsInfoViewer nftContractList={nftContractList} />
       </Container> */}
