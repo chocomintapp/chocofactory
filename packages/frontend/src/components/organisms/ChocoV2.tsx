@@ -121,7 +121,7 @@ export const ChocoV2: React.FC = () => {
             width={"full"}
             overflow={"hidden"}
           >
-            <Image align={"center"} h={"100%"} src={"img/collective.png"} />
+            <Image align={"center"} src={"img/bayc.png"} />
           </Box>
         </Flex>
       </Stack>
