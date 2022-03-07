@@ -8,17 +8,37 @@ import {
   Button,
   Image,
   Icon,
-  IconButton,
   createIcon,
   IconProps,
   useColorModeValue,
+  Divider,
+  Grid,
+  GridItem,
+  chakra,
 } from "@chakra-ui/react";
+import {} from "@chakra-ui/react";
 import React from "react";
 import { openWindow } from "../utils/hooks";
 
-export const ExplainChocoV2: React.FC = () => {
+interface FeatureProps {
+  heading: string;
+  text: string;
+}
+
+const Feature = ({ heading, text }: FeatureProps) => {
   return (
-    <Container maxW={"7xl"}>
+    <GridItem>
+      <chakra.h3 fontSize="xl" fontWeight="600">
+        {heading}
+      </chakra.h3>
+      <chakra.p>{text}</chakra.p>
+    </GridItem>
+  );
+};
+
+export const ChocoV2: React.FC = () => {
+  return (
+    <Container maxW={"7xl"} mb={10}>
       <Stack
         align={"center"}
         spacing={{ base: 8, md: 10 }}
@@ -37,21 +57,21 @@ export const ExplainChocoV2: React.FC = () => {
                 position: "absolute",
                 bottom: 1,
                 left: 0,
-                bg: "#26CD97",
+                bg: "#B4FDE9",
                 zIndex: -1,
               }}
               textShadow={"1px 1px #696969"}
             >
-              Mint a lot of NFTs
+              Advanced features
             </Text>
             <br />
             <Text
               as={"span"}
               color={"#26CD97"}
-              fontSize={{ base: "4xl", sm: "6xl", lg: "8xl" }}
+              fontSize={{ base: "1xl", sm: "3xl", lg: "6xl" }}
               textShadow={"1px 1px #696969"}
             >
-              at once!
+              Chocomint V2
             </Text>
           </Heading>
           <Text color={"gray.500"}>
@@ -63,12 +83,10 @@ export const ExplainChocoV2: React.FC = () => {
               rounded={"full"}
               size={"lg"}
               fontWeight={"bold"}
-              bg={"white"}
-              border={"2px"}
-              borderColor={"#26CD97"}
-              color={"#26CD97"}
+              bg={"#008080"}
+              color={"white"}
               px={6}
-              _hover={{ bg: "#26CD97" }}
+              _hover={{ opacity: 0.5 }}
               onClick={() => openWindow("https://chocomint-deployer.vercel.app/")}
             >
               Get early access (β)
@@ -107,6 +125,25 @@ export const ExplainChocoV2: React.FC = () => {
           </Box>
         </Flex>
       </Stack>
+      <Divider mb={12} />
+      <Grid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(5, 1fr)",
+        }}
+        gap={{ base: "8", sm: "12", md: "16" }}
+      >
+        <Feature heading={"ERC2981 Royalty standard"} text={"Support for royalty formats in various marketplaces."} />
+        <Feature heading={"Bulk Mint"} text={"Can mint a large number of NFTs at once."} />
+        <Feature heading={"Easy to Airdrop"} text={"Short text describing one of you features/service"} />
+        <Feature
+          heading={"Can whitelist"}
+          text={"It is possible to create the NFTs that only whitelisted addresses can be claimed."}
+        />
+        <Feature heading={"Lazy Mint"} text={"It is possible to have the minted person pay for the gas."} />
+      </Grid>
+      <Divider mt={12} />
     </Container>
   );
 };

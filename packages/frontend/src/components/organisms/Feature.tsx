@@ -1,42 +1,23 @@
-import { CheckIcon } from "@chakra-ui/icons";
-import { Box, Container, Heading, SimpleGrid, Icon, Text, Stack, HStack, VStack } from "@chakra-ui/react";
-import React from "react";
+import { Box, Stack, Text, useColorModeValue as mode } from "@chakra-ui/react";
+import * as React from "react";
 
-// Replace test data with your own
-const features = Array(...Array(8)).map(function (x, i) {
-  return {
-    id: i,
-    title: "Lorem ipsum dolor sit amet",
-    text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.",
-  };
-});
+interface FeatureProps {
+  title: string;
+  children: React.ReactNode;
+  icon: React.ReactElement;
+}
 
-export const Feature: React.FC = () => {
+export const Feature = (props: FeatureProps) => {
+  const { title, children, icon } = props;
   return (
-    <Box p={4}>
-      <Stack spacing={4} as={Container} maxW={"3xl"} textAlign={"center"}>
-        <Heading fontSize={"3xl"}>This is the headline</Heading>
-        <Text color={"gray.600"} fontSize={"xl"}>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua.
+    <Stack spacing={{ base: "3", md: "6" }} direction={{ base: "column", md: "row" }}>
+      <Box fontSize="6xl">{icon}</Box>
+      <Stack spacing="1">
+        <Text fontWeight="extrabold" fontSize="lg">
+          {title}
         </Text>
+        <Box color={mode("gray.600", "gray.400")}>{children}</Box>
       </Stack>
-
-      <Container maxW={"6xl"} mt={10}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
-          {features.map((feature) => (
-            <HStack key={feature.id} align={"top"}>
-              <Box color={"green.400"} px={2}>
-                <Icon as={CheckIcon} />
-              </Box>
-              <VStack align={"start"}>
-                <Text fontWeight={600}>{feature.title}</Text>
-                <Text color={"gray.600"}>{feature.text}</Text>
-              </VStack>
-            </HStack>
-          ))}
-        </SimpleGrid>
-      </Container>
-    </Box>
+    </Stack>
   );
 };

@@ -16,7 +16,7 @@ export const Top: React.FC = () => {
     <Flex
       w={"full"}
       h={"100vh"}
-      backgroundImage={"img/creyon.jpeg"}
+      backgroundImage={"img/back3.png"}
       backgroundSize={"cover"}
       backgroundPosition={"center center"}
     >
@@ -24,11 +24,11 @@ export const Top: React.FC = () => {
         w={"full"}
         justify={"center"}
         px={useBreakpointValue({ base: 4, md: 8 })}
-        bgGradient={"linear(blackAlpha.400, transparent)"}
+        // bgGradient={"linear(blackAlpha.400, transparent)"}
       >
         <Stack as={Box} textAlign={"center"} spacing={{ base: 8, md: 14 }} py={{ base: 20, md: 36 }}>
           <Heading
-            color="white"
+            color="black"
             fontWeight={600}
             fontSize={{ base: "4xl", sm: "4xl", md: "8xl" }}
             lineHeight={"110%"}
@@ -36,25 +36,24 @@ export const Top: React.FC = () => {
           >
             Mint your NFTs!!
           </Heading>
-          <Text color={"white"} fontWeight="bold" fontSize={"2xl"} textShadow={"#26CD97 1px 0 10px"}>
+          <Text color={"black"} fontWeight="bold" fontSize={"2xl"} textShadow={"#26CD97 1px 0 10px"}>
             Create your own NFTs with the world&apos;s most decentralized NFT minting system!
           </Text>
           <Stack direction={"column"} spacing={3} align={"center"} alignSelf={"center"} position={"relative"}>
             <Link to="/mypage" onClick={onClickMypage}>
               <Button
-                color={"#26CD97"}
-                bg={"white"}
+                color={"white"}
+                bg={"#008080"}
                 rounded={"full"}
                 _hover={{
-                  bg: "white",
-                  opacity: 0.75,
+                  opacity: 0.5,
                 }}
                 _focus={{ _focus: "none" }}
                 size="lg"
                 shadow={"2xl"}
                 textShadow={"0.2px 0.2px #000000"}
-                border={"2px"}
-                borderColor={"26CD97"}
+                // border={"2px"}
+                // borderColor={"white"}
               >
                 Launch App
               </Button>

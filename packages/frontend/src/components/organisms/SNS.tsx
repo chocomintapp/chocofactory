@@ -4,13 +4,7 @@ import { openWindow } from "../utils/hooks";
 
 export const SNS: React.FC = () => {
   return (
-    <Flex
-      w={"full"}
-      h={"100vh"}
-      backgroundImage={"img/black.jpeg"}
-      backgroundSize={"cover"}
-      backgroundPosition={"center center"}
-    >
+    <Flex background={"black"}>
       <VStack
         w={"full"}
         justify={"center"}
@@ -26,7 +20,7 @@ export const SNS: React.FC = () => {
             textShadow={"1px 1px #696969"}
           >
             Let&apos;s be a{" "}
-            <Text as={"span"} color={"#4FF792"} textShadow={"1px 1px #696969"}>
+            <Text as={"span"} color={"#B4FDE9"} textShadow={"1px 1px #696969"}>
               Chocominter
             </Text>
           </Heading>
@@ -38,10 +32,10 @@ export const SNS: React.FC = () => {
               rounded={"full"}
               px={20}
               w={60}
-              color="#4FF792"
+              color="#B4FDE9"
               fontWeight={"bold"}
               border="2px"
-              borderColor="#4FF792"
+              borderColor="#B4FDE9"
               bg={"black"}
               size="lg"
               _hover={{ bg: "white" }}
@@ -53,9 +47,9 @@ export const SNS: React.FC = () => {
               rounded={"full"}
               px={20}
               w={60}
-              color="#4FF792"
+              color="#B4FDE9"
               border="2px"
-              borderColor="#4FF792"
+              borderColor="#B4FDE9"
               bg={"black"}
               size="lg"
               _hover={{ bg: "white" }}
@@ -69,9 +63,9 @@ export const SNS: React.FC = () => {
               rounded={"full"}
               px={20}
               w={60}
-              color="#4FF792"
+              color="#B4FDE9"
               border="2px"
-              borderColor="#4FF792"
+              borderColor="#B4FDE9"
               bg={"black"}
               size="lg"
               _hover={{ bg: "white" }}
@@ -83,9 +77,9 @@ export const SNS: React.FC = () => {
               rounded={"full"}
               px={20}
               w={60}
-              color="#4FF792"
+              color="#B4FDE9"
               border="2px"
-              borderColor="#4FF792"
+              borderColor="#B4FDE9"
               bg={"black"}
               size="lg"
               _hover={{ bg: "white" }}
@@ -99,9 +93,9 @@ export const SNS: React.FC = () => {
               rounded={"full"}
               px={20}
               w={60}
-              color="#4FF792"
+              color="#B4FDE9"
               border="2px"
-              borderColor="#4FF792"
+              borderColor="#B4FDE9"
               bg={"black"}
               size="lg"
               _hover={{ bg: "white" }}
@@ -113,9 +107,9 @@ export const SNS: React.FC = () => {
               rounded={"full"}
               px={20}
               w={60}
-              color="#4FF792"
+              color="#B4FDE9"
               border="2px"
-              borderColor="#4FF792"
+              borderColor="#B4FDE9"
               bg={"black"}
               size="lg"
               _hover={{ bg: "white" }}

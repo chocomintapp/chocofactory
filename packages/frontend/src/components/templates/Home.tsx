@@ -1,8 +1,8 @@
 import React from "react";
 import { NFTContract, ContractCountsForChainId } from "../../types";
 import { Main } from "../atoms/Main";
-import { About } from "../organisms/About";
-import { ExplainChocoV2 } from "../organisms/ExplainChocoV2";
+import { ChocoV1 } from "../organisms/ChocoV1";
+import { ChocoV2 } from "../organisms/ChocoV2";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 import { Multichain } from "../organisms/Multichain";
@@ -20,10 +20,10 @@ export const HomeTemplate: React.FC<HomeTemplateProps> = ({ nftContractList, con
     <Main>
       <Header />
       <Top />
+      <ChocoV1 />
       <Total nftContractList={nftContractList} contractCountsForChainId={contractCountsForChainId} />
-      <About />
-      <ExplainChocoV2 />
       <Multichain />
+      <ChocoV2 />
       <SNS />
       <Footer />
     </Main>

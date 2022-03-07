@@ -2,8 +2,6 @@ import { Box, chakra, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue
 import React from "react";
 import { getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract, ContractCountsForChainId } from "../../types";
-import { Container } from "../atoms/Container";
-import { NFTsInfoViewer } from "../organisms/NFTsInfoViewer";
 
 interface StatsCardProps {
   title: string;
@@ -46,11 +44,15 @@ export const Total: React.FC<TotalTemplateProps> = ({ nftContractList, contractC
       </chakra.h1>
       <SimpleGrid columns={{ base: 1, md: 5 }} spacing={{ base: 5, lg: 8 }}>
         {contractCountsForChainId.map((counts, i) => {
-          return (
-            <h3 key={i} className="text-center text-gray-600 font-bold m-4">
-              <StatsCard title={getNetworkNameFromChainId(counts.chainId)} stat={counts.count.toString()} />
-            </h3>
-          );
+          {
+            if (counts.count > 100) {
+              return (
+                <h3 key={i} className="text-center text-gray-600 font-bold m-4">
+                  <StatsCard title={getNetworkNameFromChainId(counts.chainId)} stat={counts.count.toString()} />
+                </h3>
+              );
+            }
+          }
         })}
       </SimpleGrid>
 
