@@ -44,7 +44,8 @@
     "deploy-contract-to-meter_test": "hardhat run scripts/99_batchMigration.ts --network meter_test",
     "deploy-contract-to-telos_test": "hardhat run scripts/99_batchMigration.ts --network telos_test",
     "deploy-contract-to-klaytn_test": "hardhat run scripts/99_batchMigration.ts --network klaytn_test",
-    "deploy-contract-to-velas_test": "hardhat run scripts/99_batchMigration.ts --network velas_test"
+    "deploy-contract-to-velas_test": "hardhat run scripts/99_batchMigration.ts --network velas_test",
+    "deploy-contract-to-arbitrum": "hardhat run scripts/99_batchMigration.ts --network arbitrum"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

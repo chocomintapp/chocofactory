@@ -167,6 +167,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "arbitrum": {
+    "chainId": "42161",
+    "rpc": "https://arb1.arbitrum.io/rpc",
+    "explore": "https://arbiscan.io/",
+    "chocofactory": "0xEE064652655FA40E8e455a2004Fd6C75a8E750Eb",
+    "chocomold": "0xdeEdd6efe1fd203270952b1305E9485eE66D06Fb"
+  },
   "oasis_testnet": {
     "chainId": "42261",
     "rpc": "https://testnet.emerald.oasis.dev",

@@ -158,6 +158,10 @@ module.exports = {
       url: network.velas_test.rpc,
       accounts: [privateKey],
     },
+    arbitrum: {
+      url: network.arbitrum.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

@@ -48,6 +48,7 @@ export const chainIdLabels =
         "Telos Testnet",
         "Klaytn Testnet",
         "Velas Testnet (Error)",
+        "Arbitrum One",
       ]
     : [
         "Rinkeby",
@@ -59,8 +60,8 @@ export const chainIdLabels =
         "Fantom",
         "Avalanch C-Chain",
         "Aurora",
-        "Oasis Testnet",
         "Metis Stardust",
+        "Arbitrum One",
       ];
 
 export const chainIdValues =
@@ -100,8 +101,9 @@ export const chainIdValues =
         "41",
         "1001",
         "111",
+        "42161",
       ] as ChainId[])
-    : (["4", "56", "137", "1", "336", "592", "250", "43114", "1313161554", "42261", "588"] as ChainId[]);
+    : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "588", "42161"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
