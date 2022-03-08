@@ -60,8 +60,8 @@ export const chainIdLabels =
         "Fantom",
         "Avalanch C-Chain",
         "Aurora",
-        "Metis Stardust",
         "Arbitrum One",
+        "Metis Stardust",
       ];
 
 export const chainIdValues =
@@ -103,7 +103,7 @@ export const chainIdValues =
         "111",
         "42161",
       ] as ChainId[])
-    : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "588", "42161"] as ChainId[]);
+    : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "42161", "588"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
