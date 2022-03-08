@@ -23,7 +23,8 @@ export const HomeTemplate: React.FC<HomeTemplateProps> = ({ nftContractList, con
       <Top />
       <ChocoV1 />
       <Total nftContractList={nftContractList} contractCountsForChainId={contractCountsForChainId} />
-      <SampleNFTs />
+      {/* TODO: Add sample NFTs */}
+      {/* <SampleNFTs /> */}
       <Multichain />
       <ChocoV2 />
       <SNS />
