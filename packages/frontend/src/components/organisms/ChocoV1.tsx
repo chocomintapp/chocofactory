@@ -6,7 +6,7 @@ import { Feature } from "./Feature";
 
 export const ChocoV1 = () => (
   <VStack mt={"50px"}>
-    <Heading>What is Chocomint ?</Heading>
+    <Heading fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}>What is Chocomint ?</Heading>
     <Text color={"gray.500"} fontSize={"lg"}>
       Chocomint is a decentralized multi-chains NFT protocol.
     </Text>

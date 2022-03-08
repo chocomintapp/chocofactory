@@ -7,6 +7,7 @@ import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 import { Multichain } from "../organisms/Multichain";
 import { SNS } from "../organisms/SNS";
+import { SampleNFTs } from "../organisms/SampleNFTs";
 import { Top } from "../organisms/Top";
 import { Total } from "../organisms/Total";
 
@@ -22,6 +23,7 @@ export const HomeTemplate: React.FC<HomeTemplateProps> = ({ nftContractList, con
       <Top />
       <ChocoV1 />
       <Total nftContractList={nftContractList} contractCountsForChainId={contractCountsForChainId} />
+      <SampleNFTs />
       <Multichain />
       <ChocoV2 />
       <SNS />

@@ -1,4 +1,4 @@
-import { Box, chakra, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue } from "@chakra-ui/react";
+import { Box, chakra, SimpleGrid, Stat, StatLabel, StatNumber } from "@chakra-ui/react";
 import React from "react";
 import { getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract, ContractCountsForChainId } from "../../types";
@@ -24,7 +24,7 @@ function StatsCard(props: StatsCardProps) {
       borderColor={"#26CD97"}
       rounded={"lg"}
       background={"white"}
-      color="#26CD97"
+      color="#black"
     >
       <StatLabel fontWeight={"medium"} isTruncated>
         {title}
@@ -38,14 +38,20 @@ function StatsCard(props: StatsCardProps) {
 
 export const Total: React.FC<TotalTemplateProps> = ({ nftContractList, contractCountsForChainId }) => {
   return (
-    <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
-      <chakra.h1 textAlign={"center"} fontSize={"4xl"} py={10} fontWeight={"bold"}>
-        Total Projects Created
+    <Box maxW="8xl" p={5} px={{ base: 2, sm: 12, md: 17 }}>
+      <chakra.h1
+        textAlign={"center"}
+        fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+        py={10}
+        fontWeight={"bold"}
+        color={"#black"}
+      >
+        Created Projects
       </chakra.h1>
       <SimpleGrid columns={{ base: 1, md: 5 }} spacing={{ base: 5, lg: 8 }}>
         {contractCountsForChainId.map((counts, i) => {
           {
-            if (counts.count > 100) {
+            if (i < 5) {
               return (
                 <h3 key={i} className="text-center text-gray-600 font-bold m-4">
                   <StatsCard title={getNetworkNameFromChainId(counts.chainId)} stat={counts.count.toString()} />
