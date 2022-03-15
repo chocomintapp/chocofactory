@@ -162,6 +162,10 @@ module.exports = {
       url: network.arbitrum.rpc,
       accounts: [privateKey],
     },
+    intmedium: {
+      url: network.intmedium.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
