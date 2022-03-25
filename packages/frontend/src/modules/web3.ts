@@ -49,7 +49,8 @@ export const chainIdLabels =
         "Klaytn Testnet",
         "Velas Testnet (Error)",
         "Arbitrum One",
-        "IntMedium",
+        "Lappsnet",
+        "Evmos Testnet",
       ]
     : [
         "Rinkeby",
@@ -63,7 +64,7 @@ export const chainIdLabels =
         "Aurora",
         "Arbitrum One",
         "Metis Stardust",
-        "IntMedium",
+        "Lappsnet",
       ];
 
 export const chainIdValues =
@@ -105,6 +106,7 @@ export const chainIdValues =
         "111",
         "42161",
         "2780",
+        "9000",
       ] as ChainId[])
     : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "42161", "588", "2780"] as ChainId[]);
 

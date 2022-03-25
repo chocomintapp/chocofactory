@@ -46,7 +46,8 @@
     "deploy-contract-to-klaytn_test": "hardhat run scripts/99_batchMigration.ts --network klaytn_test",
     "deploy-contract-to-velas_test": "hardhat run scripts/99_batchMigration.ts --network velas_test",
     "deploy-contract-to-arbitrum": "hardhat run scripts/99_batchMigration.ts --network arbitrum",
-    "deploy-contract-to-intmedium": "hardhat run scripts/99_batchMigration.ts --network intmedium"
+    "deploy-contract-to-lappsnet": "hardhat run scripts/99_batchMigration.ts --network lappsnet",
+    "deploy-contract-to-evmos_test": "hardhat run scripts/99_batchMigration.ts --network evmos_test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

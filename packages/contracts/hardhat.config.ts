@@ -162,8 +162,12 @@ module.exports = {
       url: network.arbitrum.rpc,
       accounts: [privateKey],
     },
-    intmedium: {
-      url: network.intmedium.rpc,
+    lappsnet: {
+      url: network.lappsnet.rpc,
+      accounts: [privateKey],
+    },
+    evmos_test: {
+      url: network.lappsnet.rpc,
       accounts: [privateKey],
     },
   },
