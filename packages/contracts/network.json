@@ -153,10 +153,10 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
-  "intmedium": {
+  "lappsnet": {
     "chainId": "2780",
-    "rpc": "https://rpc.intmedium.xyz/",
-    "explore": "https://explorer.intmedium.xyz/",
+    "rpc": "https://rpc.lappsnet.io/",
+    "explore": "https://explorer.lappsnet.io/",
     "chocofactory": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445",
     "chocomold": "0x5D012024139F3b76215C49131a5723bAD2B1Dd57"
   },
@@ -173,6 +173,13 @@
     "explore": "https://explorer.ont.io/testnet/",
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "evmos_test": {
+    "chainId": "9000",
+    "rpc": "https://eth.bd.evmos.dev:8545/",
+    "explore": "https://testnet.evmos.bigdipper.live/",
+    "chocofactory": "0x803605FEdf6E80d40e39A7EA0EAf2ED801e67A34",
+    "chocomold": "0xda371C102f58745A662DE736D659f5F5cc75BF2f"
   },
   "arbitrum": {
     "chainId": "42161",
