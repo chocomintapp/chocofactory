@@ -51,7 +51,7 @@ export const Total: React.FC<TotalTemplateProps> = ({ nftContractList, contractC
       <SimpleGrid columns={{ base: 1, md: 5 }} spacing={{ base: 5, lg: 8 }}>
         {contractCountsForChainId.map((counts, i) => {
           {
-            if (i < 5) {
+            if (counts.count > 100) {
               return (
                 <h3 key={i} className="text-center text-gray-600 font-bold m-4">
                   <StatsCard title={getNetworkNameFromChainId(counts.chainId)} stat={counts.count.toString()} />
