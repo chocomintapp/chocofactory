@@ -1,12 +1,15 @@
 import React from "react";
-import { getNetworkNameFromChainId } from "../../modules/web3";
 import { NFTContract, ContractCountsForChainId } from "../../types";
-import { Container } from "../atoms/Container";
 import { Main } from "../atoms/Main";
+import { ChocoV1 } from "../organisms/ChocoV1";
+import { ChocoV2 } from "../organisms/ChocoV2";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
-import { Hero } from "../organisms/Hero";
-import { NFTsInfoViewer } from "../organisms/NFTsInfoViewer";
+import { Multichain } from "../organisms/Multichain";
+import { SNS } from "../organisms/SNS";
+import { SampleNFTs } from "../organisms/SampleNFTs";
+import { Top } from "../organisms/Top";
+import { Total } from "../organisms/Total";
 
 export interface HomeTemplateProps {
   nftContractList: NFTContract[];
@@ -17,20 +20,14 @@ export const HomeTemplate: React.FC<HomeTemplateProps> = ({ nftContractList, con
   return (
     <Main>
       <Header />
-      <Hero />
-      <h2 className="text-center text-gray-600 text-2xl font-bold mt-12">Total Projects Created</h2>
-      <div className="flex justify-center mb-4">
-        {contractCountsForChainId.map((counts, i) => {
-          return (
-            <h3 key={i} className="text-center text-gray-600 font-bold m-4">
-              {getNetworkNameFromChainId(counts.chainId)}: {counts.count}
-            </h3>
-          );
-        })}
-      </div>
-      <Container type="wide">
-        <NFTsInfoViewer nftContractList={nftContractList} />
-      </Container>
+      <Top />
+      <ChocoV1 />
+      <Total nftContractList={nftContractList} contractCountsForChainId={contractCountsForChainId} />
+      {/* TODO: Add sample NFTs */}
+      {/* <SampleNFTs /> */}
+      <Multichain />
+      <ChocoV2 />
+      <SNS />
       <Footer />
     </Main>
   );
