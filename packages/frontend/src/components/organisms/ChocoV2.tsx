@@ -97,7 +97,9 @@ export const ChocoV2: React.FC = () => {
               fontWeight={"normal"}
               px={6}
               leftIcon={<PlayIcon h={4} w={4} color={"gray.300"} />}
-              onClick={() => openWindow("https://docs.chocomint.app/")}
+              onClick={() =>
+                openWindow("https://blockbase.notion.site/Chocomint-Delivery-Document-13edf24596cd4923a2d4b7a6d7dc795f")
+              }
             >
               Document
             </Button>
