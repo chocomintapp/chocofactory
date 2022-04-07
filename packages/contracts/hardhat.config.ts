@@ -167,7 +167,19 @@ module.exports = {
       accounts: [privateKey],
     },
     evmos_test: {
-      url: network.lappsnet.rpc,
+      url: network.evmos_test.rpc,
+      accounts: [privateKey],
+    },
+    gu_sandbox: {
+      url: network.gu_sandbox.rpc,
+      accounts: [privateKey],
+    },
+    hsc: {
+      url: network.hsc.rpc,
+      accounts: [privateKey],
+    },
+    fuse: {
+      url: network.fuse.rpc,
       accounts: [privateKey],
     },
   },

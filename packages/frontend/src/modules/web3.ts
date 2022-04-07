@@ -51,6 +51,9 @@ export const chainIdLabels =
         "Arbitrum One",
         "Lappsnet",
         "Evmos Testnet",
+        "G.U Sandbox",
+        "Hoo Smart Chain",
+        "Fuse",
       ]
     : [
         "Rinkeby",
@@ -107,6 +110,9 @@ export const chainIdValues =
         "42161",
         "2780",
         "9000",
+        "99999",
+        "70",
+        "122",
       ] as ChainId[])
     : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "42161", "588", "2780"] as ChainId[]);
 
