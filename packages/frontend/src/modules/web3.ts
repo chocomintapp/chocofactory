@@ -54,6 +54,7 @@ export const chainIdLabels =
         "G.U Sandbox",
         "Hoo Smart Chain",
         "Fuse",
+        "Evmos Testnet",
       ]
     : [
         "Rinkeby",
@@ -68,6 +69,7 @@ export const chainIdLabels =
         "Arbitrum One",
         "Metis Stardust",
         "Lappsnet",
+        "Fuse",
       ];
 
 export const chainIdValues =
@@ -113,8 +115,9 @@ export const chainIdValues =
         "99999",
         "70",
         "122",
+        "9000",
       ] as ChainId[])
-    : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "42161", "588", "2780"] as ChainId[]);
+    : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "42161", "588", "2780", "122"] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
