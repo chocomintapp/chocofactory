@@ -19,11 +19,11 @@ export const ChocoV1 = () => (
           The NFT can be created with a small gas fee due to the high gas efficiency of the contract with the proxy
           pattern.
         </Feature>
-        <Feature title="No skills requied" icon={<FcNoIdea />}>
+        <Feature title="No skills required" icon={<FcNoIdea />}>
           Even if you don&apos;t have a programming skill, you can create the NFTs easily.
         </Feature>
         <Feature title="Support multi-chain" icon={<GiMeshNetwork />}>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.
+          Chocomint will support multi-chain so that users can enjoy NFT with their favorite chains.
         </Feature>
       </SimpleGrid>
     </Box>

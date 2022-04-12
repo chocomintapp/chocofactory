@@ -181,6 +181,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "iotex_test": {
+    "chainId": "4690",
+    "rpc": "https://babel-api.testnet.iotex.io",
+    "explore": "https://testnet.iotexscan.io/",
+    "chocofactory": "0x54E99696bF0Df5c712e52A61e467F3e165178cff",
+    "chocomold": "0xE6b9b3D79C85dcC038eA81A8Fc420bbd34C75445"
+  },
   "ontology_test": {
     "chainId": "5851",
     "rpc": "https://polaris3.ont.io:20339",
