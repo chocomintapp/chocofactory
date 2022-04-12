@@ -50,7 +50,8 @@
     "deploy-contract-to-evmos_test": "hardhat run scripts/99_batchMigration.ts --network evmos_test",
     "deploy-contract-to-gu_sandbox": "hardhat run scripts/99_batchMigration.ts --network gu_sandbox",
     "deploy-contract-to-hsc": "hardhat run scripts/99_batchMigration.ts --network hsc",
-    "deploy-contract-to-fuse": "hardhat run scripts/99_batchMigration.ts --network fuse"
+    "deploy-contract-to-fuse": "hardhat run scripts/99_batchMigration.ts --network fuse",
+    "deploy-contract-to-iotex_test": "hardhat run scripts/99_batchMigration.ts --network iotex_test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

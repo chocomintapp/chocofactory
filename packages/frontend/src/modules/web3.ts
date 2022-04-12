@@ -54,7 +54,8 @@ export const chainIdLabels =
         "G.U Sandbox",
         "Hoo Smart Chain",
         "Fuse",
-        "Evmos Testnet",
+        "Evmos Testnet (Error)",
+        "IoTeX Testnet",
       ]
     : [
         "Rinkeby",
@@ -116,6 +117,7 @@ export const chainIdValues =
         "70",
         "122",
         "9000",
+        "4690",
       ] as ChainId[])
     : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "42161", "588", "2780", "122"] as ChainId[]);
 

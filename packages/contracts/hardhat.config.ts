@@ -182,6 +182,10 @@ module.exports = {
       url: network.fuse.rpc,
       accounts: [privateKey],
     },
+    iotex_test: {
+      url: network.iotex_test.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
