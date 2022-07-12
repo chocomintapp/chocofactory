@@ -1,8 +1,10 @@
 {
   "1": "mainnet",
   "4": "rinkeby",
+  "5": "goerli",
   "28": "boba_rinkeby",
   "41": "telos_test",
+  "42": "kovan",
   "56": "bsc",
   "69": "optimistic_kovan",
   "70": "hsc",

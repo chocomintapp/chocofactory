@@ -56,6 +56,8 @@ export const chainIdLabels =
         "Fuse",
         "Evmos Testnet (Error)",
         "IoTeX Testnet",
+        "Kovan",
+        "Goerli",
       ]
     : [
         "Rinkeby",
@@ -71,6 +73,9 @@ export const chainIdLabels =
         "Metis Stardust",
         "Lappsnet",
         "Fuse",
+        "Hoo Smart Chain",
+        "Kovan",
+        "Goerli",
       ];
 
 export const chainIdValues =
@@ -118,8 +123,27 @@ export const chainIdValues =
         "122",
         "9000",
         "4690",
+        "42",
+        "5",
       ] as ChainId[])
-    : (["4", "56", "137", "1", "336", "592", "250", "1313161554", "42261", "42161", "588", "2780", "122"] as ChainId[]);
+    : ([
+        "4",
+        "56",
+        "137",
+        "1",
+        "336",
+        "592",
+        "250",
+        "43114",
+        "1313161554",
+        "42161",
+        "588",
+        "2780",
+        "122",
+        "70",
+        "42",
+        "5",
+      ] as ChainId[]);
 
 export const providerOptions = {
   walletconnect: {
