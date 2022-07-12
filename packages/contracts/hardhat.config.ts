@@ -186,6 +186,14 @@ module.exports = {
       url: network.iotex_test.rpc,
       accounts: [privateKey],
     },
+    kovan: {
+      url: network.kovan.rpc,
+      accounts: [privateKey],
+    },
+    goerli: {
+      url: network.goerli.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
