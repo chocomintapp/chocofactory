@@ -1,4 +1,4 @@
-import { Heading, Box, Stack, Button, Text, LightMode } from "@chakra-ui/react";
+import { Heading, Box, Stack, Button, Text, LightMode, Link } from "@chakra-ui/react";
 import React from "react";
 import { analytics } from "../../modules/firebase";
 
@@ -32,9 +32,11 @@ export const Top: React.FC = () => {
 
         <Stack justify="center" direction={{ base: "column", md: "row" }} mt="10" mb="20" spacing="4">
           <LightMode>
-            <Button onClick={onClickMypage} size="lg" colorScheme="blue" px="8" fontWeight="bold" fontSize="md">
-              Get started
-            </Button>
+            <Link href="/mypage">
+              <Button onClick={onClickMypage} size="lg" px="8" colorScheme="blue" fontWeight="bold" fontSize="md">
+                Get started
+              </Button>
+            </Link>
           </LightMode>
         </Stack>
       </Box>

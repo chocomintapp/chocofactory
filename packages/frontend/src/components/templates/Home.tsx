@@ -5,6 +5,7 @@ import { ChocoV1 } from "../organisms/ChocoV1";
 import { ChocoV2 } from "../organisms/ChocoV2";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
+import { Resources } from "../organisms/Resources";
 import { SampleNFTs } from "../organisms/SampleNFTs";
 import { Stats } from "../organisms/Stats";
 import { SupportedChains } from "../organisms/SupportedChains";
@@ -26,6 +27,7 @@ export const HomeTemplate: React.FC<HomeTemplateProps> = () => {
       {/* <SampleNFTs /> */}
       <SupportedChains />
       <ChocoV2 />
+      <Resources />
       <Footer />
     </Main>
   );
