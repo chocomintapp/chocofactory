@@ -37,7 +37,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
 
   const openAddressExplore = (chainId: string, address: string) => {
     const { explore } = getContractsForChainId(chainId);
-    window.open(`${explore}address/${address}`);
+    window.open(`${explore}/address/${address}`);
   };
 
   const deployNFTContract = async () => {
@@ -80,7 +80,7 @@ export const Contract: React.FC<ContractProps> = ({ nftContract, metadataList, d
         icon: confirmIcon,
         messageText: "Transaction submitted!",
         buttonText: "Check",
-        onClickConfirm: () => window.open(`${explore}tx/${hash}`),
+        onClickConfirm: () => window.open(`${explore}/tx/${hash}`),
         onClickDismiss: closeMessageModal,
       });
     } catch (err) {
