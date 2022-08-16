@@ -194,6 +194,14 @@ module.exports = {
       url: network.goerli.rpc,
       accounts: [privateKey],
     },
+    gather_test: {
+      url: network.gather_test.rpc,
+      accounts: [privateKey],
+    },
+    gather: {
+      url: network.gather.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,

@@ -53,7 +53,9 @@
     "deploy-contract-to-fuse": "hardhat run scripts/99_batchMigration.ts --network fuse",
     "deploy-contract-to-iotex_test": "hardhat run scripts/99_batchMigration.ts --network iotex_test",
     "deploy-contract-to-kovan": "hardhat run scripts/99_batchMigration.ts --network kovan",
-    "deploy-contract-to-goerli": "hardhat run scripts/99_batchMigration.ts --network goerli"
+    "deploy-contract-to-goerli": "hardhat run scripts/99_batchMigration.ts --network goerli",
+    "deploy-contract-to-gather_test": "hardhat run scripts/99_batchMigration.ts --network gather_test",
+    "deploy-contract-to-gather": "hardhat run scripts/99_batchMigration.ts --network gather"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.1",

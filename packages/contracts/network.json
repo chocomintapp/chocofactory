@@ -272,6 +272,20 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "gather": {
+    "chainId": "192837465",
+    "rpc": "https://mainnet.gather.network ",
+    "explore": "https://explorer.gather.network/",
+    "chocofactory": "",
+    "chocomold": ""
+  },
+  "gather_test": {
+    "chainId": "356256156",
+    "rpc": "https://testnet.gather.network",
+    "explore": "https://testnet-explorer.gather.network/",
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
   "aurora": {
     "chainId": "1313161554",
     "rpc": "https://mainnet.aurora.dev",
