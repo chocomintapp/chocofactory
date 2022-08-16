@@ -58,6 +58,8 @@ export const chainIdLabels =
         "IoTeX Testnet",
         "Kovan",
         "Goerli",
+        "Gather Test",
+        "Gather",
       ]
     : [
         "Rinkeby",
@@ -76,6 +78,7 @@ export const chainIdLabels =
         "Hoo Smart Chain",
         "Kovan",
         "Goerli",
+        "Gather Testnet",
       ];
 
 export const chainIdValues =
@@ -125,6 +128,8 @@ export const chainIdValues =
         "4690",
         "42",
         "5",
+        "356256156",
+        "192837465",
       ] as ChainId[])
     : ([
         "4",
@@ -143,6 +148,7 @@ export const chainIdValues =
         "70",
         "42",
         "5",
+        "356256156",
       ] as ChainId[]);
 
 export const providerOptions = {
