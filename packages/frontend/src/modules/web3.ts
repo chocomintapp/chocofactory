@@ -60,6 +60,7 @@ export const chainIdLabels =
         "Goerli",
         "Gather Test",
         "Gather",
+        "Dogechain Test (Error)",
       ]
     : [
         "Rinkeby",
@@ -78,7 +79,7 @@ export const chainIdLabels =
         "Hoo Smart Chain",
         "Kovan",
         "Goerli",
-        "Gather Testnet",
+        "Gather ",
       ];
 
 export const chainIdValues =
@@ -130,6 +131,7 @@ export const chainIdValues =
         "5",
         "356256156",
         "192837465",
+        "568",
       ] as ChainId[])
     : ([
         "4",
@@ -148,7 +150,7 @@ export const chainIdValues =
         "70",
         "42",
         "5",
-        "356256156",
+        "192837465",
       ] as ChainId[]);
 
 export const providerOptions = {
