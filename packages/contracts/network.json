@@ -146,6 +146,13 @@
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
+  "dogechain_test": {
+    "chainId": "568",
+    "rpc": "https://rpc-testnet.dogechain.dog",
+    "explore": "https://explorer-testnet.dogechain.dog",
+    "chocofactory": "",
+    "chocomold": ""
+  },
   "metis_stardust": {
     "chainId": "588",
     "rpc": "https://stardust.metis.io/?owner=588",
@@ -180,6 +187,13 @@
     "explore": "https://moonbase.subscan.io/",
     "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
     "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+  },
+  "dogechain": {
+    "chainId": "2000",
+    "rpc": "https://rpc02-sg.dogechain.dog",
+    "explore": "https://explorer.dogechain.dog",
+    "chocofactory": "",
+    "chocomold": ""
   },
   "lappsnet": {
     "chainId": "2780",
@@ -276,15 +290,15 @@
     "chainId": "192837465",
     "rpc": "https://mainnet.gather.network ",
     "explore": "https://explorer.gather.network/",
-    "chocofactory": "",
-    "chocomold": ""
+    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
+    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
   },
   "gather_test": {
     "chainId": "356256156",
     "rpc": "https://testnet.gather.network",
     "explore": "https://testnet-explorer.gather.network/",
-    "chocofactory": "0x72cc6e601975C3357C749e5e4e97E893F4DEEbcA",
-    "chocomold": "0x54E99696bF0Df5c712e52A61e467F3e165178cff"
+    "chocofactory": "0x803605FEdf6E80d40e39A7EA0EAf2ED801e67A34",
+    "chocomold": "0xda371C102f58745A662DE736D659f5F5cc75BF2f"
   },
   "aurora": {
     "chainId": "1313161554",

@@ -202,6 +202,14 @@ module.exports = {
       url: network.gather.rpc,
       accounts: [privateKey],
     },
+    dogechain_test: {
+      url: network.dogechain_test.rpc,
+      accounts: [privateKey],
+    },
+    dogechain: {
+      url: network.dogechain.rpc,
+      accounts: [privateKey],
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY,
