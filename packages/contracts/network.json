@@ -1,21 +1,21 @@
 {
   "mainnet": {
     "chainId": "1",
-    "rpc": "https://mainnet.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "rpc": "https://mainnet.infura.io/v3/9e352a085a5b43ca9b1e2a63cf4675d4",
     "explore": "https://etherscan.io/",
     "chocofactory": "0xea968E6AC95A95c68bF66DEcc803A1B2848cdc4A",
     "chocomold": "0x1e38149c18117Ec8481452B5dd841D9b280c0953"
   },
   "rinkeby": {
     "chainId": "4",
-    "rpc": "https://rinkeby.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "rpc": "https://rinkeby.infura.io/v3/9e352a085a5b43ca9b1e2a63cf4675d4",
     "explore": "https://rinkeby.etherscan.io/",
     "chocofactory": "0x354D33a61F2085E7b6B41F1edb7c2742c3e9c78a",
     "chocomold": "0x712C9F690AF12c40e57C5C80D4327c05Cef6Be63"
   },
   "goerli": {
     "chainId": "5",
-    "rpc": "https://goerli.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "rpc": "https://goerli.infura.io/v3/9e352a085a5b43ca9b1e2a63cf4675d4",
     "explore": "https://goerli.etherscan.io",
     "chocofactory": "0xd5b136C4247eAA754Dd58892d3416186456C1848",
     "chocomold": "0xA04466863a8003fDeBD1015d23C28F62c4387F05"
@@ -36,7 +36,7 @@
   },
   "kovan": {
     "chainId": "42",
-    "rpc": "https://kovan.infura.io/v3/95f65ab099894076814e8526f52c9149",
+    "rpc": "https://kovan.infura.io/v3/9e352a085a5b43ca9b1e2a63cf4675d4",
     "explore": "https://kovan.etherscan.io",
     "chocofactory": "0xa9710e21deD414AA0644618625629A80FfDbef4c",
     "chocomold": "0xa9710e21deD414AA0644618625629A80FfDbef4c"
