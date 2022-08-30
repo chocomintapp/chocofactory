@@ -54,7 +54,6 @@ export const chainIdLabels =
         "G.U Sandbox",
         "Hoo Smart Chain",
         "Fuse",
-        "Evmos Testnet (Error)",
         "IoTeX Testnet",
         "Kovan",
         "Goerli",
@@ -80,6 +79,7 @@ export const chainIdLabels =
         "Kovan",
         "Goerli",
         "Gather ",
+        "Evmos Testnet ",
       ];
 
 export const chainIdValues =
@@ -125,7 +125,6 @@ export const chainIdValues =
         "99999",
         "70",
         "122",
-        "9000",
         "4690",
         "42",
         "5",
@@ -151,6 +150,7 @@ export const chainIdValues =
         "42",
         "5",
         "192837465",
+        "9000",
       ] as ChainId[]);
 
 export const providerOptions = {
