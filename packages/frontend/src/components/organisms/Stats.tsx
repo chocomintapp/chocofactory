@@ -17,7 +17,7 @@ export const Stats: React.FC = () => {
     },
   ];
   return (
-    <Box bg="teal.900" color="white">
+    <Box bg="teal.600" color="white">
       <Container py={{ base: "16", md: "24" }} maxW="3xl">
         <Stack spacing={{ base: "12", md: "16" }} textAlign="center" align="center">
           <Stack spacing={{ base: "4", md: "5" }}>

@@ -31,7 +31,7 @@ export const Resources: React.FC = () => {
   ];
 
   return (
-    <Box bg="teal.900" color="white" px={4}>
+    <Box bg="teal.600" color="white" px={4}>
       <Stack
         justify="space-between"
         align="start"

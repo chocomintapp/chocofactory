@@ -11,7 +11,7 @@ export const Top: React.FC = () => {
   };
 
   return (
-    <Box as="section" bg="teal.900" color="white" py="7.5rem">
+    <Box as="section" bg="teal.600" color="white" py="7.5rem">
       <Box maxW={{ base: "xl", md: "5xl" }} mx="auto" px={{ base: "6", md: "8" }}>
         <Box textAlign="center">
           <Heading
@@ -30,10 +30,10 @@ export const Top: React.FC = () => {
           </Text>
         </Box>
 
-        <Stack justify="center" direction={{ base: "column", md: "row" }} mt="10" mb="20" spacing="4">
+        <Stack justify="center" direction={{ base: "column", md: "row" }} mt="10" mb="10" spacing="4">
           <LightMode>
             <Link href="/mypage">
-              <Button onClick={onClickMypage} size="lg" px="8" colorScheme="blue" fontWeight="bold" fontSize="md">
+              <Button onClick={onClickMypage} size="lg" px="12" colorScheme={"yellow"} fontWeight="bold" fontSize="md">
                 Get started
               </Button>
             </Link>
