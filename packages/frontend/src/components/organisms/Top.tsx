@@ -1,8 +1,6 @@
-import { Heading, Box, Stack, Flex, Button, Text, VStack, useBreakpointValue } from "@chakra-ui/react";
+import { Heading, Box, Stack, Button, Text, LightMode, Link } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
 import { analytics } from "../../modules/firebase";
-import { openWindow } from "../utils/hooks";
 
 export const Top: React.FC = () => {
   const onClickMypage = () => {
@@ -13,62 +11,35 @@ export const Top: React.FC = () => {
   };
 
   return (
-    <Flex
-      w={"full"}
-      h={"100vh"}
-      backgroundImage={"img/back3.png"}
-      backgroundSize={"cover"}
-      backgroundPosition={"center center"}
-    >
-      <VStack
-        w={"full"}
-        justify={"center"}
-        px={useBreakpointValue({ base: 4, md: 8 })}
-        // bgGradient={"linear(blackAlpha.400, transparent)"}
-      >
-        <Stack as={Box} textAlign={"center"} spacing={{ base: 8, md: 14 }} py={{ base: 20, md: 36 }}>
+    <Box as="section" bg="teal.600" color="white" py="7.5rem">
+      <Box maxW={{ base: "xl", md: "5xl" }} mx="auto" px={{ base: "6", md: "8" }}>
+        <Box textAlign="center">
           <Heading
-            color="black"
-            fontWeight={600}
-            fontSize={{ base: "4xl", sm: "4xl", md: "8xl" }}
-            lineHeight={"110%"}
-            textShadow={"1px 1px #696969"}
+            as="h1"
+            size="3xl"
+            fontWeight="extrabold"
+            maxW="48rem"
+            mx="auto"
+            lineHeight="1.2"
+            letterSpacing="tight"
           >
-            Mint your NFTs!!
+            Mint your own NFTs!!
           </Heading>
-          <Text color={"black"} fontWeight="bold" fontSize={"2xl"} textShadow={"#26CD97 1px 0 10px"}>
-            Create your own NFTs with the world&apos;s most decentralized NFT minting system!
+          <Text fontSize="xl" mt="4" maxW="xl" mx="auto">
+            Best tools for creators who wants to create their NFT collection is here.
           </Text>
-          <Stack direction={"column"} spacing={3} align={"center"} alignSelf={"center"} position={"relative"}>
-            <Link to="/mypage" onClick={onClickMypage}>
-              <Button
-                color={"white"}
-                bg={"#008080"}
-                rounded={"full"}
-                _hover={{
-                  opacity: 0.5,
-                }}
-                _focus={{ _focus: "none" }}
-                size="lg"
-                shadow={"2xl"}
-                textShadow={"0.2px 0.2px #000000"}
-                // border={"2px"}
-                // borderColor={"white"}
-              >
-                Launch App
+        </Box>
+
+        <Stack justify="center" direction={{ base: "column", md: "row" }} mt="10" mb="10" spacing="4">
+          <LightMode>
+            <Link href="/mypage">
+              <Button onClick={onClickMypage} size="lg" px="12" colorScheme={"yellow"} fontWeight="bold" fontSize="md">
+                Get started
               </Button>
             </Link>
-            <Button
-              variant={"link"}
-              colorScheme={"blue"}
-              size={"sm"}
-              onClick={() => openWindow("https://docs.chocomint.app/")}
-            >
-              Docs
-            </Button>
-          </Stack>
+          </LightMode>
         </Stack>
-      </VStack>
-    </Flex>
+      </Box>
+    </Box>
   );
 };

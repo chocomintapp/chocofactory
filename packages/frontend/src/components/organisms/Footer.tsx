@@ -1,7 +1,7 @@
-import { Box, chakra, Container, Stack, Text, useColorModeValue, VisuallyHidden } from "@chakra-ui/react";
+import { Box, ButtonGroup, chakra, Container, Stack, Text, useColorModeValue, VisuallyHidden } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import React from "react";
-import { FaTwitter, FaMedium, FaDiscord } from "react-icons/fa";
+import { FaTwitter, FaMedium, FaDiscord, FaGithub } from "react-icons/fa";
 
 const SocialButton = ({ children, label, href }: { children: ReactNode; label: string; href: string }) => {
   return (
@@ -39,18 +39,23 @@ export const Footer: React.FC = () => {
         justify={{ base: "center", md: "space-between" }}
         align={{ base: "center", md: "center" }}
       >
-        <Text>© 2022 BlockBase,Inc. All rights reserved</Text>
-        <Stack direction={"row"} spacing={6}>
+        <Text fontSize="sm" color="on-accent-subtle">
+          &copy; {new Date().getFullYear()} BlockBase,Inc. All rights reserved.
+        </Text>
+        <ButtonGroup variant="ghost-on-accent">
           <SocialButton label={"Twitter"} href={"https://twitter.com/chocomintapp"}>
             <FaTwitter />
           </SocialButton>
           <SocialButton label={"Discord"} href={"https://discord.com/invite/UMcFBDfPa8"}>
             <FaDiscord />
           </SocialButton>
+          <SocialButton label={"Github"} href={"https://github.com/chocomintapp"}>
+            <FaGithub />
+          </SocialButton>
           <SocialButton label={"Medium"} href={"https://medium.com/@Chocomintapp"}>
             <FaMedium />
           </SocialButton>
-        </Stack>
+        </ButtonGroup>
       </Container>
     </Box>
   );
