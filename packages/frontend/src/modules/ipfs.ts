@@ -9,8 +9,8 @@ export const ipfsBaseUrl = "ipfs://";
 export const ipfsHttpsBaseUrl = "https://ipfs.io/ipfs/";
 
 // restricted with HTTP ORIGINS "https://factory.chocomint.app/"
-const projectId = "2DEjaXyZRr8OhYH1uehWvhcFZcU";
-const projectSecret = "9122faab2152b36c4e0640461ea0a827";
+const projectId = "2GfKaXLC7P9wNUw8u7lSKCJLh5X";
+const projectSecret = "89518e3ea6fde1f8e5f232ed85bcfbc1";
 const auth = "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
 export const ipfs = createClient({
