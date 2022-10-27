@@ -15,7 +15,7 @@ export const chainIdLabels =
   process.env.NODE_ENV == "development"
     ? [
         "Local",
-        "Rinkeby",
+        "Goerli",
         "Polygon Test",
         "BSC Test",
         "BSC",
@@ -56,13 +56,12 @@ export const chainIdLabels =
         "Fuse",
         "IoTeX Testnet",
         "Kovan",
-        "Goerli",
         "Gather Test",
         "Gather",
         "Dogechain Test (Error)",
       ]
     : [
-        "Rinkeby",
+        "Goerli",
         "BSC",
         "Polygon",
         "Mainnet",
@@ -77,7 +76,6 @@ export const chainIdLabels =
         "Fuse",
         "Hoo Smart Chain",
         "Kovan",
-        "Goerli",
         "Gather ",
         "Evmos Testnet ",
       ];
@@ -86,7 +84,7 @@ export const chainIdValues =
   process.env.NODE_ENV == "development"
     ? ([
         "31337",
-        "4",
+        "5",
         "80001",
         "97",
         "56",
@@ -127,13 +125,12 @@ export const chainIdValues =
         "122",
         "4690",
         "42",
-        "5",
         "356256156",
         "192837465",
         "568",
       ] as ChainId[])
     : ([
-        "4",
+        "5",
         "56",
         "137",
         "1",
@@ -148,7 +145,6 @@ export const chainIdValues =
         "122",
         "70",
         "42",
-        "5",
         "192837465",
         "9000",
       ] as ChainId[]);
@@ -157,7 +153,7 @@ export const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider,
     options: {
-      infuraId: "9e352a085a5b43ca9b1e2a63cf4675d4",
+      infuraId: "4d076e81503a41c3987acb2940357deb",
     },
   },
 };
